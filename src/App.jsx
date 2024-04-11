@@ -1,6 +1,8 @@
 import { Home } from "./components/Home.jsx";
 import { Routes, Route } from "react-router-dom";
 import { Product } from "./components/Product.jsx";
+
+//Commit de prueba
 export const App = () => {
   return (
     <Routes>
