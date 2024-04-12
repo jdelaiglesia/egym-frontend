@@ -51,7 +51,7 @@ function Filters({ products, setProducts, update, setUpdate }) {
         Filtros
       </div>
 
-      <div className="dropdown-content top-32 z-[1] menu p-10 w-[20rem] shadow bg-base-100 rounded-box">
+      <div className="dropdown-content top-32 z-[1] menu p-10 w-[20rem] shadow-xl bg-base-100 rounded-box">
         {/* Filtro de Orden */}
 
         <div className="flex flex-col gap-4 items-center">
