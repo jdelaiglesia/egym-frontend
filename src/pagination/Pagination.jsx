@@ -5,18 +5,16 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
 
     return (
-        <div className="pagination">
+        <div className="flex space-x-2">
             {pages.map((page) => (
-                <div className="join grid grid-cols-2">
-                    <button
-                        className="join-item btn btn-outline"
-                        key={page}
-                        onClick={() => onPageChange(page)}
-                        disabled={currentPage === page}
-                    >
-                        {` Page ${page}`}
-                    </button>
-                </div>
+                <button
+                    className="btn btn-outline"
+                    key={page}
+                    onClick={() => onPageChange(page)}
+                    disabled={currentPage === page}
+                >
+                    {`Page ${page}`}
+                </button>
             ))}
         </div>
     );
