@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 const ProductDetail = () => {
     const { id } = useParams();
-    const product = data.find((product) => product.id === Number(id));
+    const product = products_gym.find((product) => product.id === Number(id));
 
     if (!product) {
         return <div>Producto no encontrado!</div>;

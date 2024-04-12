@@ -1,5 +1,6 @@
 import { ToggleTheme } from "./ToggleTheme";
 import { NavLink } from "react-router-dom";
+import Search from "./SearchByName";
 
 export const Navbar = () => {
     return (
@@ -12,11 +13,7 @@ export const Navbar = () => {
             <div className="flex-none gap-2">
                 <ToggleTheme />
                 <div className="form-control">
-                    <input
-                        type="text"
-                        placeholder="Search"
-                        className="input input-bordered w-24 md:w-auto"
-                    />
+                    <Search/>
                 </div>
                 <div className="dropdown dropdown-end">
                     <div
