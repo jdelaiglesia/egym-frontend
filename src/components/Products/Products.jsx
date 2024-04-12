@@ -1,15 +1,25 @@
-import ProductCard from "../ProductCard/ProductCard";
+import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
+import { products_gym } from "../../api/data";
 
-import { data } from "../../api/data";
+import ProductCard from "../ProductCard/ProductCard";
+import Filters from "../Filters/Filters";
 
 function Products() {
-  const products = data;
+  const [products, setProducts] = useState(products_gym);
+  const [update, setUpdate] = useState(false);
+
   const { pathname } = useLocation();
   return (
     <>
+      <Filters
+        products={products_gym}
+        setProducts={setProducts}
+        update={update}
+        setUpdate={setUpdate}
+      />
       <div className="flex flex-wrap justify-center gap-8 mx-10 my-10">
-        {pathname === "/"
+        {pathname === "/disabled"
           ? products
               .slice(0, 10)
               .map((product) => (
