@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import React from "react";
+import { useLocation, Link } from "react-router-dom";
+import { products_gym } from "../../api/data";
 import { useParams } from "react-router-dom";
 
 const ProductDetail = () => {
@@ -30,8 +33,7 @@ const ProductDetail = () => {
       </div>
     );
   }
-
-  return (
+    return (
     <div className="flex justify-center items-center min-h-screen bg-base-100">
       <div className="card w-96 bg-base-100 shadow-xl">
         <figure>
@@ -82,10 +84,15 @@ const ProductDetail = () => {
           <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn">
             Comprar
           </button>
+          <Link to={`/edit/${id}`}>
+            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn">
+              Editar Producto
+            </button>
+          </Link>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default ProductDetail;
