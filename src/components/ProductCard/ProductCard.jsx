@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../../hooks/useCart";
 
 function ProductCard({ product }) {
+  const { addToCart } = useCart();
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <Link to={`/product/${product.id}`}>
@@ -12,14 +14,14 @@ function ProductCard({ product }) {
         <h2 className="card-title truncate">{product.name}</h2>
         <p
           className={
-            product.quantity === 0 || !product.available
+            product.stock === 0 || !product.available
               ? "text-lg line-through"
               : "text-lg"
           }
         >
-          ${product.price}
+          $ {product.price.toLocaleString()}
         </p>
-        {product.quantity === 0 || !product.available ? (
+        {product.stock === 0 || !product.available ? (
           <div className="card-actions justify-end">
             <button disabled className="btn w-full font-bold my-2 btn-primary">
               Sin stock
@@ -29,7 +31,7 @@ function ProductCard({ product }) {
           <div className="card-actions justify-end">
             <button
               className="btn w-full font-bold my-2 btn-primary"
-              onClick={() => alert("Hay stock de este producto.")}
+              onClick={() => addToCart(product)}
             >
               Agregar al carrito
             </button>
