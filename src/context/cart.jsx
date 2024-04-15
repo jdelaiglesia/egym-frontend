@@ -1,32 +1,48 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext({});
 
 export function CartProvider({ children }) {
-  const [cart, setCart] = useState([]);
-  const [countProducts, setCountProducts] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [cart, setCart] = useState({
+    products: [],
+    total: 0,
+    count: 0,
+  });
+
+  useEffect(() => {
+    const localStorageCart = JSON.parse(localStorage.getItem("cart"));
+    if (!localStorageCart) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } else {
+      setCart(localStorageCart);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (product) => {
-    // Buscamos el indice de el producto.
-    const productInCart = cart.findIndex(
+    const checkProductIndex = cart.products.findIndex(
       (cartItem) => cartItem.id === product.id
     );
 
-    // Si el indice es >= a 0 es porque esta en el carrito.
-    if (productInCart >= 0) {
+    if (checkProductIndex >= 0) {
       const newCart = structuredClone(cart);
-      newCart[productInCart].quantity += 1;
-      setCountProducts(countProducts + product.quantity);
-      setTotal(total + product.price);
-      return setCart(newCart);
+      newCart.products[checkProductIndex].quantity += 1;
+      newCart.total += product.price;
+      newCart.count += product.quantity;
+      setCart(newCart);
     } else {
-      setCart((prevState) => [
-        ...prevState,
-        { ...product, quantity: (product.quantity += 1) },
-      ]);
-      setCountProducts(countProducts + product.quantity);
-      setTotal(total + product.price);
+      setCart({
+        ...cart,
+        products: [
+          ...cart.products,
+          { ...product, quantity: (product.quantity += 1) },
+        ],
+        total: cart.total + product.price,
+        count: cart.count + product.quantity,
+      });
     }
   };
 
@@ -45,10 +61,6 @@ export function CartProvider({ children }) {
         addToCart,
         removeToCart,
         clearCart,
-        countProducts,
-        setCountProducts,
-        total,
-        setTotal,
       }}
     >
       {children}
