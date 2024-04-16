@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { products_gym } from "../../api/data";
 
 import ProductCard from "../ProductCard/ProductCard";
 import Filters from "../Filters/Filters";
 import Pagination from "../Pagination/Pagination";
 
+const getProducts = async () => {
+  const res = await fetch("http://localhost:3001/api/products");
+  const data = await res.json();
+  const transformData = await data.map((item) => ({ ...item, quantity: 0 }));
+  return transformData;
+};
+
 function Products() {
-  const [products, setProducts] = useState(products_gym);
+  const [products, setProducts] = useState([]);
+  const [productsAux, setProductsAux] = useState([]);
   const [update, setUpdate] = useState(false);
 
   const ITEMS_PER_PAGE = 10;
@@ -21,10 +28,20 @@ function Products() {
   const selectedData = products.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    getProducts()
+      .then((data) => {
+        setProducts(data);
+        setProductsAux(data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <>
       <Filters
-        products={products_gym}
+        products={productsAux}
         setProducts={setProducts}
         update={update}
         setUpdate={setUpdate}

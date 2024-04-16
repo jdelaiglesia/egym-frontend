@@ -6,7 +6,7 @@ function ProductCard({ product }) {
 
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
-      <Link to={`/product/${product.id}`}>
+      <Link to={`/product/${product._id}`}>
         <figure>
           <img src={product.url_image} alt="Shoes" />
         </figure>

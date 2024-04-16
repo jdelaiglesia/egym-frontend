@@ -1,59 +1,57 @@
-import { products_gym } from "../api/data";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Search = () => {
-    const navigate = useNavigate()
-    const [state, setState] = useState('')
-    const [error, setError] = useState(null)
-  
-    
-    useEffect(() =>{
-        if(error){
-            const timer = setTimeout(() => {
-                setError(null)
-            }, 5000)
-            return () => clearTimeout(timer)
-        }
-    },[error])
+  const navigate = useNavigate();
+  const [state, setState] = useState("");
+  const [error, setError] = useState(null);
 
-    const handleSearch = () =>{
-        const product = products_gym.find((product) => product.name.toLowerCase() === state.toLowerCase());
-        if(product){
-            navigate(`/product/${product.id}`)
-            setError(null)
-        }else {
-            
-            setError('Producto no encontrado!')
-        }
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null);
+      }, 5000);
+      return () => clearTimeout(timer);
     }
-  
-    const handleChange = (event) => {
-        const {value} = event.target
-        setState(value)
+  }, [error]);
+
+  const handleSearch = () => {
+    const product = products.find(
+      (product) => product.name.toLowerCase() === state.toLowerCase()
+    );
+    if (product) {
+      navigate(`/product/${product.id}`);
+      setError(null);
+    } else {
+      setError("Producto no encontrado!");
     }
+  };
 
-    const handleKeyDown = (e) => {
-        if(e.key === 'Enter'){
-            handleSearch(state)
-            setState('')
-        }
-     };
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setState(value);
+  };
 
-    return (
-        <div>
-           <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            value={state}
-            /> 
-            {error && <div className="absolute text-error">{error}</div>}
-        </div>
-        
-    )
-}
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch(state);
+      setState("");
+    }
+  };
 
-export default Search
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Search"
+        className="input input-bordered w-24 md:w-auto"
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        value={state}
+      />
+      {error && <div className="absolute text-error">{error}</div>}
+    </div>
+  );
+};
+
+export default Search;
