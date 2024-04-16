@@ -3,6 +3,7 @@ import { createContext, useState, useEffect } from "react";
 export const CartContext = createContext({});
 
 export function CartProvider({ children }) {
+
   const [cart, setCart] = useState({
     products: [],
     total: 0,
@@ -47,8 +48,44 @@ export function CartProvider({ children }) {
   };
 
   const removeToCart = (product) => {
-    // Completar.
+
+    const newCart = { ...cart };
+    const productIndex = newCart.products.findIndex((cartItem) => cartItem.id === product.id);
+
+    if (productIndex >= 0) {
+
+
+      const removeCartItem = newCart.products[productIndex];
+      newCart.products.splice(productIndex, 1);
+      newCart.total -= removeCartItem.price * removeCartItem.quantity;
+      newCart.count -= removeCartItem.quantity;
+
+      setCart(newCart)
+    }
   };
+
+  const reduceCartItem = (product) => {
+
+    const productIndex = cart.products.findIndex(
+      (cartItem) => cartItem.id === product.id
+    );
+
+    if (productIndex >= 0) {
+      const newCart = { ...cart };
+      newCart.products[productIndex].quantity -= 1;
+      newCart.total -= product.price;
+      newCart.count -= 1;
+
+      if (newCart.products[productIndex].quantity <= 0) {
+        newCart.products.splice(productIndex, 1);
+      }
+
+      setCart(newCart);
+    }
+  }
+
+
+
 
   const clearCart = () => {
     setCart([]);
@@ -61,6 +98,7 @@ export function CartProvider({ children }) {
         addToCart,
         removeToCart,
         clearCart,
+        reduceCartItem
       }}
     >
       {children}

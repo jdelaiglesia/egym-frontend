@@ -1,4 +1,10 @@
+import {useCart} from '../../hooks/useCart.jsx'
+
 function CartItem({ product }) {
+
+ const {removeToCart} = useCart()
+ const {addToCart,reduceCartItem} = useCart();
+
   return (
     <div className="flex items-center justify-between gap-4 px-4 py-2">
       <div className="product-information flex items-center gap-4">
@@ -12,8 +18,14 @@ function CartItem({ product }) {
           </p>
         </div>
       </div>
+      <div className=' btn gap-3 flex justify-center'>
+        <button onClick={()=> reduceCartItem(product)}> - </button>
+        <p> {product.quantity} </p>
+        <button onClick={()=> addToCart(product)}> + </button>
+    </div>
       <div className="product-del-btn">
-        <button className="btn btn-circle">
+
+        <button className="btn btn-circle" onClick={()=> removeToCart(product)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
