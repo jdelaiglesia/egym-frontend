@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 
+
 function ProductCard({ product }) {
   const { addToCart } = useCart();
+  
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <Link to={`/product/${product.id}`}>

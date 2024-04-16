@@ -1,11 +1,13 @@
 import CartItem from "../CartItem/CartItem";
 
+
 import { useCart } from "../../hooks/useCart";
 
 function Cart() {
   const {
     cart: { products, total, count },
   } = useCart();
+
   return (
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -38,7 +40,10 @@ function Cart() {
             </p>
           ) : (
             products.map((cartItem) => (
-              <CartItem product={cartItem} key={cartItem.id} />
+              <>
+                <CartItem product={cartItem} key={cartItem.id} />
+
+              </>
             ))
           )}
           {products.length === 0 ? null : (
