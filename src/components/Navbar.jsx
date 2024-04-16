@@ -1,23 +1,22 @@
 import { ToggleTheme } from "./ToggleTheme";
 import { NavLink } from "react-router-dom";
+import Search from "./SearchByName";
+import Cart from "./Cart/Cart";
 
 export const Navbar = () => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
         <NavLink to="/" className="btn btn-ghost text-xl">
-          testing
+          GYMPF
         </NavLink>
       </div>
       <div className="flex-none gap-2">
         <ToggleTheme />
         <div className="form-control">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
-          />
+          <Search />
         </div>
+        <Cart />
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
@@ -37,15 +36,15 @@ export const Navbar = () => {
           >
             <li>
               <a className="justify-between">
-                Profile
+                Perfil
                 <span className="badge">New</span>
               </a>
             </li>
             <li>
-              <a>Settings</a>
+              <a>Ajustes</a>
             </li>
             <li>
-              <a>Logout</a>
+              <a>Cerrar sesión</a>
             </li>
           </ul>
         </div>
