@@ -1,9 +1,7 @@
-import { ToggleTheme } from "./ToggleTheme";
+import { ToggleTheme, Search, Cart } from "../components";
 import { NavLink } from "react-router-dom";
-import Search from "./SearchByName";
-import Cart from "./Cart/Cart";
 
-export const Navbar = () => {
+const Navbar = () => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
@@ -12,7 +10,6 @@ export const Navbar = () => {
         </NavLink>
       </div>
       <div className="flex-none gap-2">
-        <ToggleTheme />
         <div className="form-control">
           <Search />
         </div>
@@ -46,9 +43,14 @@ export const Navbar = () => {
             <li>
               <a>Cerrar sesión</a>
             </li>
+            <li>
+              <ToggleTheme />
+            </li>
           </ul>
         </div>
       </div>
     </div>
   );
 };
+
+export default Navbar;
