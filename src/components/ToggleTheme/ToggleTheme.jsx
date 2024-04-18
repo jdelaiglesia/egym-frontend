@@ -1,6 +1,6 @@
-export const ToggleTheme = () => {
+const ToggleTheme = () => {
   return (
-    <label className="flex cursor-pointer gap-2">
+    <label className="flex cursor-pointer gap-2 my-2 justify-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20"
@@ -36,3 +36,5 @@ export const ToggleTheme = () => {
     </label>
   );
 };
+
+export default ToggleTheme;
