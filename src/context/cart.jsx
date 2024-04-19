@@ -3,7 +3,6 @@ import { createContext, useState, useEffect } from "react";
 export const CartContext = createContext({});
 
 export function CartProvider({ children }) {
-
   const [cart, setCart] = useState({
     products: [],
     total: 0,
@@ -25,49 +24,47 @@ export function CartProvider({ children }) {
 
   const addToCart = (product) => {
     const checkProductIndex = cart.products.findIndex(
-      (cartItem) => cartItem.id === product.id
+      (cartItem) => cartItem._id === product._id
     );
 
     if (checkProductIndex >= 0) {
       const newCart = structuredClone(cart);
       newCart.products[checkProductIndex].quantity += 1;
-      newCart.total += product.price;
-      newCart.count += product.quantity;
+      newCart.total += Number(product.price * product.quantity);
+      newCart.count += Number(product.quantity);
       setCart(newCart);
     } else {
       setCart({
         ...cart,
         products: [
           ...cart.products,
-          { ...product, quantity: (product.quantity += 1) },
+          { ...product, quantity: Number(product.quantity) },
         ],
-        total: cart.total + product.price,
-        count: cart.count + product.quantity,
+        total: cart.total + product.price * Number(product.quantity),
+        count: cart.count + Number(product.quantity),
       });
     }
   };
 
   const removeToCart = (product) => {
-
     const newCart = { ...cart };
-    const productIndex = newCart.products.findIndex((cartItem) => cartItem.id === product.id);
+    const productIndex = newCart.products.findIndex(
+      (cartItem) => cartItem._id === product._id
+    );
 
     if (productIndex >= 0) {
-
-
       const removeCartItem = newCart.products[productIndex];
       newCart.products.splice(productIndex, 1);
       newCart.total -= removeCartItem.price * removeCartItem.quantity;
       newCart.count -= removeCartItem.quantity;
 
-      setCart(newCart)
+      setCart(newCart);
     }
   };
 
   const reduceCartItem = (product) => {
-
     const productIndex = cart.products.findIndex(
-      (cartItem) => cartItem.id === product.id
+      (cartItem) => cartItem._id === product._id
     );
 
     if (productIndex >= 0) {
@@ -82,10 +79,7 @@ export function CartProvider({ children }) {
 
       setCart(newCart);
     }
-  }
-
-
-
+  };
 
   const clearCart = () => {
     setCart([]);
@@ -98,7 +92,7 @@ export function CartProvider({ children }) {
         addToCart,
         removeToCart,
         clearCart,
-        reduceCartItem
+        reduceCartItem,
       }}
     >
       {children}

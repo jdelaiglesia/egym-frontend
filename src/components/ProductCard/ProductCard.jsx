@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
-import { useCart } from "../../hooks/useCart";
 
 function ProductCard({ product }) {
-  const { addToCart } = useCart();
-
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <Link to={`/shop/product/${product._id}`}>
@@ -30,11 +27,8 @@ function ProductCard({ product }) {
           </div>
         ) : (
           <div className="card-actions justify-end">
-            <button
-              className="btn w-full font-bold my-2 btn-primary"
-              onClick={() => addToCart(product)}
-            >
-              Agregar al carrito
+            <button className="btn w-full font-bold my-2 btn-primary">
+              Ver producto
             </button>
           </div>
         )}
