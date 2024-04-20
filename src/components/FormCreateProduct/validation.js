@@ -2,7 +2,8 @@ const validation = (productData) => {
   const errors = {
     name: "",
     price: "",
-    available: "",
+    stock: "",
+    image: "",
   };
 
   if (!productData.name) {
@@ -15,10 +16,21 @@ const validation = (productData) => {
     errors.name = "The name must contain more than 2 characters";
   }
 
+  if(!productData.stock){
+    errors.stock = "Stock input field is empty"
+  }else if(isNaN(productData.stock)){
+    errors.stock = "Stock must be a valid number"
+  }
+
   if (!productData.price) {
     errors.price = "Price input field is empty";
   } else if (isNaN(productData.price)) {
     errors.price = "Price must be a valid number";
+  }
+  if (!productData.image) {
+    errors.image = "Image input field is empty";
+  } else if (!/^((https?|ftp):\/\/)?[^\s/$.?#].[^\s]*$/i.test(productData.image)) {
+    errors.image = "The image input field must be a valid URL"; 
   }
   return errors;
 };
