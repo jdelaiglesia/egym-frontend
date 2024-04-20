@@ -44,6 +44,7 @@ const CreateProduct = () => {
 
   const disableButton = () => {
     const fieldEmpty =
+
       !productData.name ||
       !productData.price ||
       !productData.available ||
@@ -173,7 +174,6 @@ const CreateProduct = () => {
           <option value="Aminoacidos">Aminoacidos</option>
           <option value="Multivitaminicos">Multivitaminicos</option>
         </select>
-
         <button
           className="bg-blue-700 btn btn-xs sm:btn-sm md:btn-md lg:btn-lg w-full mt-4 text-white"
           type="submit"

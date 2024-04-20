@@ -1,4 +1,4 @@
-export const Footer = () => {
+const Footer = () => {
   return (
     <footer className="footer p-10 bg-neutral text-neutral-content">
       <aside>
@@ -60,3 +60,5 @@ export const Footer = () => {
     </footer>
   );
 };
+
+export default Footer;

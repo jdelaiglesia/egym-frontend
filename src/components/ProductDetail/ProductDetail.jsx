@@ -32,7 +32,7 @@ const ProductDetail = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-base-100">
+    <div className="flex justify-center items-center min-h-screen bg-base-100 my-10">
       <div className="card w-96 bg-base-100 shadow-xl">
         <figure>
           <img src={product.url_image} alt={product.name} />

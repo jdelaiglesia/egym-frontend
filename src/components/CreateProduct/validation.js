@@ -2,6 +2,7 @@ const validation = (productData) => {
   const errors = {
     name: "",
     price: "",
+
     stock: "",
     image: "",
   };
