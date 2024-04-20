@@ -1,8 +1,11 @@
 import { createContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const CartContext = createContext({});
 
 export function CartProvider({ children }) {
+  const navigate = useNavigate();
+
   const [cart, setCart] = useState({
     products: [],
     total: 0,
@@ -28,22 +31,28 @@ export function CartProvider({ children }) {
     );
 
     if (checkProductIndex >= 0) {
-      const newCart = structuredClone(cart);
-      newCart.products[checkProductIndex].quantity += 1;
-      newCart.total += Number(product.price * product.quantity);
-      newCart.count += Number(product.quantity);
-      setCart(newCart);
+      alert("El producto ya esta en el carrito.");
     } else {
-      setCart({
-        ...cart,
-        products: [
-          ...cart.products,
-          { ...product, quantity: Number(product.quantity) },
-        ],
-        total: cart.total + product.price * Number(product.quantity),
-        count: cart.count + Number(product.quantity),
-      });
+      if (product.quantity > product.stock) {
+        alert(`El maximo es ${product.stock}`);
+      } else {
+        setCart({
+          ...cart,
+          products: [
+            ...cart.products,
+            { ...product, quantity: Number(product.quantity) },
+          ],
+          total: cart.total + product.price * Number(product.quantity),
+          count: cart.count + Number(product.quantity),
+        });
+        alert("El producto se ha agregado al carrito.");
+      }
     }
+  };
+
+  const buyNow = (product) => {
+    addToCart(product);
+    navigate("/cart");
   };
 
   const removeToCart = (product) => {
@@ -62,7 +71,7 @@ export function CartProvider({ children }) {
     }
   };
 
-  const reduceCartItem = (product) => {
+  const decrementQty = (product) => {
     const productIndex = cart.products.findIndex(
       (cartItem) => cartItem._id === product._id
     );
@@ -81,6 +90,21 @@ export function CartProvider({ children }) {
     }
   };
 
+  const incrementQty = (product) => {
+    const productIndex = cart.products.findIndex(
+      (cartItem) => cartItem._id === product._id
+    );
+
+    if (productIndex >= 0) {
+      const newCart = { ...cart };
+      newCart.products[productIndex].quantity += 1;
+      newCart.total += product.price;
+      newCart.count += 1;
+
+      setCart(newCart);
+    }
+  };
+
   const clearCart = () => {
     setCart([]);
   };
@@ -90,9 +114,11 @@ export function CartProvider({ children }) {
       value={{
         cart,
         addToCart,
+        buyNow,
         removeToCart,
+        incrementQty,
+        decrementQty,
         clearCart,
-        reduceCartItem,
       }}
     >
       {children}

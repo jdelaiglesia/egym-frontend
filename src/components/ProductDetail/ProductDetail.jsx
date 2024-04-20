@@ -3,11 +3,36 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 
+// Import Components
+import Rating from "./Rating/Rating";
+import Description from "./Description/Description";
+import Opinions from "./Opinions/Opinions";
+import Loader from "./Loader/Loader";
+
+const opinionsList = [
+  {
+    username: "Rafael",
+    body: "La verdad que muy buen producto, 100% recomendable",
+  },
+  {
+    username: "Matias",
+    body: "Desde que lo añadi a mi rutina de dieta, la verdad he notado que es un producto bastante bueno.",
+  },
+  {
+    username: "Oscar",
+    body: "Un 1000 este producto, 100% recomendable.",
+  },
+  {
+    username: "Santiago",
+    body: "Un espectaculo, me comparia 10000 unidades :D",
+  },
+];
+
 const ProductDetail = () => {
   const [product, setProduct] = useState({});
   const { id } = useParams();
 
-  const { addToCart } = useCart();
+  const { addToCart, buyNow } = useCart();
 
   const handleChangeQty = (e) => {
     setProduct({ ...product, quantity: e.target.value });
@@ -21,6 +46,7 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getProduct()
       .then((data) => setProduct(data))
       .catch((error) => alert(error.message));
@@ -30,11 +56,7 @@ const ProductDetail = () => {
   }, []);
 
   if (!product.name) {
-    return (
-      <div className="flex items-center justify-center h-[calc(100vh-4.5rem)]">
-        <span className="loading loading-spinner w-[10rem]"></span>
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
@@ -62,45 +84,15 @@ const ProductDetail = () => {
               <div className="badge badge-outline">Stock: {product?.stock}</div>
               <div className="badge badge-outline">{product?.category}</div>
             </div>
-            <div className="rating rating-sm items-baseline">
-              <span>4.5</span>
-              <input type="radio" name="rating-9" className="rating-hidden" />
-              <input
-                type="radio"
-                name="rating-9"
-                className="mask mask-star-2"
-              />
-              <input
-                type="radio"
-                name="rating-9"
-                className="mask mask-star-2"
-              />
-              <input
-                type="radio"
-                name="rating-9"
-                className="mask mask-star-2"
-              />
-              <input
-                type="radio"
-                name="rating-9"
-                className="mask mask-star-2"
-              />
-              <input
-                type="radio"
-                name="rating-9"
-                className="mask mask-star-2"
-                checked
-              />
-            </div>
+            <Rating rating={4.5} />
             <div>
               <span className="text-3xl">
                 ${product?.price?.toLocaleString()} ARS
               </span>
             </div>
           </div>
-
           <div className="detail-info-2 flex flex-col gap-4 justify-around">
-            <div className="">
+            <div className="detail-set-qty">
               <label className="input input-bordered flex items-center gap-2">
                 Cant.
                 <input
@@ -115,7 +107,12 @@ const ProductDetail = () => {
               </label>
             </div>
             <div className="flex justify-between gap-4">
-              <button className="btn btn-primary">Comprar</button>
+              <button
+                className="btn btn-primary"
+                onClick={() => buyNow(product)}
+              >
+                Comprar
+              </button>
               <button
                 className="btn btn-neutral"
                 onClick={() => addToCart(product)}
@@ -126,21 +123,8 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
-      <div className="detail-description flex flex-col gap-2 mx-40 my-10">
-        <h2 className="font-bold text-2xl">Descripción</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-          eligendi velit nihil sapiente eius quam totam rerum veniam placeat
-          optio est ab quia, possimus ex ea vero, neque, fugiat labore. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit. Officia, iste.
-          Perferendis dolor, ex voluptatum unde consequatur fuga esse.
-          Repellendus iure officia cumque dicta fugiat accusantium nisi fuga
-          corporis amet atque! Lorem ipsum, dolor sit amet consectetur
-          adipisicing elit. Neque minus sequi vitae sunt molestias quaerat magni
-          necessitatibus rem odio numquam repudiandae quisquam enim, quo
-          nesciunt ad nihil eveniet ipsam soluta?
-        </p>
-      </div>
+      <Description name={product.name} description={null} />
+      <Opinions opinions={opinionsList} />
     </>
   );
 };
