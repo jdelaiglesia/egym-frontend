@@ -5,6 +5,8 @@ import {
   Products,
   Footer,
 } from "../../components/components";
+//import test
+import Reduxtest from "../../components/Reduxtest";
 
 const ViewHome = () => {
   return (
@@ -12,6 +14,7 @@ const ViewHome = () => {
       <Navbar />
       <Featured />
       <Products />
+      <Reduxtest />
       <Footer />
     </>
   );

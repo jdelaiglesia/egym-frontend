@@ -25,14 +25,14 @@ export function CartProvider({ children }) {
 
   const addToCart = (product) => {
     const checkProductIndex = cart.products.findIndex(
-      (cartItem) => cartItem.id === product.id
+      (cartItem) => cartItem._id === product._id
     );
 
     if (checkProductIndex >= 0) {
       const newCart = structuredClone(cart);
       newCart.products[checkProductIndex].quantity += 1;
       newCart.total += product.price;
-      newCart.count += product.quantity;
+      newCart.count += 1;
       setCart(newCart);
     } else {
       setCart({
@@ -50,7 +50,7 @@ export function CartProvider({ children }) {
   const removeToCart = (product) => {
 
     const newCart = { ...cart };
-    const productIndex = newCart.products.findIndex((cartItem) => cartItem.id === product.id);
+    const productIndex = newCart.products.findIndex((cartItem) => cartItem._id === product._id);
 
     if (productIndex >= 0) {
 
@@ -67,7 +67,7 @@ export function CartProvider({ children }) {
   const reduceCartItem = (product) => {
 
     const productIndex = cart.products.findIndex(
-      (cartItem) => cartItem.id === product.id
+      (cartItem) => cartItem._id === product._id
     );
 
     if (productIndex >= 0) {
