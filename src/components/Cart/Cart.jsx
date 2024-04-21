@@ -1,6 +1,5 @@
 import CartItem from "../CartItem/CartItem";
 
-
 import { useCart } from "../../hooks/useCart";
 import DiscountCoupon from "../DiscountCoupon/DiscountCoupon";
 
@@ -40,12 +39,7 @@ function Cart() {
               Todavía no has agregado productos.
             </p>
           ) : (
-            products.map((cartItem) => (
-              <>
-                <CartItem product={cartItem} key={cartItem.id} />
-
-              </>
-            ))
+            products.map((cartItem) => <CartItem product={cartItem} />)
           )}
           {products.length === 0 ? null : (
             <div className="text-xl px-4 py-2">
