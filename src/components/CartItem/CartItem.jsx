@@ -1,9 +1,7 @@
-import {useCart} from '../../hooks/useCart.jsx'
+import { useCart } from "../../hooks/useCart.jsx";
 
 function CartItem({ product }) {
-
- const {removeToCart} = useCart()
- const {addToCart,reduceCartItem} = useCart();
+  const { incrementQty, decrementQty, removeToCart } = useCart();
 
   return (
     <div className="flex items-center justify-between gap-4 px-4 py-2">
@@ -18,14 +16,42 @@ function CartItem({ product }) {
           </p>
         </div>
       </div>
-      <div className=' btn gap-3 flex justify-center'>
-        <button onClick={()=> reduceCartItem(product)}> - </button>
+      <div className=" btn gap-3 flex justify-center">
+        <button onClick={() => decrementQty(product)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
+          </svg>
+        </button>
         <p> {product.quantity} </p>
-        <button onClick={()=> addToCart(product)}> + </button>
-    </div>
+        <button onClick={() => incrementQty(product)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 4.5v15m7.5-7.5h-15"
+            />
+          </svg>
+        </button>
+      </div>
       <div className="product-del-btn">
-
-        <button className="btn btn-circle" onClick={()=> removeToCart(product)}>
+        <button
+          className="btn btn-circle"
+          onClick={() => removeToCart(product)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
