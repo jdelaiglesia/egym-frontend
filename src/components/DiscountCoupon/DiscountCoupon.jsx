@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../helpers/axios";
 
 function DiscountCoupon() {
   const [coupon, setCoupon] = useState({});
@@ -15,7 +15,7 @@ function DiscountCoupon() {
         setCoupon({ message: "por favor ingresa un cupon" });
       } else {
         const { data } = await axios(
-          `http://localhost:3001/api/coupon/${dataInput}`
+          `/coupon/${dataInput}`
         );
         setCoupon(data);
       }

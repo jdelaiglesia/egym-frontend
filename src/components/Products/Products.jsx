@@ -4,11 +4,11 @@ import { useLocation, Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import Filters from "../Filters/Filters";
 import Pagination from "../Pagination/Pagination";
+import axios from '../../helpers/axios'
 
 const getProducts = async () => {
-  const res = await fetch("http://localhost:3001/api/products");
-  const data = await res.json();
-  const transformData = await data.map((item) => ({ ...item, quantity: 0 }));
+  const res = await axios.get("/products");
+  const transformData = await res.data.map((item) => ({ ...item, quantity: 0 }));
   return transformData;
 };
 

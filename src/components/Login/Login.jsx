@@ -1,5 +1,5 @@
 // Import Librarys, hooks Formik & Yup
-import axios from "axios";
+import axios from "../../helpers/axios";
 import { useFormik } from "formik";
 import { useNavigate, NavLink } from "react-router-dom";
 import * as Yup from "yup";
@@ -23,7 +23,7 @@ const Login = () => {
     onSubmit: async (values) => {
       try {
         const res = await axios.post(
-          `http://localhost:3001/api/user/login`,
+          `/user/login`,
           values
         );
         if (!res.data.access) {
