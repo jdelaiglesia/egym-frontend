@@ -1,9 +1,14 @@
 import { ToggleTheme, Search, Cart } from "../components";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { useCart } from "../../hooks/useCart";
 
 const Navbar = () => {
     const { pathname } = useLocation();
+
+    const {
+        cart: { count },
+    } = useCart();
 
     return (
         <div className="navbar bg-base-100">
@@ -32,23 +37,39 @@ const Navbar = () => {
                     >
                         Tienda
                     </NavLink>
-                    <NavLink
-                        to="/cart"
-                        className={
-                            pathname === "/cart"
-                                ? "link text-sm font-semibold px-2 py-1 no-underline bg-[#ffbf06] text-neutral rounded-lg"
-                                : "link text-sm font-semibold px-2 py-1 no-underline  text-white rounded-lg"
-                        }
-                    >
-                        Carrito
-                    </NavLink>
                 </div>
             </div>
             <div className="flex-none gap-2">
                 <div className="form-control">
                     <Search />
                 </div>
-                <Cart />
+                <NavLink to="/cart">
+                    <div
+                        tabIndex={0}
+                        role="button"
+                        className="btn btn-ghost btn-circle"
+                    >
+                        <div className="indicator">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                                />
+                            </svg>
+                            <span className="badge badge-sm indicator-item">
+                                {count}
+                            </span>
+                        </div>
+                    </div>
+                </NavLink>
                 <div className="dropdown dropdown-end">
                     <div
                         tabIndex={0}

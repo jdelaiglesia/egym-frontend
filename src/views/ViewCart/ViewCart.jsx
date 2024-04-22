@@ -1,15 +1,13 @@
 // Import Components
-import { Navbar, Footer } from "../../components/components";
+import { Navbar, Footer, Cart } from "../../components/components";
 
 const ViewCart = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="h-screen flex justify-center items-center">
-        <h2 className="text-6xl font-bold">Component Cart</h2>
-      </div>
+      <Cart />
       <Footer />
-    </>
+    </div>
   );
 };
 
