@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../helpers/axios";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ const Search = () => {
   const [products, setProducts] = useState();
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/products").then((response) => {
+    axios.get("/products").then((response) => {
       setProducts(response.data);
     });
   }, []);

@@ -1,7 +1,9 @@
-import axios from "axios";
+
 import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import axios from '../../helpers/axios'
+
 
 const CreateProduct = () => {
   const [categories, setCategories] = useState([]);
@@ -27,7 +29,7 @@ const CreateProduct = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        await axios.post(`http://localhost:3001/api/product`, values);
+        await axios.post(`/product`, values);
         alert("Producto publicado.");
       } catch (error) {
         alert("Hubo un error al publicar el producto.");
@@ -36,7 +38,7 @@ const CreateProduct = () => {
   });
 
   useEffect(() => {
-    axios("http://localhost:3001/api/categories").then(({ data }) =>
+    axios("/categories").then(({ data }) =>
       setCategories(data)
     );
   }, []);

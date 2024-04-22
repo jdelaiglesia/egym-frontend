@@ -9,6 +9,9 @@ import Description from "./Description/Description";
 import Opinions from "./Opinions/Opinions";
 import Loader from "./Loader/Loader";
 
+import axios from "../../helpers/axios";
+
+
 const opinionsList = [
   {
     username: "Rafael",
@@ -40,9 +43,8 @@ const ProductDetail = () => {
   };
 
   const getProduct = async () => {
-    const res = await fetch(`http://localhost:3001/api/product/${id}`);
-    const data = await res.json();
-    const reform = { ...data, quantity: 1 };
+    const res = await axios.get(`/product/${id}`);
+    const reform = { ...res.data, quantity: 1 };
     return reform;
   };
 
