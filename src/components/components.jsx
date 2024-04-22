@@ -11,6 +11,8 @@ import ProductDetail from "./ProductDetail/ProductDetail";
 import Products from "./Products/Products";
 import Search from "./Search/Search";
 import ToggleTheme from "./ToggleTheme/ToggleTheme";
+import Login from "./Login/Login";
+import Register from "./Register/Register";
 
 export {
   Cart,
@@ -26,4 +28,6 @@ export {
   Products,
   Search,
   ToggleTheme,
+  Login,
+  Register
 };

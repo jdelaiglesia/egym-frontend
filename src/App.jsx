@@ -13,6 +13,7 @@ import {
   ViewRegister,
   ViewCart,
   ViewProductDetail,
+  ViewCreateProduct
 } from "./views/views.jsx";
 
 export const App = () => {
@@ -26,6 +27,7 @@ export const App = () => {
         <Route path="/login" element={<ViewLogin />}></Route>
         <Route path="/register" element={<ViewRegister />}></Route>
         <Route path="/dashboard" element={<ViewDashboard />}></Route>
+        <Route path="/dashboard/create" element={<ViewCreateProduct />}></Route>
       </Routes>
     </CartProvider>
   );

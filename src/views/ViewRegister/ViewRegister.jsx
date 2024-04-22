@@ -1,12 +1,12 @@
 // Import Components
-import { Navbar, Footer } from "../../components/components";
+import { Navbar, Footer, Register } from "../../components/components";
 
 const ViewRegister = () => {
   return (
     <>
       <Navbar />
-      <div className="h-screen flex justify-center items-center">
-        <h2 className="text-6xl font-bold">Component Register</h2>
+      <div className="flex flex-col justify-center items-center">
+        <Register />
       </div>
       <Footer />
     </>

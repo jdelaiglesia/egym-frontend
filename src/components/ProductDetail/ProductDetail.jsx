@@ -30,6 +30,7 @@ const opinionsList = [
 
 const ProductDetail = () => {
   const [product, setProduct] = useState({});
+
   const { id } = useParams();
 
   const { addToCart, buyNow } = useCart();
@@ -82,7 +83,9 @@ const ProductDetail = () => {
                 {product?.available}
               </div>
               <div className="badge badge-outline">Stock: {product?.stock}</div>
-              <div className="badge badge-outline">{product?.category}</div>
+              <div className="badge badge-outline">
+                {product?.category?.name}
+              </div>
             </div>
             <Rating rating={4.5} />
             <div>

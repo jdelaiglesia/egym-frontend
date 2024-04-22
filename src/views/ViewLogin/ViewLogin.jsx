@@ -1,15 +1,15 @@
 // Import Components
-import { Navbar, Footer } from "../../components/components";
+import { Navbar, Footer, Login } from "../../components/components";
 
 const ViewLogin = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="h-screen flex justify-center items-center">
-        <h2 className="text-6xl font-bold">Component Login</h2>
+      <div className="flex flex-col justify-center items-center">
+        <Login />
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
