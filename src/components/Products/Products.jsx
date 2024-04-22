@@ -6,7 +6,7 @@ import Filters from "../Filters/Filters";
 import Pagination from "../Pagination/Pagination";
 
 const getProducts = async () => {
-  const res = await fetch("http://localhost:3001/api/products");
+  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products`);
   const data = await res.json();
   const transformData = await data.map((item) => ({ ...item, quantity: 0 }));
   return transformData;

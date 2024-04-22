@@ -3,6 +3,7 @@ import { Featured } from "./Featured";
 import { Footer } from "./Footer";
 
 export const Home = () => {
+  console.log(import.meta.env.VITE_BACKEND_URL);
   return (
     <div>
       <div className="homeHeader">

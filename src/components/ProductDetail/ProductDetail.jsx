@@ -7,7 +7,9 @@ const ProductDetail = () => {
   const [product, setProduct] = useState({});
 
   const getProduct = async () => {
-    const res = await fetch(`http://localhost:3001/api/product/${id}`);
+    const res = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/product/${id}`
+    );
     const data = await res.json();
     const reform = { ...data, quantity: 0 };
     return reform;

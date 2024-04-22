@@ -25,7 +25,7 @@ const CreateProduct = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post(`http://localhost:3001/product`, productData);
+      await axios.post(import.meta.env.VITE_BACKEND_URL, productData);
     } catch (error) {
       throw error;
     }
@@ -35,8 +35,8 @@ const CreateProduct = () => {
     const fieldEmpty =
       !productData.name || !productData.price || !productData.available;
 
-      const hasErrors = Object.keys(errors).some((key) => errors[key])
-    return fieldEmpty || hasErrors
+    const hasErrors = Object.keys(errors).some((key) => errors[key]);
+    return fieldEmpty || hasErrors;
   };
 
   return (
@@ -62,7 +62,9 @@ const CreateProduct = () => {
           />
         </label>
         {errors.name && (
-          <p className="text-red-500 text-xs mb-8 -mt-10 absolute">{errors.name}</p>
+          <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
+            {errors.name}
+          </p>
         )}
         <label className="input input-bordered flex items-center gap-2 mb-5">
           <svg
@@ -81,7 +83,9 @@ const CreateProduct = () => {
           />
         </label>
         {errors.price && (
-          <p className="text-red-500 text-xs mb-5 -mt-2 absolute">{errors.price}</p>
+          <p className="text-red-500 text-xs mb-5 -mt-2 absolute">
+            {errors.price}
+          </p>
         )}
         <label className="input input-bordered flex items-center gap-2 mb-5 mt-12">
           <svg
