@@ -1,66 +1,50 @@
-import React, { useState } from "react";
 import axios from "axios";
-import validation from "./validation";
+import { useState, useEffect } from "react"
+import { useFormik } from "formik";
+import * as  Yup from 'yup';
 
 const CreateProduct = () => {
-  const [productData, setProductData] = useState({
-    name: "",
-    stock: "",
-    price: "",
-    image: "",
-    available: "",
-    category: "",
-  });
-  const [errors, setErrors] = useState("");
 
-  const handleChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    const newValue = type === "checkbox" ? checked : value;
-    setProductData((prevState) => ({
-      ...prevState,
-      [name]: newValue,
-    }));
+  const [categories, setCategories] = useState([])
 
-    const validationErrors = validation({ ...productData, [name]: value });
-    setErrors(validationErrors);
-  };
+  const validationSchema = Yup.object({
+    name: Yup.string().required('Ingrese un producto valido'),
+    stock: Yup.number().required('Stock requerido'),
+    price: Yup.number().required('Precio requerido'),
+    url_image: Yup.string().required('Imagen requerida'),
+    available: Yup.boolean().required('Disponibilidad requerida'),
+    category: Yup.string().required('Categoria requerida'),
+  })
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const numericPrice = parseInt(productData.price)
-    const numericStock = parseInt(productData.stock)
-    const allInfo = {
-      ...productData,
-      price: numericPrice,
-      stock: numericStock,
-      url_image: productData.image
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      stock: "",
+      available: "",
+      price: "",
+      url_image: "",
+      category: "",
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      try {
+        await axios.post(`http://localhost:3001/api/product`, values);
+        alert("Producto publicado")
+      } catch (error) {
+        alert("Hubo un error al publicar el producto.")
+      }
     }
-    try {
-      await axios.post(`http://localhost:3001/api/product`, allInfo);
-    } catch (error) {
-      throw error;
-    }
-  };
+  })
 
-  const disableButton = () => {
-    const fieldEmpty =
-
-      !productData.name ||
-      !productData.price ||
-      !productData.available ||
-      !productData.category ||
-      !productData.stock ||
-      !productData.image
-
-    const hasErrors = Object.keys(errors).some((key) => errors[key]);
-    return fieldEmpty || hasErrors;
-  };
+  useEffect(() => {
+    axios("http://localhost:3001/api/categories").then(({ data }) => setCategories(data))
+  }, [])
 
   return (
     <div>
       <form
-        className="bg-slate-200 w-1/2 mx-auto mt-32 rounded-lg p-4 h-1/2 mb-40"
-        onSubmit={handleSubmit}
+        className="bg-base-100 w-1/2 mx-auto mt-32 rounded-lg p-4 h-1/2 mb-40"
+        onSubmit={formik.handleSubmit}
       >
         <label className="input input-bordered flex items-center gap-2 mb-2">
           <svg
@@ -71,16 +55,17 @@ const CreateProduct = () => {
           ></svg>
           <input
             type="text"
-            onChange={handleChange}
-            value={productData.name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
             name="name"
             className="grow"
-            placeholder="Name"
+            placeholder="Nombre"
           />
         </label>
-        {errors.name && (
+        {formik.touched.name && formik.errors.name && (
           <p className="text-red-500 text-xs absolute">
-            {errors.name}
+            {formik.errors.name}
           </p>
         )}
         <label className="input input-bordered flex items-center gap-2 mb-10 mt-10">
@@ -92,16 +77,17 @@ const CreateProduct = () => {
           ></svg>
           <input
             type="text"
-            onChange={handleChange}
-            value={productData.stock}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.stock}
             name="stock"
             className="grow"
             placeholder="Stock"
           />
         </label>
-        {errors.stock && (
+        {formik.touched.stock && formik.errors.stock && (
           <p className="text-red-500 text-xs -mt-8 mb-5">
-            {errors.stock}
+            {formik.errors.stock}
           </p>
         )}
         <label className="input input-bordered flex items-center gap-2 mb-10">
@@ -113,16 +99,17 @@ const CreateProduct = () => {
           ></svg>
           <input
             type="text"
-            onChange={handleChange}
-            value={productData.price}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.price}
             name="price"
             className="grow"
-            placeholder="Price"
+            placeholder="Precio"
           />
         </label>
-        {errors.price && (
+        {formik.touched.price && formik.errors.price && (
           <p className="text-red-500 text-xs mb-5 -mt-8">
-            {errors.price}
+            {formik.errors.price}
           </p>
         )}
         <label className="input input-bordered flex items-center gap-2 mb-5">
@@ -134,16 +121,17 @@ const CreateProduct = () => {
           ></svg>
           <input
             type="text"
-            onChange={handleChange}
-            value={productData.image}
-            name="image"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.url_image}
+            name="url_image"
             className="grow"
-            placeholder="Image"
+            placeholder="Imagen URL"
           />
         </label>
-        {errors.image && (
+        {formik.touched.url_image && formik.errors.url_image && (
           <p className="text-red-500 text-xs mb-5 -mt-2 absolute">
-            {errors.image}
+            {formik.errors.url_image}
           </p>
         )}
         <label className="input input-bordered flex items-center gap-2 mb-5 mt-12">
@@ -153,35 +141,47 @@ const CreateProduct = () => {
             fill="currentColor"
             className="w-1 h-4 opacity-70"
           ></svg>
-          <input
-            type="checkbox"
-            onChange={handleChange}
-            checked={productData.available}
+          <select
+            className="select select-bordered select-sm w-full max-w-xs"
             name="available"
-            className="form-checkbox h-5 w-5 text-blue-500"
-          />
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.available}
+          >
+            <option value="">Seleccione una opcion</option>
+            <option value="true">Disponible</option>
+            <option value="false">No disponible</option>
+          </select>
           <span className="ml-2">Available</span>
-        </label>
+
+          {formik.touched.available && formik.errors.available && (
+            <p className="text-red-500 text-xs mb-5 -mt-2 absolute">
+              {formik.errors.available}
+            </p>
+          )}</label>
 
         <select
           className="select select-bordered select-sm w-full max-w-xs"
           name="category"
-          onChange={handleChange}
+          onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+          value={formik.values.category}
         >
-          <option value="Proteinas">Proteinas</option>
-          <option value="Creatinas">Creatinas</option>
-          <option value="Accesorios">Accesorios</option>
-          <option value="Aminoacidos">Aminoacidos</option>
-          <option value="Multivitaminicos">Multivitaminicos</option>
+          {categories.map(category => <option value={category._id}>{category.name}</option>)}
         </select>
+        {formik.touched.category && formik.errors.category && (
+          <p className="text-red-500 text-xs mb-5 -mt-2 absolute">
+            {formik.errors.category}
+          </p>
+        )}
         <button
-          className="bg-blue-700 btn btn-xs sm:btn-sm md:btn-md lg:btn-lg w-full mt-4 text-white"
+          className="bg-blue-700 btn btn-xs sm:btn-sm md:btn-md lg:btn-lg w-full mt-10 text-white"
           type="submit"
-          disabled={disableButton()}
         >
-          Create
+          Publicar
         </button>
       </form>
+      <p>{JSON.stringify(formik.values)}</p>
     </div>
   );
 };

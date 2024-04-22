@@ -1,72 +1,46 @@
-import React, { useState } from "react";
-import validation from "./validation";
+// Import Librarys, hooks Formik & Yup
 import axios from "axios";
+import { useFormik } from "formik";
+import * as Yup from 'yup';
 
-const RegisterUser = () => {
-  const [userData, setUserData] = useState({
-    name: "",
-    lastname: "",
-    email: "",
-    password: "",
-    dni: "",
-    address: "",
-    age: "",
-    phoneNumber: "",
-    rank: 1
-  });
-  const [errors, setErrors] = useState({
-    name: "",
-    lastname: "",
-    email: "",
-    password: "",
-    dni: "",
-    address: "",
-    age: "",
-    phoneNumber: "",
-  });
+const Register = () => {
+  const validationSchema = Yup.object({
+    name: Yup.string("Ingrese un nombre.").required('Ingrese un nombre valido'),
+    last_name: Yup.string().required('Ingrese un apellido valido'),
+    email: Yup.string().email('Correo invalido').required('Ingrese un email'),
+    password: Yup.string().required('Ingrese una contraseña valida'),
+    dni: Yup.number().min(10000000).max(99999999).required("Ingrese un DNI"),
+    address: Yup.string().required('Ingrese una dirección'),
+    age: Yup.number().min(16, "Debe ser mayor de 16").max(100, "A la madre wey").required("Ingrese una edad"),
+    phone_number: Yup.number().min(100000000).max(9999999999).integer().required("Ingrese un telefono")
+  })
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setUserData((prevstate) => ({
-      ...prevstate,
-      [name]: value,
-    }));
-    const validationErrors = validation({ ...userData, [name]: value });
-    setErrors(validationErrors);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const numericDni = parseInt(userData.dni);
-    const numericAge = parseInt(userData.age);
-    const numericPhoneNum = parseInt(userData.phoneNumber);
-    const upperCaseName = userData.name.charAt(0).toUpperCase() + userData.name.slice(1).toLowerCase()
-    const upperCaseLastname = userData.lastname.charAt(0).toUpperCase() + userData.lastname.slice(1).toLowerCase();
-
-    const allInfo = {
-      ...userData,
-      name: upperCaseName,
-      last_name: upperCaseLastname,
-      dni: numericDni,
-      age: numericAge,
-      phone_number: numericPhoneNum,
-      rank: 1
-    };
-    try {
-      await axios.post(`http://localhost:3001/api/user`, allInfo);
-    } catch (error) {
-      throw error;
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      last_name: "",
+      email: "",
+      password: "",
+      dni: "",
+      address: "",
+      age: "",
+      phone_number: "",
+    }, validationSchema,
+    onSubmit: async (values) => {
+      try {
+        await axios.post(`http://localhost:3001/api/user`, values);
+        alert("Usuario registrado con esito")
+      } catch (error) {
+        alert("Hubo un error a la hora de registrar un usuario pero no se cual es porque no se especificaaaaaaaaa!. 😡")
+      }
     }
-  };
-  const disableButton = () => {
-    const hasErrors = Object.keys(errors).some((key) => errors[key]);
-    return hasErrors
-  };
+  });
+
   return (
     <>
       <form
         className="bg-slate-200 w-1/2 mx-auto mt-32 rounded-lg p-4 h-1/2 mb-40"
-        onSubmit={handleSubmit}
+        onSubmit={formik.handleSubmit}
       >
         <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
           <svg
@@ -77,16 +51,17 @@ const RegisterUser = () => {
           ></svg>
           <input
             type="text"
-            onChange={handleChange}
-            value={userData.name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
             name="name"
             className="grow"
-            placeholder="Name"
+            placeholder="Rafael"
           />
         </label>
-        {errors.name && (
+        {formik.touched.name && formik.errors.name && (
           <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {errors.name}
+            {formik.errors.name}
           </p>
         )}
         <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
@@ -98,16 +73,17 @@ const RegisterUser = () => {
           ></svg>
           <input
             type="text"
-            onChange={handleChange}
-            value={userData.lastname}
-            name="lastname"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.last_name}
+            name="last_name"
             className="grow"
-            placeholder="Lastname"
+            placeholder="Apeyido"
           />
         </label>
-        {errors.lastname && (
+        {formik.touched.last_name && formik.errors.last_name && (
           <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {errors.lastname}
+            {formik.errors.last_name}
           </p>
         )}
         <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
@@ -119,16 +95,17 @@ const RegisterUser = () => {
           ></svg>
           <input
             type="text"
-            onChange={handleChange}
-            value={userData.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
             name="email"
             className="grow"
-            placeholder="Email"
+            placeholder="Correo electrico"
           />
         </label>
-        {errors.email && (
+        {formik.touched.email && formik.errors.email && (
           <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {errors.email}
+            {formik.errors.email}
           </p>
         )}
         <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
@@ -140,16 +117,17 @@ const RegisterUser = () => {
           ></svg>
           <input
             type="password"
-            onChange={handleChange}
-            value={userData.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
             name="password"
             className="grow"
-            placeholder="Password"
+            placeholder="Clave"
           />
         </label>
-        {errors.password && (
+        {formik.touched.password && formik.errors.password && (
           <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {errors.password}
+            {formik.errors.password}
           </p>
         )}
         <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
@@ -161,16 +139,17 @@ const RegisterUser = () => {
           ></svg>
           <input
             type="text"
-            onChange={handleChange}
-            value={userData.dni}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.dni}
             name="dni"
             className="grow"
-            placeholder="DNI"
+            placeholder="Documento Nacional de Identidad"
           />
         </label>
-        {errors.dni && (
+        {formik.touched.dni && formik.errors.dni && (
           <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {errors.dni}
+            {formik.errors.dni}
           </p>
         )}
         <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
@@ -182,16 +161,17 @@ const RegisterUser = () => {
           ></svg>
           <input
             type="text"
-            onChange={handleChange}
-            value={userData.address}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.address}
             name="address"
             className="grow"
-            placeholder="Address"
+            placeholder="Diresion"
           />
         </label>
-        {errors.address && (
+        {formik.touched.address && formik.errors.address && (
           <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {errors.address}
+            {formik.errors.address}
           </p>
         )}
         <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
@@ -203,16 +183,17 @@ const RegisterUser = () => {
           ></svg>
           <input
             type="text"
-            onChange={handleChange}
-            value={userData.age}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.age}
             name="age"
             className="grow"
-            placeholder="Age"
+            placeholder="Anios"
           />
         </label>
-        {errors.age && (
+        {formik.touched.age && formik.errors.age && (
           <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {errors.age}
+            {formik.errors.age}
           </p>
         )}
         <label className="input input-bordered flex items-center gap-2 mb-5">
@@ -224,22 +205,22 @@ const RegisterUser = () => {
           ></svg>
           <input
             type="text"
-            onChange={handleChange}
-            value={userData.phoneNumber}
-            name="phoneNumber"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.phone_number}
+            name="phone_number"
             className="grow"
-            placeholder="Phone number"
+            placeholder="+54 9 11 12312312"
           />
         </label>
-        {errors.phoneNumber && (
+        {formik.touched.phone_number && formik.errors.phone_number && (
           <p className="text-red-500 text-xs mb-5 -mt-2 absolute">
-            {errors.phoneNumber}
+            {formik.errors.phone_number}
           </p>
         )}
         <button
           className="bg-blue-700 btn btn-xs sm:btn-sm md:btn-md lg:btn-lg w-full mt-10 text-white"
           type="submit"
-          disabled={disableButton()}
         >
           Enviar
         </button>
@@ -248,4 +229,4 @@ const RegisterUser = () => {
   );
 };
 
-export default RegisterUser;
+export default Register;
