@@ -2,16 +2,13 @@
 import { Navbar, Footer, Cart } from "../../components/components";
 
 const ViewCart = () => {
-    return (
-        <>
-            <Navbar />
-            <div>
-                <span className="text-white text-4xl font-bold">Carrito</span>
-                <Cart />
-            </div>
-            <Footer />
-        </>
-    );
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <Cart />
+      <Footer />
+    </div>
+  );
 };
 
 export default ViewCart;
