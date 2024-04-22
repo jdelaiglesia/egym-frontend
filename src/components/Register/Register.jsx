@@ -1,19 +1,28 @@
 // Import Librarys, hooks Formik & Yup
 import axios from "axios";
 import { useFormik } from "formik";
-import * as Yup from 'yup';
+import { NavLink } from "react-router-dom";
+import * as Yup from "yup";
 
 const Register = () => {
   const validationSchema = Yup.object({
-    name: Yup.string("Ingrese un nombre.").required('Ingrese un nombre valido'),
-    last_name: Yup.string().required('Ingrese un apellido valido'),
-    email: Yup.string().email('Correo invalido').required('Ingrese un email'),
-    password: Yup.string().required('Ingrese una contraseña valida'),
+    name: Yup.string("Ingrese un nombre.").required("Ingrese un nombre válido"),
+    last_name: Yup.string().required("Ingrese un apellido válido"),
+    email: Yup.string()
+      .email("Ingrese un correo válido")
+      .required("Ingrese un correo"),
+    password: Yup.string().required("Ingrese una contraseña"),
     dni: Yup.number().min(10000000).max(99999999).required("Ingrese un DNI"),
-    address: Yup.string().required('Ingrese una dirección'),
-    age: Yup.number().min(16, "Debe ser mayor de 16").max(100, "A la madre wey").required("Ingrese una edad"),
-    phone_number: Yup.number().min(100000000).max(9999999999).integer().required("Ingrese un telefono")
-  })
+    address: Yup.string().required("Ingrese una dirección"),
+    age: Yup.number()
+      .min(16, "Debe ser mayor de 16")
+      .required("Ingrese una edad"),
+    phone_number: Yup.number()
+      .min(100000000)
+      .max(9999999999)
+      .integer()
+      .required("Ingrese un número de teléfono"),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -25,207 +34,159 @@ const Register = () => {
       address: "",
       age: "",
       phone_number: "",
-    }, validationSchema,
+    },
+    validationSchema,
     onSubmit: async (values) => {
       try {
         await axios.post(`http://localhost:3001/api/user`, values);
-        alert("Usuario registrado con esito")
+        alert("Usuario registrado con exito.");
       } catch (error) {
-        alert("Hubo un error a la hora de registrar un usuario pero no se cual es porque no se especificaaaaaaaaa!. 😡")
+        alert("Hubo un error al registrarse.");
       }
-    }
+    },
   });
 
   return (
-    <>
-      <form
-        className="bg-slate-200 w-1/2 mx-auto mt-32 rounded-lg p-4 h-1/2 mb-40"
-        onSubmit={formik.handleSubmit}
-      >
-        <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+    <div className="w-96">
+      <form className="flex flex-col my-10 p-10" onSubmit={formik.handleSubmit}>
+        <h2 className="text-4xl font-bold text-center mb-6">Regístrate</h2>
+
+        <div className="flex flex-col gap-2 mb-4">
           <input
             type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.name}
             name="name"
-            className="grow"
-            placeholder="Rafael"
+            className="input input-bordered w-full max-w-xs"
+            placeholder="Nombre"
           />
-        </label>
-        {formik.touched.name && formik.errors.name && (
-          <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {formik.errors.name}
-          </p>
-        )}
-        <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.name ? formik.errors.name : null}
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-2 mb-4">
           <input
             type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.last_name}
             name="last_name"
-            className="grow"
-            placeholder="Apeyido"
+            className="input input-bordered w-full max-w-xs"
+            placeholder="Apellido"
           />
-        </label>
-        {formik.touched.last_name && formik.errors.last_name && (
-          <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {formik.errors.last_name}
-          </p>
-        )}
-        <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.last_name ? formik.errors.last_name : null}
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-2 mb-4">
           <input
             type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
             name="email"
-            className="grow"
-            placeholder="Correo electrico"
+            className="input input-bordered w-full max-w-xs"
+            placeholder="Correo electrónico"
           />
-        </label>
-        {formik.touched.email && formik.errors.email && (
-          <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {formik.errors.email}
-          </p>
-        )}
-        <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.email ? formik.errors.email : null}
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-2 mb-4">
           <input
             type="password"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
             name="password"
-            className="grow"
-            placeholder="Clave"
+            className="input input-bordered w-full max-w-xs"
+            placeholder="Contraseña"
           />
-        </label>
-        {formik.touched.password && formik.errors.password && (
-          <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {formik.errors.password}
-          </p>
-        )}
-        <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.password ? formik.errors.password : null}
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-2 mb-4">
           <input
             type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.dni}
             name="dni"
-            className="grow"
-            placeholder="Documento Nacional de Identidad"
+            className="input input-bordered w-full max-w-xs"
+            placeholder="DNI"
           />
-        </label>
-        {formik.touched.dni && formik.errors.dni && (
-          <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {formik.errors.dni}
-          </p>
-        )}
-        <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.dni ? formik.errors.dni : null}
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-2 mb-4">
           <input
             type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.address}
             name="address"
-            className="grow"
-            placeholder="Diresion"
+            className="input input-bordered w-full max-w-xs"
+            placeholder="Dirección"
           />
-        </label>
-        {formik.touched.address && formik.errors.address && (
-          <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {formik.errors.address}
-          </p>
-        )}
-        <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.address ? formik.errors.address : null}
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-2 mb-4">
           <input
             type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.age}
             name="age"
-            className="grow"
-            placeholder="Anios"
+            className="input input-bordered w-full max-w-xs"
+            placeholder="Edad"
           />
-        </label>
-        {formik.touched.age && formik.errors.age && (
-          <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {formik.errors.age}
-          </p>
-        )}
-        <label className="input input-bordered flex items-center gap-2 mb-5">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.age ? formik.errors.age : null}
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-2 mb-4">
           <input
             type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.phone_number}
             name="phone_number"
-            className="grow"
-            placeholder="+54 9 11 12312312"
+            className="input input-bordered w-full max-w-xs"
+            placeholder="Número de teléfono"
           />
-        </label>
-        {formik.touched.phone_number && formik.errors.phone_number && (
-          <p className="text-red-500 text-xs mb-5 -mt-2 absolute">
-            {formik.errors.phone_number}
-          </p>
-        )}
-        <button
-          className="bg-blue-700 btn btn-xs sm:btn-sm md:btn-md lg:btn-lg w-full mt-10 text-white"
-          type="submit"
-        >
-          Enviar
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.phone_number ? formik.errors.phone_number : null}
+          </span>
+        </div>
+
+        <NavLink className="text-xs mb-6 underline" to="/login">
+          ¿Tienes cuenta? Inicia sesión
+        </NavLink>
+        <button className="btn btn-primary" type="submit">
+          Crear cuenta
         </button>
       </form>
-    </>
+    </div>
   );
 };
 

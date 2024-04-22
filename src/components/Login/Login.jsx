@@ -1,94 +1,86 @@
 // Import Librarys, hooks Formik & Yup
 import axios from "axios";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
-import * as Yup from 'yup';
+import { useNavigate, NavLink } from "react-router-dom";
+import * as Yup from "yup";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const validationSchema = Yup.object({
-    email: Yup.string().email('Correo invalido').required('Ingrese un email'),
-    password: Yup.string().required('Ingrese una contraseña')
-  })
+    email: Yup.string()
+      .email("Ingrese un correo válido")
+      .required("Ingrese un correo"),
+    password: Yup.string().required("Ingrese una contraseña"),
+  });
 
   const formik = useFormik({
-    initialValues:{
+    initialValues: {
       email: "",
       password: "",
     },
     validationSchema,
     onSubmit: async (values) => {
       try {
-        await axios.post(`http://localhost:3001/api/user/login`, values);
-        alert(JSON.stringify(values, null, 2))
-        navigate("/");
+        const res = await axios.post(
+          `http://localhost:3001/api/user/login`,
+          values
+        );
+        if (!res.data.access) {
+          alert("Email o contraseña invalidos.");
+        } else {
+          navigate("/");
+        }
       } catch (error) {
-        alert("Error al loguearse")
+        alert("Ha ocurrido un error en el servidor.");
       }
-    }, 
-  })
+    },
+  });
 
   return (
-    <div>
-      <form
-        className="bg-slate-200 rounded-lg p-4 h-96 w-80 my-10"
-        onSubmit={formik.handleSubmit}
-      >
-        <label className="input input-bordered flex items-center gap-2 mb-12 mt-10">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+    <div className="w-96">
+      <form className="flex flex-col my-10 p-10" onSubmit={formik.handleSubmit}>
+        <h2 className="text-4xl font-bold text-center mb-6">Iniciar sesión</h2>
+
+        <div className="email flex flex-col gap-2 mb-4">
           <input
             type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
             name="email"
-            className="grow"
-            placeholder="Email"
+            className="input input-bordered w-full max-w-xs"
+            placeholder="Correo electrónico"
           />
-        </label>
-        { formik.touched.email && formik.errors.email && (
-          <p className="text-red-500 text-xs mb-8 -mt-10 absolute">
-            {formik.errors.email}
-          </p>
-        )}
-        <label className="input input-bordered flex items-center gap-2 mb-5">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.email ? formik.errors.email : null}
+          </span>
+        </div>
+
+        <div className="email flex flex-col gap-2 mb-4">
           <input
             type="password"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
             name="password"
-            className="grow"
-            placeholder="Password"
+            className="input input-bordered w-full max-w-xs"
+            placeholder="Contraseña"
           />
-        </label>
-        {  formik.touched.password && formik.errors.password && (
-          <p className="text-red-500 text-xs mb-5 -mt-2 absolute">
-            {formik.errors.password}
-          </p>
-        )}
-        <button
-          className="bg-blue-700 btn btn-xs sm:btn-sm md:btn-md lg:btn-lg w-full mt-8 text-white"
-          type="submit"
-        >
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.password ? formik.errors.password : null}
+          </span>
+        </div>
+        <NavLink className="text-xs mb-6 underline" to="/register">
+          ¿No tienes cuenta? Regístrate
+        </NavLink>
+        <button className="btn btn-primary" type="submit">
           Ingresar
         </button>
       </form>
     </div>
   );
-}
-;
-
+};
 export default Login;

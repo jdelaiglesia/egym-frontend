@@ -1,20 +1,19 @@
 import axios from "axios";
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import * as  Yup from 'yup';
+import * as Yup from "yup";
 
 const CreateProduct = () => {
-
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
 
   const validationSchema = Yup.object({
-    name: Yup.string().required('Ingrese un producto valido'),
-    stock: Yup.number().required('Stock requerido'),
-    price: Yup.number().required('Precio requerido'),
-    url_image: Yup.string().required('Imagen requerida'),
-    available: Yup.boolean().required('Disponibilidad requerida'),
-    category: Yup.string().required('Categoria requerida'),
-  })
+    name: Yup.string().required("Ingrese un nombre"),
+    stock: Yup.number().required("Ingrese un número de stock"),
+    price: Yup.number().required("Ingrese un precio"),
+    url_image: Yup.string().required("Ingrese una URL"),
+    available: Yup.boolean().required("Seleccione una disponibilidad"),
+    category: Yup.string().required("Seleccione una categoría"),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -29,159 +28,125 @@ const CreateProduct = () => {
     onSubmit: async (values) => {
       try {
         await axios.post(`http://localhost:3001/api/product`, values);
-        alert("Producto publicado")
+        alert("Producto publicado.");
       } catch (error) {
-        alert("Hubo un error al publicar el producto.")
+        alert("Hubo un error al publicar el producto.");
       }
-    }
-  })
+    },
+  });
 
   useEffect(() => {
-    axios("http://localhost:3001/api/categories").then(({ data }) => setCategories(data))
-  }, [])
+    axios("http://localhost:3001/api/categories").then(({ data }) =>
+      setCategories(data)
+    );
+  }, []);
 
   return (
-    <div>
-      <form
-        className="bg-base-100 w-1/2 mx-auto mt-32 rounded-lg p-4 h-1/2 mb-40"
-        onSubmit={formik.handleSubmit}
-      >
-        <label className="input input-bordered flex items-center gap-2 mb-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+    <div className="w-96">
+      <form className="flex flex-col my-10 p-10" onSubmit={formik.handleSubmit}>
+        <h2 className="text-4xl font-bold text-center mb-6">
+          Publicar producto
+        </h2>
+        <div className="flex flex-col gap-2 mb-4">
           <input
             type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.name}
             name="name"
-            className="grow"
-            placeholder="Nombre"
+            className="input input-bordered w-full max-w-xs"
+            placeholder="Nombre del producto"
           />
-        </label>
-        {formik.touched.name && formik.errors.name && (
-          <p className="text-red-500 text-xs absolute">
-            {formik.errors.name}
-          </p>
-        )}
-        <label className="input input-bordered flex items-center gap-2 mb-10 mt-10">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.name ? formik.errors.name : null}
+          </span>
+        </div>
+        <div className="flex flex-col gap-2 mb-4">
           <input
             type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.stock}
             name="stock"
-            className="grow"
-            placeholder="Stock"
+            className="input input-bordered w-full max-w-xs"
+            placeholder="Número de stock"
           />
-        </label>
-        {formik.touched.stock && formik.errors.stock && (
-          <p className="text-red-500 text-xs -mt-8 mb-5">
-            {formik.errors.stock}
-          </p>
-        )}
-        <label className="input input-bordered flex items-center gap-2 mb-10">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.stock ? formik.errors.stock : null}
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-2 mb-4">
+          <select
+            className="select select-bordered text-base w-full max-w-xs"
+            name="available"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.available}
+          >
+            <option>Disponibilidad</option>
+            <option value="true">Disponible</option>
+            <option value="false">No disponible</option>
+          </select>
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.available ? formik.errors.available : null}
+          </span>
+        </div>
+        <div className="flex flex-col gap-2 mb-4">
           <input
             type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.price}
             name="price"
-            className="grow"
+            className="input input-bordered w-full max-w-xs"
             placeholder="Precio"
           />
-        </label>
-        {formik.touched.price && formik.errors.price && (
-          <p className="text-red-500 text-xs mb-5 -mt-8">
-            {formik.errors.price}
-          </p>
-        )}
-        <label className="input input-bordered flex items-center gap-2 mb-5">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.price ? formik.errors.price : null}
+          </span>
+        </div>
+        <div className="flex flex-col gap-2 mb-4">
           <input
             type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.url_image}
             name="url_image"
-            className="grow"
-            placeholder="Imagen URL"
+            className="input input-bordered w-full max-w-xs"
+            placeholder="URL de la imágen"
           />
-        </label>
-        {formik.touched.url_image && formik.errors.url_image && (
-          <p className="text-red-500 text-xs mb-5 -mt-2 absolute">
-            {formik.errors.url_image}
-          </p>
-        )}
-        <label className="input input-bordered flex items-center gap-2 mb-5 mt-12">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-1 h-4 opacity-70"
-          ></svg>
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.url_image ? formik.errors.url_image : null}
+          </span>
+        </div>
+        <div className="flex flex-col gap-2 mb-4">
           <select
-            className="select select-bordered select-sm w-full max-w-xs"
-            name="available"
+            className="select select-bordered text-base w-full max-w-xs"
+            name="category"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            value={formik.values.available}
+            value={formik.values.category}
           >
-            <option value="">Seleccione una opcion</option>
-            <option value="true">Disponible</option>
-            <option value="false">No disponible</option>
+            <option>Categoría</option>
+            {categories.map((category) => (
+              <option value={category._id}>{category.name}</option>
+            ))}
           </select>
-          <span className="ml-2">Available</span>
 
-          {formik.touched.available && formik.errors.available && (
-            <p className="text-red-500 text-xs mb-5 -mt-2 absolute">
-              {formik.errors.available}
-            </p>
-          )}</label>
-
-        <select
-          className="select select-bordered select-sm w-full max-w-xs"
-          name="category"
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          value={formik.values.category}
-        >
-          {categories.map(category => <option value={category._id}>{category.name}</option>)}
-        </select>
-        {formik.touched.category && formik.errors.category && (
-          <p className="text-red-500 text-xs mb-5 -mt-2 absolute">
-            {formik.errors.category}
-          </p>
-        )}
-        <button
-          className="bg-blue-700 btn btn-xs sm:btn-sm md:btn-md lg:btn-lg w-full mt-10 text-white"
-          type="submit"
-        >
+          <span className="text-red-500 text-xs">
+            {formik.touched.category ? formik.errors.category : null}
+          </span>
+        </div>
+        <button className="btn btn-primary" type="submit">
           Publicar
         </button>
       </form>
-      <p>{JSON.stringify(formik.values)}</p>
     </div>
   );
 };

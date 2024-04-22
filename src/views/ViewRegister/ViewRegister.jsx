@@ -5,9 +5,9 @@ const ViewRegister = () => {
   return (
     <>
       <Navbar />
-
-        <Register/>
-
+      <div className="flex flex-col justify-center items-center">
+        <Register />
+      </div>
       <Footer />
     </>
   );
