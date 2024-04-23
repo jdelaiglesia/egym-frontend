@@ -1,35 +1,15 @@
-// Import Hooks
+// Import Hooks and utils
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
+import axios from "../../helpers/axios";
 
 // Import Components
 import Rating from "./Rating/Rating";
 import Description from "./Description/Description";
 import Opinions from "./Opinions/Opinions";
 import Loader from "./Loader/Loader";
-
-import axios from "../../helpers/axios";
-
-
-const opinionsList = [
-  {
-    username: "Rafael",
-    body: "La verdad que muy buen producto, 100% recomendable",
-  },
-  {
-    username: "Matias",
-    body: "Desde que lo añadi a mi rutina de dieta, la verdad he notado que es un producto bastante bueno.",
-  },
-  {
-    username: "Oscar",
-    body: "Un 1000 este producto, 100% recomendable.",
-  },
-  {
-    username: "Santiago",
-    body: "Un espectaculo, me comparia 10000 unidades :D",
-  },
-];
+import CreateOpinion from "./CreateOpinion/CreateOpinion";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState({});
@@ -89,7 +69,7 @@ const ProductDetail = () => {
                 {product?.category?.name}
               </div>
             </div>
-            <Rating rating={4.5} />
+            <Rating rating={product?.averageRating} />
             <div>
               <span className="text-3xl">
                 ${product?.price?.toLocaleString()} ARS
@@ -128,8 +108,9 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
-      <Description name={product.name} description={null} />
-      <Opinions opinions={opinionsList} />
+      <Description name={product?.name} description={null} />
+      <Opinions opinions={product?.comments} />
+      <CreateOpinion product_id={product?._id} />
     </>
   );
 };
