@@ -4,7 +4,6 @@ import { Footer } from "./Footer";
 import Products from "./Products/Products";
 
 export const Home = () => {
-  console.log(import.meta.env.VITE_BACKEND_URL);
   return (
     <div>
       <div className="homeHeader">

@@ -1,9 +1,7 @@
-import axios from 'axios'
-
+import axios from "axios";
 
 const url = axios.create({
-    baseURL: 'http://localhost:3001/api/'
-})
-
+  baseURL: import.meta.env.VITE_BACKEND_URL,
+});
 
 export default url;
