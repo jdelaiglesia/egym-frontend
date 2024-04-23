@@ -16,17 +16,14 @@ const CreateOpinion = ({ product_id }) => {
   const formik = useFormik({
     initialValues: {
       product_id: product_id,
-      username: "Rafael",
+      username: "Fernando",
       body: "",
       rating: "",
     },
     validationSchema,
     onSubmit: async (values) => {
       try {
-        await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/api/comment`,
-          values
-        );
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/comment`, values);
         toast.success("Opinión publicada.", {
           position: "bottom-right",
           autoClose: 2000,

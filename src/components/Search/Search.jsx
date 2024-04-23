@@ -29,7 +29,7 @@ const Search = () => {
     );
 
     if (product) {
-      navigate(`/product/${product._id}`);
+      navigate(`/shop/product/${product._id}`);
       setError(null);
     } else {
       setError("Producto no encontrado!");

@@ -1,15 +1,16 @@
-
 import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import axios from '../../helpers/axios'
-
-
-
+import axios from "../../helpers/axios";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreateProduct = () => {
   const [categories, setCategories] = useState([]);
-  
+
+  const navigate = useNavigate();
+
   const validationSchema = Yup.object({
     name: Yup.string().required("Ingrese un nombre"),
     stock: Yup.number().required("Ingrese un número de stock"),
@@ -33,29 +34,52 @@ const CreateProduct = () => {
     validationSchema,
     onSubmit: async (values) => {
       const formData = new FormData();
-      formData.append('file', values.url_image);
-      formData.append('upload_preset', 'gym_preset');
-     
-      
+      formData.append("file", values.url_image);
+      formData.append("upload_preset", "gym_preset");
+
       try {
-        const response = await axios.post(`https://api.cloudinary.com/v1_1/dfsmgi4hr/image/upload`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
+        const response = await axios.post(
+          `https://api.cloudinary.com/v1_1/dfsmgi4hr/image/upload`,
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
         values.url_image = response.data.secure_url;
 
         await axios.post(`/product`, values);
-        
-        alert("Producto publicado.");
+
+        toast.success("Producto publicado.", {
+          position: "bottom-right",
+          autoClose: 1350,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
+        setTimeout(() => {
+          navigate("/shop");
+        }, 2000);
       } catch (error) {
-        alert("Hubo un error al publicar el producto.");
+        toast.error("Ha ocurrido un error al publicar.", {
+          position: "bottom-right",
+          autoClose: 1350,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     },
   });
 
   useEffect(() => {
-    axios("/categories").then(({ data }) =>
-      setCategories(data)
-    );
+    axios("/categories").then(({ data }) => setCategories(data));
   }, []);
 
   return (
@@ -80,7 +104,7 @@ const CreateProduct = () => {
           </span>
         </div>
         <div className="flex flex-col gap-2 mb-4">
-          <textarea 
+          <textarea
             type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -180,6 +204,7 @@ const CreateProduct = () => {
           Publicar
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };
