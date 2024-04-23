@@ -1,10 +1,18 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "../../helpers/axios";
 
 const Search = () => {
   const navigate = useNavigate();
   const [state, setState] = useState("");
   const [error, setError] = useState(null);
+  const [products, setProducts] = useState();
+
+  useEffect(() => {
+    axios.get("/products").then((response) => {
+      setProducts(response.data);
+    });
+  }, []);
 
   useEffect(() => {
     if (error) {
@@ -16,11 +24,12 @@ const Search = () => {
   }, [error]);
 
   const handleSearch = () => {
-    const product = products.find(
+    const product = Object.values(products).find(
       (product) => product.name.toLowerCase() === state.toLowerCase()
     );
+
     if (product) {
-      navigate(`/product/${product.id}`);
+      navigate(`/product/${product._id}`);
       setError(null);
     } else {
       setError("Producto no encontrado!");

@@ -1,6 +1,27 @@
-export const ToggleTheme = () => {
+// Import Hooks
+import { useEffect } from "react";
+import { useState } from "react";
+
+const ToggleTheme = () => {
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "black"
+  );
+
+  const handleChange = (e) => {
+    if (e.target.checked) {
+      setTheme("light");
+    } else {
+      setTheme("black");
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    document.querySelector("html").setAttribute("data-theme", theme);
+  }, [theme]);
+
   return (
-    <label className="flex cursor-pointer gap-2">
+    <label className="flex cursor-pointer gap-2 my-2 justify-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20"
@@ -15,9 +36,10 @@ export const ToggleTheme = () => {
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
       </svg>
       <input
-        type="checkbox"
-        value="light"
         className="toggle theme-controller"
+        type="checkbox"
+        onChange={handleChange}
+        checked={theme === "light" ? true : false}
       />
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -36,3 +58,5 @@ export const ToggleTheme = () => {
     </label>
   );
 };
+
+export default ToggleTheme;

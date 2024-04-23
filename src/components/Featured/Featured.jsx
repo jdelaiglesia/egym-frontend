@@ -1,4 +1,4 @@
-export const Featured = () => {
+const Featured = () => {
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content text-center">
@@ -15,3 +15,5 @@ export const Featured = () => {
     </div>
   );
 };
+
+export default Featured;

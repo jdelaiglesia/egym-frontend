@@ -1,18 +1,33 @@
-import { Home } from "./components/Home.jsx";
+// Import Hooks and utils
 import { Routes, Route } from "react-router-dom";
-import { Product } from "./components/Product.jsx";
-import ProductDetail from "./components/ProductDetail/ProductDetail.jsx";
+
+// Import CartProvider
 import { CartProvider } from "./context/cart.jsx";
-import CreateProduct from "./components/FormCreateProduct/CreateProduct.jsx";
+
+// Import Views
+import {
+  ViewDashboard,
+  ViewHome,
+  ViewShop,
+  ViewLogin,
+  ViewRegister,
+  ViewCart,
+  ViewProductDetail,
+  ViewCreateProduct
+} from "./views/views.jsx";
 
 export const App = () => {
   return (
     <CartProvider>
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/product" element={<Product />}></Route>
-        <Route path="/product/:id" element={<ProductDetail />}></Route>
-        <Route path="/create_product" element={<CreateProduct />}></Route>
+        <Route path="/" element={<ViewHome />}></Route>
+        <Route path="/shop" element={<ViewShop />}></Route>
+        <Route path="/shop/product/:id" element={<ViewProductDetail />}></Route>
+        <Route path="/cart" element={<ViewCart />}></Route>
+        <Route path="/login" element={<ViewLogin />}></Route>
+        <Route path="/register" element={<ViewRegister />}></Route>
+        <Route path="/dashboard" element={<ViewDashboard />}></Route>
+        <Route path="/dashboard/create" element={<ViewCreateProduct />}></Route>
       </Routes>
     </CartProvider>
   );

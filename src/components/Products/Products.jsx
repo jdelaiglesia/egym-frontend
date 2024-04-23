@@ -4,11 +4,11 @@ import { useLocation, Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import Filters from "../Filters/Filters";
 import Pagination from "../Pagination/Pagination";
+import axios from '../../helpers/axios'
 
 const getProducts = async () => {
-  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products`);
-  const data = await res.json();
-  const transformData = await data.map((item) => ({ ...item, quantity: 0 }));
+  const res = await axios.get("/products");
+  const transformData = await res.data.map((item) => ({ ...item, quantity: 0 }));
   return transformData;
 };
 
@@ -40,17 +40,25 @@ function Products() {
 
   return (
     <>
-      <Filters
-        products={productsAux}
-        setProducts={setProducts}
-        update={update}
-        setUpdate={setUpdate}
-        setPage={setCurrentPage}
-      />
+      {pathname === "/shop" ? (
+        <h2 className="mt-10 font-bold text-4xl text-center">Productos</h2>
+      ) : (
+        <h2 className="mt-10 font-bold text-4xl text-center">Más vendidos</h2>
+      )}
+      {pathname === "/shop" ? (
+        <Filters
+          products={productsAux}
+          setProducts={setProducts}
+          update={update}
+          setUpdate={setUpdate}
+          setPage={setCurrentPage}
+        />
+      ) : null}
+
       <div className="flex flex-wrap justify-center gap-8 mx-10 my-10">
-        {pathname === "/disabled"
+        {pathname === "/"
           ? products
-              .slice(0, 10)
+              .slice(0, 5)
               .map((product) => (
                 <ProductCard product={product} key={product.id} />
               ))
@@ -64,12 +72,13 @@ function Products() {
             Ver más productos...
           </h2>
         </Link>
-      ) : null}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        setPage={setCurrentPage}
-      />
+      ) : (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setPage={setCurrentPage}
+        />
+      )}
     </>
   );
 }
