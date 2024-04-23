@@ -5,16 +5,19 @@ import * as Yup from "yup";
 import axios from '../../helpers/axios'
 
 
+
+
 const CreateProduct = () => {
   const [categories, setCategories] = useState([]);
-
+  
   const validationSchema = Yup.object({
     name: Yup.string().required("Ingrese un nombre"),
     stock: Yup.number().required("Ingrese un número de stock"),
     price: Yup.number().required("Ingrese un precio"),
-    url_image: Yup.string().required("Ingrese una URL"),
+    url_image: Yup.mixed().required("Ingrese una imagen"),
     available: Yup.boolean().required("Seleccione una disponibilidad"),
     category: Yup.string().required("Seleccione una categoría"),
+    description: Yup.string().required("Agrega una descripción"),
   });
 
   const formik = useFormik({
@@ -23,13 +26,25 @@ const CreateProduct = () => {
       stock: "",
       available: "",
       price: "",
-      url_image: "",
+      url_image: null,
       category: "",
+      description: "",
     },
     validationSchema,
     onSubmit: async (values) => {
+      const formData = new FormData();
+      formData.append('file', values.url_image);
+      formData.append('upload_preset', 'gym_preset');
+     
+      
       try {
+        const response = await axios.post(`https://api.cloudinary.com/v1_1/dfsmgi4hr/image/upload`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        values.url_image = response.data.secure_url;
+
         await axios.post(`/product`, values);
+        
         alert("Producto publicado.");
       } catch (error) {
         alert("Hubo un error al publicar el producto.");
@@ -62,6 +77,21 @@ const CreateProduct = () => {
 
           <span className="text-red-500 text-xs">
             {formik.touched.name ? formik.errors.name : null}
+          </span>
+        </div>
+        <div className="flex flex-col gap-2 mb-4">
+          <textarea 
+            type="text"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.description}
+            name="description"
+            className="textarea textarea-bordered"
+            placeholder="Descripción del producto"
+          />
+
+          <span className="text-red-500 text-xs">
+            {formik.touched.description ? formik.errors.description : null}
           </span>
         </div>
         <div className="flex flex-col gap-2 mb-4">
@@ -114,12 +144,13 @@ const CreateProduct = () => {
         </div>
         <div className="flex flex-col gap-2 mb-4">
           <input
-            type="text"
-            onChange={formik.handleChange}
+            type="file"
+            onChange={(event) => {
+              formik.setFieldValue("url_image", event.currentTarget.files[0]);
+            }}
             onBlur={formik.handleBlur}
-            value={formik.values.url_image}
             name="url_image"
-            className="input input-bordered w-full max-w-xs"
+            className="file-input file-input-bordered w-full max-w-xs"
             placeholder="URL de la imágen"
           />
 
