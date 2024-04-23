@@ -11,7 +11,7 @@ const OpinionCard = ({ opinion }) => {
         />
         <div className="flex gap-6">
           <p className="text-xl font-bold">{opinion.username}</p>
-          <Rating rating={4.5} />
+          <Rating rating={opinion.rating} />
         </div>
       </div>
       <p>{opinion.body}</p>
