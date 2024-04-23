@@ -23,7 +23,10 @@ const CreateOpinion = ({ product_id }) => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        await axios.post(`http://localhost:3001/api/comment`, values);
+        await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/comment`,
+          values
+        );
         toast.success("Opinión publicada.", {
           position: "bottom-right",
           autoClose: 2000,
