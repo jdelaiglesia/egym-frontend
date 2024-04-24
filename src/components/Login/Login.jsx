@@ -3,6 +3,8 @@ import axios from "../../helpers/axios";
 import { useFormik } from "formik";
 import { useNavigate, NavLink } from "react-router-dom";
 import * as Yup from "yup";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,17 +24,44 @@ const Login = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const res = await axios.post(
-          `/user/login`,
-          values
-        );
+        const res = await axios.post(`/user/login`, values);
         if (!res.data.access) {
-          alert("Email o contraseña invalidos.");
+          toast.error("Email o contraseña invalidos.", {
+            position: "bottom-right",
+            autoClose: 1350,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         } else {
-          navigate("/");
+          toast.success("Iniciando sesión...", {
+            position: "bottom-right",
+            autoClose: 1350,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
         }
       } catch (error) {
-        alert("Ha ocurrido un error en el servidor.");
+        toast.error("Email o contraseña invalidos.", {
+          position: "bottom-right",
+          autoClose: 1350,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     },
   });
@@ -80,6 +109,7 @@ const Login = () => {
           Ingresar
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

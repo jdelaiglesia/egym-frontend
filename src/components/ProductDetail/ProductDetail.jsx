@@ -108,7 +108,7 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
-      <Description name={product?.name} description={null} />
+      <Description name={product?.name} description={product?.description} />
       <Opinions opinions={product?.comments} />
       <CreateOpinion product_id={product?._id} />
     </>
