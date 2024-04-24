@@ -3,8 +3,13 @@ import axios from "../../helpers/axios";
 import { useFormik } from "formik";
 import { NavLink } from "react-router-dom";
 import * as Yup from "yup";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const validationSchema = Yup.object({
     name: Yup.string("Ingrese un nombre.").required("Ingrese un nombre válido"),
     last_name: Yup.string().required("Ingrese un apellido válido"),
@@ -39,9 +44,30 @@ const Register = () => {
     onSubmit: async (values) => {
       try {
         await axios.post(`/user`, values);
-        alert("Usuario registrado con exito.");
+        toast.success("Usuario registrado con exito.", {
+          position: "bottom-right",
+          autoClose: 1350,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
       } catch (error) {
-        alert("Hubo un error al registrarse.");
+        toast.error("Ha ocurrido un error al registrarse.", {
+          position: "bottom-right",
+          autoClose: 1350,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     },
   });
@@ -186,6 +212,7 @@ const Register = () => {
           Crear cuenta
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

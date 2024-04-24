@@ -13,8 +13,13 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1 items-center">
-        <NavLink to="/" className="btn btn-ghost font-bold text-xl">
-          GYMPF
+        <NavLink
+          to="/"
+          className="p-0 w-24 btn btn-ghost bg-black font-bold hover:bg-black"
+        >
+          <div className="w-24 rounded-full">
+            <img alt="Tailwind CSS Navbar component" src="/logo.jpg" />
+          </div>
         </NavLink>
         <div className="flex gap-2 mx-4 items-center">
           <NavLink
@@ -87,7 +92,13 @@ const Navbar = () => {
               <a>Ajustes</a>
             </li>
             <li>
-              <a>Cerrar sesión</a>
+              <NavLink to="/login">Iniciar sesión</NavLink>
+            </li>
+            <li>
+              <NavLink to="/register">Registrarse</NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/create">Crear producto</NavLink>
             </li>
             <li>
               <ToggleTheme />

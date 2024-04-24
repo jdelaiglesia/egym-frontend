@@ -4,11 +4,14 @@ import { useLocation, Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import Filters from "../Filters/Filters";
 import Pagination from "../Pagination/Pagination";
-import axios from '../../helpers/axios'
+import axios from "../../helpers/axios";
 
 const getProducts = async () => {
   const res = await axios.get("/products");
-  const transformData = await res.data.map((item) => ({ ...item, quantity: 0 }));
+  const transformData = await res.data.map((item) => ({
+    ...item,
+    quantity: 0,
+  }));
   return transformData;
 };
 
@@ -56,15 +59,21 @@ function Products() {
       ) : null}
 
       <div className="flex flex-wrap justify-center gap-8 mx-10 my-10">
-        {pathname === "/"
-          ? products
-              .slice(0, 5)
-              .map((product) => (
-                <ProductCard product={product} key={product.id} />
-              ))
-          : selectedData.map((product) => (
+        {pathname === "/" ? (
+          products
+            .slice(0, 5)
+            .map((product) => (
               <ProductCard product={product} key={product.id} />
-            ))}
+            ))
+        ) : products.length === 0 ? (
+          <div className="flex items-center justify-center h-full">
+            <span className="loading loading-spinner w-[10rem]"></span>
+          </div>
+        ) : (
+          selectedData.map((product) => (
+            <ProductCard product={product} key={product.id} />
+          ))
+        )}
       </div>
       {pathname === "/" ? (
         <Link to="/shop">
