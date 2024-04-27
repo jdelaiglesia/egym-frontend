@@ -98,7 +98,10 @@ const Navbar = () => {
               <NavLink to="/register">Registrarse</NavLink>
             </li>
             <li>
-              <NavLink to="/dashboard/create">Crear producto</NavLink>
+              <NavLink to="/dashboard/product/create">Crear producto</NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard">Panel</NavLink>
             </li>
             <li>
               <ToggleTheme />
