@@ -1,4 +1,4 @@
-import { ToggleTheme, Search, Cart } from "../components";
+import { ToggleTheme, Search } from "../components";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
@@ -9,7 +9,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const {
-    cart: { count },
+    cart: {count}, clearCart
   } = useCart();
 
   const user = JSON.parse(window.localStorage.getItem("user"))
@@ -106,6 +106,7 @@ const Navbar = () => {
                 <a
                   onClick={() => {
                     localStorage.setItem("user", JSON.stringify({}));
+                    clearCart()
                     window.location.reload();
                   }}
                 >
@@ -138,7 +139,6 @@ const Navbar = () => {
         )}
         </div>
       </div>
-    </div>
   );
 };
 
