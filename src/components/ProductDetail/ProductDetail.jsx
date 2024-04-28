@@ -38,7 +38,7 @@ const ProductDetail = () => {
     };
   }, []);
 
-  if (!product.name) {
+  if (!product?.name) {
     return <Loader />;
   }
 
@@ -57,9 +57,7 @@ const ProductDetail = () => {
             <div className="flex gap-2 items-center">
               <div
                 className={`badge ${
-                  !product?.stock || !product?.available
-                    ? "bg-red-600"
-                    : "bg-green-600"
+                  !product?.stock ? "bg-red-600" : "bg-green-600"
                 }`}
               >
                 {product?.available}
@@ -69,7 +67,7 @@ const ProductDetail = () => {
                 {product?.category?.name}
               </div>
             </div>
-            <Rating rating={product?.averageRating} />
+            <Rating rating={!product?.averageRating ? 0 : product?.averageRating.toFixed(1) } />
             <div>
               <span className="text-3xl">
                 ${product?.price?.toLocaleString()} ARS
@@ -92,18 +90,25 @@ const ProductDetail = () => {
               </label>
             </div>
             <div className="flex justify-between gap-4">
-              <button
+            {product?.stock < 1 ? <button
+                className="btn btn-primary"
+                disabled >  Comprar
+              </button> : <button
                 className="btn btn-primary"
                 onClick={() => buyNow(product)}
               >
                 Comprar
-              </button>
-              <button
+              </button> }
+              {product?.stock < 1 ? <button
+                className="btn btn-neutral"
+                disabled> Añadir al carrito </button>: <button
                 className="btn btn-neutral"
                 onClick={() => addToCart(product)}
               >
                 Añadir al carrito
-              </button>
+              </button> }
+             
+             
             </div>
           </div>
         </div>
