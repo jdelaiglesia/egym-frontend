@@ -2,13 +2,19 @@ import { ToggleTheme, Search, Cart } from "../components";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const {
     cart: { count },
   } = useCart();
+
+  const user = JSON.parse(window.localStorage.getItem("user"))
+    ? JSON.parse(window.localStorage.getItem("user"))
+    : {};
 
   return (
     <div className="navbar bg-base-100">
@@ -65,48 +71,71 @@ const Navbar = () => {
             </div>
           </div>
         </NavLink>
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
+
+        {user?.token ? (
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS Navbar component"
+                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                />
+              </div>
             </div>
+            <ul
+              tabIndex={0}
+              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a className="justify-between">
+                  Perfil
+                  <span className="badge">Nuevo</span>
+                </a>
+              </li>
+              <li>
+                <NavLink>Ajustes</NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard">Dashboard</NavLink>
+              </li>
+              <li>
+                <a
+                  onClick={() => {
+                    localStorage.setItem("user", JSON.stringify({}));
+                    window.location.reload();
+                  }}
+                >
+                  Cerrar Sesión
+                </a>
+              </li>
+              <li>
+                <ToggleTheme />
+              </li>
+            </ul>
           </div>
-          <ul
-            tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <a className="justify-between">
-                Perfil
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li>
-              <a>Ajustes</a>
-            </li>
-            <li>
-              <NavLink to="/login">Iniciar sesión</NavLink>
-            </li>
-            <li>
-              <NavLink to="/register">Registrarse</NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/product/create">Crear producto</NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard">Panel</NavLink>
-            </li>
-            <li>
-              <ToggleTheme />
-            </li>
-          </ul>
+        ) : (
+          <NavLink className="btn bg-transparent no-animation" to="/login">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25"
+              />
+            </svg>
+            Ingresar
+          </NavLink>
+        )}
         </div>
       </div>
     </div>
@@ -114,13 +143,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-// {
-//     pathname === "/x" ? "flex" : "block";
-// }
-
-// if (pathname === "/x") {
-//     return "flex";
-// } else {
-//     return "block";
-// }

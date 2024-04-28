@@ -1,20 +1,12 @@
 // Import Librarys, hooks Formik & Yup
-import axios from "../../helpers/axios";
-import { useFormik } from "formik";
-import { useNavigate, NavLink } from "react-router-dom";
-import * as Yup from "yup";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useLogin from "../../hooks/useLogin";
+import { NavLink } from "react-router-dom";
+import { useFormik } from "formik";
 
 const Login = () => {
-  const navigate = useNavigate();
-
-  const validationSchema = Yup.object({
-    email: Yup.string()
-      .email("Ingrese un correo válido")
-      .required("Ingrese un correo"),
-    password: Yup.string().required("Ingrese una contraseña"),
-  });
+  const { SignIn, validationSchema } = useLogin();
 
   const formik = useFormik({
     initialValues: {
@@ -23,46 +15,7 @@ const Login = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      try {
-        const res = await axios.post(`/user/login`, values);
-        if (!res.data.access) {
-          toast.error("Email o contraseña invalidos.", {
-            position: "bottom-right",
-            autoClose: 1350,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        } else {
-          toast.success("Iniciando sesión...", {
-            position: "bottom-right",
-            autoClose: 1350,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-          setTimeout(() => {
-            navigate("/");
-          }, 2000);
-        }
-      } catch (error) {
-        toast.error("Email o contraseña invalidos.", {
-          position: "bottom-right",
-          autoClose: 1350,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
+      SignIn(values);
     },
   });
 
@@ -113,4 +66,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;

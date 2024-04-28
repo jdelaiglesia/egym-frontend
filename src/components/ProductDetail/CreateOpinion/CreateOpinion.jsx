@@ -1,52 +1,22 @@
 // Import Hooks and utils
-import { useFormik } from "formik";
-import { ToastContainer, toast } from "react-toastify";
+import useCreateOpinion from "../../../hooks/useCreateOpinion";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import * as Yup from "yup";
-import axios from "axios";
+import { useFormik } from "formik";
 
 const CreateOpinion = ({ product_id }) => {
-  const validationSchema = Yup.object({
-    product_id: Yup.string().required("Ingrese un nombre"),
-    username: Yup.string().required("Ingrese un número de stock"),
-    body: Yup.string().required("Escriba una opinión"),
-    rating: Yup.number().required("Elija una puntuación"),
-  });
+  const { SendOpinion, validationSchema, user } = useCreateOpinion();
 
   const formik = useFormik({
     initialValues: {
       product_id: product_id,
-      username: "Rafael",
+      username: user,
       body: "",
       rating: "",
     },
     validationSchema,
     onSubmit: async (values) => {
-      try {
-        await axios.post(`http://localhost:3001/api/comment`, values);
-        toast.success("Opinión publicada.", {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } catch (error) {
-        toast.error("Error al publicar.", {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        console.log(error.message);
-      }
+      SendOpinion(values);
     },
   });
 
@@ -73,6 +43,7 @@ const CreateOpinion = ({ product_id }) => {
               value={1}
               className="mask mask-star-2"
               onChange={formik.handleChange}
+              checked
             />
             <input
               type="radio"
@@ -104,7 +75,7 @@ const CreateOpinion = ({ product_id }) => {
             />
           </div>
           <span className="text-red-500 text-xs">
-            {formik.touched.body ? formik.errors.body : null}
+            {formik.touched.rating ? formik.errors.rating : null}
           </span>
         </div>
         <button className="btn btn-primary" type="submit">
