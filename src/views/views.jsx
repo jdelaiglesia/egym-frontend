@@ -6,6 +6,7 @@ import ViewRegister from "./ViewRegister/ViewRegister";
 import ViewCart from "./ViewCart/ViewCart";
 import ViewProductDetail from "./ViewProductDetail/ViewProductDetail";
 import ViewCreateProduct from "./ViewCreateProduct/ViewCreateProduct"
+import ViewEditProduct from "./ViewEditProduct/ViewEditProduct"
 
 export {
   ViewDashboard,
@@ -15,5 +16,6 @@ export {
   ViewRegister,
   ViewCart,
   ViewProductDetail,
-  ViewCreateProduct
+  ViewCreateProduct,
+  ViewEditProduct
 };
