@@ -136,6 +136,7 @@ const Navbar = () => {
             Ingresar
           </NavLink>
         )}
+        </div>
       </div>
     </div>
   );

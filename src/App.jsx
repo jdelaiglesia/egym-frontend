@@ -13,7 +13,8 @@ import {
   ViewRegister,
   ViewCart,
   ViewProductDetail,
-  ViewCreateProduct
+  ViewCreateProduct,
+  ViewEditProduct
 } from "./views/views.jsx";
 
 export const App = () => {
@@ -27,7 +28,8 @@ export const App = () => {
         <Route path="/login" element={<ViewLogin />}></Route>
         <Route path="/register" element={<ViewRegister />}></Route>
         <Route path="/dashboard" element={<ViewDashboard />}></Route>
-        <Route path="/dashboard/create" element={<ViewCreateProduct />}></Route>
+        <Route path="/dashboard/product/create" element={<ViewCreateProduct />}></Route>
+        <Route path="/dashboard/product/edit" element={<ViewEditProduct />}></Route>
       </Routes>
     </CartProvider>
   );
