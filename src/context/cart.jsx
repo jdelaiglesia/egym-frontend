@@ -36,7 +36,7 @@ export function CartProvider({ children }) {
       ToastError("El producto ya esta en el carrito.", 1350);
     } else {
       if (product.quantity > product.stock) {
-        ToastWarning(`El maximo es ${product.stock}`, 1350);
+        ToastWarning(`El maximo de productos es ${product.stock}`, 1350);
       } else {
         setCart({
           ...cart,
@@ -54,7 +54,10 @@ export function CartProvider({ children }) {
 
   const buyNow = (product) => {
     addToCart(product);
-    navigate("/cart");
+    ToastSuccess("Redirigiendo al carrito", 1350)
+    setTimeout(() => {
+      navigate("/cart");
+    }, 2000)
   };
 
   const removeToCart = (product) => {
@@ -108,7 +111,11 @@ export function CartProvider({ children }) {
   };
 
   const clearCart = () => {
-    setCart([]);
+    setCart({
+      products: [],
+      total: 0,
+      count: 0,
+    });
   };
 
   return (

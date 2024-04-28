@@ -23,14 +23,6 @@ export default function useCreate() {
     formData.append("upload_preset", import.meta.env.VITE_IMAGE_PRESET);
 
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("user")).token
-          }`,
-        },
-      };
-
       const response = await axios.post(
         `https://api.cloudinary.com/v1_1/${
           import.meta.env.VITE_CLOUD_NAME
@@ -42,7 +34,7 @@ export default function useCreate() {
       );
       values.url_image = response.data.secure_url;
 
-      await axios.post(`/product`, values, config);
+      await axios.post(`/product`, values);
 
       ToastSuccess("Producto publicado", 2000);
 
