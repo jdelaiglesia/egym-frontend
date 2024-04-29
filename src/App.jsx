@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 // Import CartProvider
 import { CartProvider } from "./context/cart.jsx";
+import ViewMercadoPago from "./views/viewMercadoPago/viewMercadoPago.jsx";
 
 // Import Views
 import {
@@ -28,6 +29,8 @@ export const App = () => {
         <Route path="/login" element={<ViewLogin />}></Route>
         <Route path="/register" element={<ViewRegister />}></Route>
         <Route path="/dashboard" element={<ViewDashboard />}></Route>
+        <Route path="/dashboard/create" element={<ViewCreateProduct />}></Route>
+        {/* <Route path="/payment" element={<ViewMercadoPago/>}></Route> */}
         <Route path="/dashboard/product/create" element={<ViewCreateProduct />}></Route>
         <Route path="/dashboard/product/edit" element={<ViewEditProduct />}></Route>
       </Routes>

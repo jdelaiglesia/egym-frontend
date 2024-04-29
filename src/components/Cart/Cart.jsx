@@ -1,10 +1,13 @@
 import CartItem from "../CartItem/CartItem";
 import { useCart } from "../../hooks/useCart";
+import ViewMercadoPago from "../../views/viewMercadoPago/viewMercadoPago";
 
 function Cart() {
   const {
     cart: { products, total },
   } = useCart();
+
+  // console.log(products)
 
   return (
     <div className="cart-container mx-4 mb-10 mt-4">
@@ -26,7 +29,8 @@ function Cart() {
               </span>
             </div>
             <div>
-              <button className="btn btn-primary">Ir a pagar</button>
+              {/* <button className="btn btn-primary">Ir a pagar</button> */}
+              <ViewMercadoPago />
             </div>
           </div>
         )}
