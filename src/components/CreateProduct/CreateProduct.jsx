@@ -1,25 +1,13 @@
 import { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import axios from "../../helpers/axios";
-import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useCreate from "../../hooks/useCreate";
 
 const CreateProduct = () => {
   const [categories, setCategories] = useState([]);
-
-  const navigate = useNavigate();
-
-  const validationSchema = Yup.object({
-    name: Yup.string().required("Ingrese un nombre"),
-    stock: Yup.number().required("Ingrese un número de stock"),
-    price: Yup.number().required("Ingrese un precio"),
-    url_image: Yup.mixed().required("Ingrese una imagen"),
-    available: Yup.boolean().required("Seleccione una disponibilidad"),
-    category: Yup.string().required("Seleccione una categoría"),
-    description: Yup.string().required("Agrega una descripción"),
-  });
+  const {createProduct, validationSchema} = useCreate();
 
   const formik = useFormik({
     initialValues: {
@@ -33,48 +21,7 @@ const CreateProduct = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      const formData = new FormData();
-      formData.append("file", values.url_image);
-      formData.append("upload_preset", "gym_preset");
-
-      try {
-        const response = await axios.post(
-          `https://api.cloudinary.com/v1_1/dfsmgi4hr/image/upload`,
-          formData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
-        values.url_image = response.data.secure_url;
-
-        await axios.post(`/product`, values);
-
-        toast.success("Producto publicado.", {
-          position: "bottom-right",
-          autoClose: 1350,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-
-        setTimeout(() => {
-          navigate("/shop");
-        }, 2000);
-      } catch (error) {
-        toast.error("Ha ocurrido un error al publicar.", {
-          position: "bottom-right",
-          autoClose: 1350,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
+      createProduct(values)
     },
   });
 

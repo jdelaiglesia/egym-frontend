@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../helpers/axios";
+import axios from "../../../helpers/axios";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -52,8 +52,8 @@ const Search = () => {
     <div>
       <input
         type="text"
-        placeholder="Search"
-        className="input input-bordered w-24 md:w-auto"
+        placeholder="Buscar productos"
+        className="input input-bordered w-24 md:w-auto focus:outline-none"
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         value={state}

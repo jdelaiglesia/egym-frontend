@@ -1,10 +1,12 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useToast from "../hooks/useToast";
 
 export const CartContext = createContext({});
 
 export function CartProvider({ children }) {
   const navigate = useNavigate();
+  const { ToastSuccess, ToastWarning, ToastError } = useToast();
 
   const [cart, setCart] = useState({
     products: [],
@@ -31,10 +33,10 @@ export function CartProvider({ children }) {
     );
 
     if (checkProductIndex >= 0) {
-      alert("El producto ya esta en el carrito.");
+      ToastError("El producto ya esta en el carrito.", 1350);
     } else {
       if (product.quantity > product.stock) {
-        alert(`El maximo es ${product.stock}`);
+        ToastWarning(`El maximo de productos es ${product.stock}`, 1350);
       } else {
         setCart({
           ...cart,
@@ -45,14 +47,17 @@ export function CartProvider({ children }) {
           total: cart.total + product.price * Number(product.quantity),
           count: cart.count + Number(product.quantity),
         });
-        alert("El producto se ha agregado al carrito.");
+        ToastSuccess("El producto se ha agregado al carrito", 1350);
       }
     }
   };
 
   const buyNow = (product) => {
     addToCart(product);
-    navigate("/cart");
+    ToastSuccess("Redirigiendo al carrito", 1350)
+    setTimeout(() => {
+      navigate("/cart");
+    }, 2000)
   };
 
   const removeToCart = (product) => {
@@ -106,7 +111,11 @@ export function CartProvider({ children }) {
   };
 
   const clearCart = () => {
-    setCart([]);
+    setCart({
+      products: [],
+      total: 0,
+      count: 0,
+    });
   };
 
   return (

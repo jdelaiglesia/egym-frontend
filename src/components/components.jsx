@@ -9,10 +9,12 @@ import Pagination from "./Pagination/Pagination";
 import ProductCard from "./ProductCard/ProductCard";
 import ProductDetail from "./ProductDetail/ProductDetail";
 import Products from "./Products/Products";
-import Search from "./Search/Search";
-import ToggleTheme from "./ToggleTheme/ToggleTheme";
+import Search from "./Navbar/Search/Search";
+import ToggleTheme from "./Navbar/ToggleTheme/ToggleTheme";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
+import AdminDashboard from "./AdminDashboard/AdminDashoard";
+import EditProduct from "./EditProduct/EditProduct";
 
 export {
   Cart,
@@ -29,5 +31,7 @@ export {
   Search,
   ToggleTheme,
   Login,
-  Register
+  Register,
+  AdminDashboard,
+  EditProduct
 };
