@@ -9,7 +9,8 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const {
-    cart: {count}, clearCart
+    cart: { count },
+    clearCart,
   } = useCart();
 
   const user = JSON.parse(window.localStorage.getItem("user"))
@@ -71,7 +72,6 @@ const Navbar = () => {
             </div>
           </div>
         </NavLink>
-
         {user?.token ? (
           <div className="dropdown dropdown-end">
             <div
@@ -91,10 +91,10 @@ const Navbar = () => {
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
-                <a className="justify-between">
+                <NavLink className="justify-between" to="/profile">
                   Perfil
                   <span className="badge">Nuevo</span>
-                </a>
+                </NavLink>
               </li>
               <li>
                 <NavLink>Ajustes</NavLink>
@@ -106,7 +106,7 @@ const Navbar = () => {
                 <a
                   onClick={() => {
                     localStorage.setItem("user", JSON.stringify({}));
-                    clearCart()
+                    clearCart();
                     window.location.reload();
                   }}
                 >
@@ -137,8 +137,8 @@ const Navbar = () => {
             Ingresar
           </NavLink>
         )}
-        </div>
       </div>
+    </div>
   );
 };
 

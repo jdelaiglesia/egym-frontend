@@ -15,6 +15,7 @@ import Login from "./Login/Login";
 import Register from "./Register/Register";
 import AdminDashboard from "./AdminDashboard/AdminDashoard";
 import EditProduct from "./EditProduct/EditProduct";
+import Profile from "./Profile/Profile";
 
 export {
   Cart,
@@ -33,5 +34,6 @@ export {
   Login,
   Register,
   AdminDashboard,
-  EditProduct
+  EditProduct,
+  Profile,
 };
