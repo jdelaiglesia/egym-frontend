@@ -15,7 +15,8 @@ import {
   ViewCart,
   ViewProductDetail,
   ViewCreateProduct,
-  ViewEditProduct
+  ViewEditProduct,
+  ViewProfile,
 } from "./views/views.jsx";
 
 export const App = () => {
@@ -28,11 +29,18 @@ export const App = () => {
         <Route path="/cart" element={<ViewCart />}></Route>
         <Route path="/login" element={<ViewLogin />}></Route>
         <Route path="/register" element={<ViewRegister />}></Route>
+        <Route path="/profile" element={<ViewProfile />}></Route>
         <Route path="/dashboard" element={<ViewDashboard />}></Route>
         <Route path="/dashboard/create" element={<ViewCreateProduct />}></Route>
         {/* <Route path="/payment" element={<ViewMercadoPago/>}></Route> */}
-        <Route path="/dashboard/product/create" element={<ViewCreateProduct />}></Route>
-        <Route path="/dashboard/product/edit" element={<ViewEditProduct />}></Route>
+        <Route
+          path="/dashboard/product/create"
+          element={<ViewCreateProduct />}
+        ></Route>
+        <Route
+          path="/dashboard/product/edit"
+          element={<ViewEditProduct />}
+        ></Route>
       </Routes>
     </CartProvider>
   );
