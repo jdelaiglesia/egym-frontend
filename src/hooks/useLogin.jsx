@@ -1,11 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import axios from "../helpers/axios";
 import useToast from "./useToast";
 import * as Yup from "yup";
 
 export default function useLogin() {
   const { ToastSuccess, ToastError } = useToast();
-  const navigate = useNavigate();
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -21,7 +19,7 @@ export default function useLogin() {
         ToastSuccess("Iniciando sesión...", 1350);
         window.localStorage.setItem("user", JSON.stringify(res.data.user));
         setTimeout(() => {
-          navigate("/");
+          window.location.href = "/";
         }, 2250);
       }
     } catch (error) {
