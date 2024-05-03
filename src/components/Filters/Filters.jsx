@@ -103,8 +103,10 @@ function Filters({ products, setProducts, update, setUpdate, setPage }) {
             <option value="" hidden>
               Seleccione una opción
             </option>
-            {categories.map((category) => (
-              <option value={category.name}>{category.name}</option>
+            {categories.map((category, index) => (
+              <option value={category.name} key={index}>
+                {category.name}
+              </option>
             ))}
           </select>
         </div>
