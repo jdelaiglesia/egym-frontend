@@ -1,36 +1,9 @@
-import { useEffect, useState } from "react";
-import axios from "../../helpers/axios";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import useProfile from "../../hooks/useProfile";
+import { ToastContainer } from "react-toastify";
 
 const Profile = () => {
-  const localUser = JSON.parse(localStorage.getItem("user"))
-    ? JSON.parse(localStorage.getItem("user"))
-    : {};
-
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    axios
-      .get(`/user/${localUser.email}`)
-      .then(({ data }) => setUser(data))
-      .catch((e) => console.log(e));
-  }, []);
-
-  const validationSchema = Yup.object({
-    name: Yup.string().required("Este campo es requerido"),
-    last_name: Yup.string().required("Este campo es requerido"),
-    dni: Yup.number()
-      .min(10000000)
-      .max(99999999)
-      .required("Este campo es requerido"),
-    phone_number: Yup.number()
-      .min(100000000)
-      .max(9999999999)
-      .integer()
-      .required("Este campo es requerido"),
-    password: Yup.string().required("Ingrese su contraseña"),
-  });
+  const { updateProfile, validationSchema, user } = useProfile();
 
   const formik = useFormik({
     initialValues: {
@@ -38,22 +11,11 @@ const Profile = () => {
       last_name: user?.last_name || "",
       dni: user?.dni || "",
       phone_number: user?.phone_number || "",
+      password: "",
     },
     validationSchema,
     onSubmit: async (values) => {
-      try {
-        await axios.put(`/user/${user._id}`, {
-          ...user,
-          name: values.name,
-          last_name: values.last_name,
-          dni: values.dni,
-          phone_number: values.phone_number,
-        });
-        alert("Datos actualizados");
-        window.location.reload();
-      } catch (error) {
-        alert(error.response.data.message);
-      }
+      await updateProfile(values);
     },
     enableReinitialize: true,
   });
@@ -214,12 +176,39 @@ const Profile = () => {
                 </span>
               </div>
             </div>
+            <label className="input input-bordered flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-4 h-4 opacity-70"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+
+              <input
+                type="password"
+                className="grow"
+                name="password"
+                placeholder="Confirmar contraseña"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+            </label>
+            <span className="text-red-500 text-xs">
+              {formik.touched.password ? formik.errors.password : null}
+            </span>
             <button className="btn btn-primary no-animation" type="submit">
               Actualizar
             </button>
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
