@@ -3,6 +3,7 @@ import Productos from "./Productos/Productos";
 import Ventas from "./Ventas/Ventas";
 import Usuarios from "./Usuarios/Usuarios";
 import Cupones from "./Cupones/Cupones";
+import Estadisticas from './Estadisticas/Estadisticas'
 
 function AdminDashboard() {
   const [component, setComponent] = useState("Productos");
@@ -13,7 +14,7 @@ function AdminDashboard() {
     setActiveButton(event.target.name);
   };
   return (
-    <div className="flex flex-row gap-2">
+    <div className="flex flex-row gap-2 mb-8">
       <ul className="menu w-56 bg-base-100 h-screen rounded-box text-lg">
         <li>
           <h2 className="menu-title text-primary text-lg">Panel</h2>
@@ -61,12 +62,24 @@ function AdminDashboard() {
           >
             Ventas
           </button>
+          <button
+            name="Estadisticas"
+            className={` ml-4 ${
+              activeButton === "Estadisticas"
+                ? "bg-primary  text-black focus:bg-primary focus:text-black"
+                : ""
+            }`}
+            onClick={handleClick}
+          >
+            Estadisticas
+          </button>
         </li>
       </ul>
       {component === "Productos" && <Productos />}
       {component === "Usuarios" && <Usuarios />}
       {component === "Ventas" && <Ventas />}
       {component === "Cupones" && <Cupones />}
+      {component === "Estadisticas" && <Estadisticas />}
     </div>
   );
 }

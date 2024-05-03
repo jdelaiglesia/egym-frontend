@@ -5,7 +5,7 @@ const localUser = JSON.parse(localStorage.getItem("user"))
   : { token: "No-Token" };
 
 const url = axios.create({
-  baseURL: "https://localhost:3001/api",
+  baseURL: "http://localhost:3001/api",
   headers: {
     Authorization: `Bearer ${localUser.token}`,
   },

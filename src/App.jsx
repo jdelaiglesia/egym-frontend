@@ -17,6 +17,7 @@ import {
   ViewCreateProduct,
   ViewEditProduct,
   ViewProfile,
+  ViewSaleDetail
 } from "./views/views.jsx";
 
 export const App = () => {
@@ -41,6 +42,7 @@ export const App = () => {
           path="/dashboard/product/edit"
           element={<ViewEditProduct />}
         ></Route>
+        <Route path="/dashboard/sale/detail" element={<ViewSaleDetail />}></Route>
       </Routes>
     </CartProvider>
   );
