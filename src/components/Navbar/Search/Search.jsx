@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../../helpers/axios";
+import { axios } from "../../../helpers/axios";
 
 const Search = () => {
   const navigate = useNavigate();

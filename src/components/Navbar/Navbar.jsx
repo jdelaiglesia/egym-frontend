@@ -3,11 +3,14 @@ import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
-import avatar from "../../../public/avatar.png"
 
 const Navbar = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  const localUser = JSON.parse(localStorage.getItem("user"))
+    ? JSON.parse(localStorage.getItem("user"))
+    : {};
 
   const {
     cart: { count },
@@ -80,11 +83,9 @@ const Navbar = () => {
               role="button"
               className="btn btn-ghost btn-circle avatar online"
             >
-              <div className="w-8 h-7 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src={avatar}
-                />
+
+              <div className="w-10 rounded-full">
+                <img alt={localUser?.name} src={localUser?.url_image} />
               </div>
             </div>
             <ul

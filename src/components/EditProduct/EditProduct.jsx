@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import axios from "../../helpers/axios";
+import { axios } from "../../helpers/axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -61,11 +61,14 @@ const EditProduct = () => {
 
   return (
     <div className="flex justify-center">
-      <form className="flex flex-col my-10 p-10 w-96" onSubmit={formik.handleSubmit}>
+      <form
+        className="flex flex-col my-10 p-10 w-96"
+        onSubmit={formik.handleSubmit}
+      >
         <h2 className="text-4xl font-bold text-center mb-6">Editar producto</h2>
         <div className="flex flex-col gap-2 mb-4">
           <img src={product.url_image} alt={product.name} />
-        <div className="label">
+          <div className="label">
             <span className="label-text">Nombre</span>
           </div>
           <input
@@ -103,7 +106,7 @@ const EditProduct = () => {
         </div>
 
         <div className="flex flex-col gap-2 mb-4">
-        <div className="label">
+          <div className="label">
             <span className="label-text">Stock</span>
           </div>
           <input

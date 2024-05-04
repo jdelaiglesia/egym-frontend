@@ -1,14 +1,16 @@
-import axios from "axios";
+import axiosDefault from "axios";
 
 const localUser = JSON.parse(localStorage.getItem("user"))
   ? JSON.parse(localStorage.getItem("user"))
   : { token: "No-Token" };
 
-const url = axios.create({
+export const axios = axiosDefault.create({
   baseURL: "http://localhost:3001/api",
   headers: {
     Authorization: `Bearer ${localUser.token}`,
   },
 });
 
-export default url;
+export const cloudinary = axiosDefault.create({
+  baseURL: `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUD_NAME}`,
+});
