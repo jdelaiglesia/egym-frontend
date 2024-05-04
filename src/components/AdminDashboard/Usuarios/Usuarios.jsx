@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../../helpers/axios";
 import IconDelete from "../Icons/IconDelete";
-import IconEdit from "../Icons/IconEdit";
 import IconAdmin from "../Icons/IconAdmin";
 import IconMember from "../Icons/IconMember";
+import useToast from "../../../hooks/useToast";
+import { ToastContainer } from "react-toastify";
 
 function Usuarios() {
+  const { ToastError } = useToast();
   const [users, setUsers] = useState([]);
 
   const getUsers = () => {
@@ -13,12 +15,11 @@ function Usuarios() {
       .then(({ data }) => {
         setUsers(data);
       })
-      .catch((error) => window.alert(error));
+      .catch((error) => ToastError("Oh no, error en el servidor", 1350));
   };
 
   useEffect(() => {
     getUsers();
-    console.log(users);
   }, []);
 
   const handleDelete = (id) => {
@@ -65,10 +66,14 @@ function Usuarios() {
                     {u.name} {u.last_name}
                   </td>
                   <td className="max-w-xs overflow-auto">{u.email}</td>
-                  <td className="max-w-64 overflow-auto truncate">
-                    {u.address}
+                  <td className="max-w-40 h-16 overflow-auto flex-wrap text-xs">
+                    {u.address ? u.address : "Sin dirección"}
                   </td>
-                  <td className="max-w-xs overflow-auto">{u.phone_number}</td>
+                  <td className="max-w-xs overflow-auto">
+                    {u.phone_number.toString().length > 5
+                      ? u.phone_number
+                      : "Sin numero"}
+                  </td>
                   <td
                     className={`font-bold max-w-xs overflow-auto ${
                       u.rank === 10
@@ -92,7 +97,7 @@ function Usuarios() {
                       className={`btn bg-transparent border-none shadow-none m-1 hover:bg-${
                         u.is_member ? "success" : "gray-400"
                       } ${
-                        u.is_member ? "text-success hover:text-black" : null
+                        u.is_member ? "text-success hover:text-black"  : null
                       }`}
                     >
                       <IconMember />
@@ -123,6 +128,7 @@ function Usuarios() {
             })}
           </tbody>
         </table>
+        <ToastContainer />
       </div>
     </>
   );
