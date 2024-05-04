@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
+import avatar from "../../../public/avatar.png"
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -77,12 +78,12 @@ const Navbar = () => {
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-ghost btn-circle avatar"
+              className="btn btn-ghost btn-circle avatar online"
             >
-              <div className="w-10 rounded-full">
+              <div className="w-8 h-7 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  src={avatar}
                 />
               </div>
             </div>
