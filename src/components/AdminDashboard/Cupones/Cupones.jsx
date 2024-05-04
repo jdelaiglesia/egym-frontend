@@ -2,16 +2,19 @@ import React, { useEffect, useState } from "react";
 import { axios } from "../../../helpers/axios";
 import IconDelete from "../Icons/IconDelete";
 import IconCoupon from "../Icons/IconCoupon";
+import useToast from "../../../hooks/useToast";
+import { ToastContainer } from "react-toastify";
 
 function Cupones() {
   const [coupons, setCoupons] = useState([]);
+  const { ToastError } = useToast();
 
   const getCoupons = () => {
     axios("/coupons")
       .then(({ data }) => {
         setCoupons(data);
       })
-      .catch((error) => window.alert(error));
+      .catch((error) => ToastError("Oh no, error en el servidor", 1350));
   };
   useEffect(() => {
     getCoupons();
@@ -38,9 +41,9 @@ function Cupones() {
           <thead>
             <tr>
               <th className="text-base p-2">Nombre</th>
-              <th className="text-base p-2">Porcentaje</th>
-              <th className="text-base p-2">Disponible</th>
-              <th className="text-base p-2 pl-10">Accion</th>
+              <th className="text-base p-2">Descuento</th>
+              <th className="text-base p-2">Disponibilidad</th>
+              <th className="text-base p-2 pl-10">Acción</th>
             </tr>
           </thead>
           <tbody>
@@ -48,7 +51,10 @@ function Cupones() {
               return (
                 <tr>
                   <td className="font-bold text-primary">{c.name}</td>
-                  <td className="">{c.percentage}</td>
+                  <td className="">
+                    {c.percentage}
+                    <span className="text-primary">%</span>
+                  </td>
                   <td
                     className={`font-bold ${
                       c.available ? "text-success" : "text-error"
@@ -86,6 +92,7 @@ function Cupones() {
           </tbody>
         </table>
       </div>
+      <ToastContainer />
     </div>
   );
 }
