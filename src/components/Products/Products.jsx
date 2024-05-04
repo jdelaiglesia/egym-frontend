@@ -5,7 +5,7 @@ import ProductCard from "../ProductCard/ProductCard";
 import Filters from "../Filters/Filters";
 import Pagination from "../Pagination/Pagination";
 import Fallback from "../ProductCard/Fallback";
-import axios from "../../helpers/axios";
+import { axios } from "../../helpers/axios";
 
 function Products() {
   const [products, setProducts] = useState([]);

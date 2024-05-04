@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
-import url from "../../helpers/axios";
+import { axios } from "../../helpers/axios";
 
 const Register = () => {
   const { SignUp, validationSchema } = useRegister();
@@ -23,7 +23,7 @@ const Register = () => {
     validationSchema,
     onSubmit: async (values) => {
       SignUp(values);
-      url.post("/registeremail");
+      axios.post("/registeremail");
     },
   });
 

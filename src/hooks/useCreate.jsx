@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import axios from "../helpers/axios";
+import { axios, cloudinary } from "../helpers/axios";
 import useToast from "./useToast";
 import * as Yup from "yup";
 
@@ -23,15 +23,9 @@ export default function useCreate() {
     formData.append("upload_preset", import.meta.env.VITE_IMAGE_PRESET);
 
     try {
-      const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/${
-          import.meta.env.VITE_CLOUD_NAME
-        }/image/upload`,
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      const response = await cloudinary.post(`/image/upload`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       values.url_image = response.data.secure_url;
 
       await axios.post(`/product`, values);
@@ -42,6 +36,7 @@ export default function useCreate() {
         navigate("/shop");
       }, 2000);
     } catch (error) {
+      console.log(error);
       ToastError("Ha ocurrido un error al publicar", 2000);
     }
   };

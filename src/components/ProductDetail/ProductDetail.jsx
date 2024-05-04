@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
-import axios from "../../helpers/axios";
+import { axios } from "../../helpers/axios";
 
 // Import Components
 import CreateOpinion from "./CreateOpinion/CreateOpinion";

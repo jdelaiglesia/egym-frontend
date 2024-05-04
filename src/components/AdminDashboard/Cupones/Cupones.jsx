@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../../helpers/axios";
+import { axios } from "../../../helpers/axios";
 import IconDelete from "../Icons/IconDelete";
 import IconCoupon from "../Icons/IconCoupon";
 

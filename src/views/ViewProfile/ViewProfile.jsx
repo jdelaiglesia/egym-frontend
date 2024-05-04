@@ -4,7 +4,7 @@ import { Navbar, Profile, Footer } from "../../components/components";
 // Import Hooks
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import axios from "../../helpers/axios";
+import { axios } from "../../helpers/axios";
 
 const ViewProfile = () => {
   const navigate = useNavigate();

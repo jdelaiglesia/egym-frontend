@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "../../helpers/axios";
+import { axios } from "../../helpers/axios";
 
 function Filters({ products, setProducts, update, setUpdate, setPage }) {
   const [filters, setFilters] = useState({
