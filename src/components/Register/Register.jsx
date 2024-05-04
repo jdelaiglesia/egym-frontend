@@ -23,7 +23,7 @@ const Register = () => {
         validationSchema,
         onSubmit: async (values) => {
             SignUp(values);
-            url.post("/registeremail");
+            url.post("/registeremail",{email: values.email});
         },
     });
 

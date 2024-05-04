@@ -1,5 +1,7 @@
 // Import Hooks and utils
 import { Routes, Route } from "react-router-dom";
+import Whatsapp from "./components/Whatsapp/Whatsapp.jsx";
+
 
 // Import CartProvider
 import { CartProvider } from "./context/cart.jsx";
@@ -22,6 +24,7 @@ import {
 export const App = () => {
   return (
     <CartProvider>
+    <Whatsapp/>
       <Routes>
         <Route path="/" element={<ViewHome />}></Route>
         <Route path="/shop" element={<ViewShop />}></Route>
