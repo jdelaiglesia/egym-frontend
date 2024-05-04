@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import useToast from "./useToast";
-import axios from "../helpers/axios";
+import { axios } from "../helpers/axios";
 import * as Yup from "yup";
 
 export default function useRegister() {

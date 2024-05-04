@@ -12,9 +12,11 @@ function ProductCard({ product }) {
         <h2 className="card-title truncate">{product?.name}</h2>
         <div className="flex">
           <p
-            className={product.stock === 0 ? "text-lg line-through" : "text-lg"}
+            className={
+              product?.stock === 0 ? "text-lg line-through" : "text-lg"
+            }
           >
-            $ {product?.price?.toLocaleString()}
+            ${product?.price?.toLocaleString()}
           </p>
           {product?.stock === 0 ? <p className="text-end">Agotado</p> : null}
         </div>

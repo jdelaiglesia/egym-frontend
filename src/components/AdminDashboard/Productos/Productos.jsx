@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../../helpers/axios";
+import { axios } from "../../../helpers/axios";
 import IconDelete from "../Icons/IconDelete";
 import IconEdit from "../Icons/IconEdit";
+import useToast from "../../../hooks/useToast";
+import { ToastContainer } from "react-toastify";
 
 function Productos() {
+  const { ToastError } = useToast();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState({
@@ -12,16 +15,12 @@ function Productos() {
     order: "",
   });
 
-  useEffect(() => {
-    getProducts();
-  }, []);
-
   const getProducts = () => {
     axios("/products")
       .then(({ data }) => {
         setProducts(data);
       })
-      .catch((error) => window.alert(error));
+      .catch((error) => ToastError("Oh no, error en el servidor", 1350));
   };
 
   const handleChange = (e) => {
@@ -33,12 +32,16 @@ function Productos() {
   };
 
   useEffect(() => {
+    getProducts();
+  }, []);
+
+  useEffect(() => {
     if (filter.option && filter.order) {
       axios(`products/filters?option=${filter.option}&order=${filter.order}`)
         .then(({ data }) => {
           setProducts(data);
         })
-        .catch((error) => window.alert(error));
+        .catch((error) => ToastError("Oh no, error en el servidor", 1350));
     }
   }, [filter]);
 
@@ -52,7 +55,7 @@ function Productos() {
       .then((res) => {
         getProducts();
       })
-      .catch((error) => console.log(error.response.data.message));
+      .catch((error) => ToastError("Oh no, error en el servidor", 1350));
   };
 
   return (
@@ -140,6 +143,7 @@ function Productos() {
           </tbody>
         </table>
       </div>
+      <ToastContainer />
     </div>
   );
 }

@@ -2,8 +2,10 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-::-webkit-scrollbar {
-    display: none;
+html {
+  scroll-behavior: smooth;
 }
 
-
+::-webkit-scrollbar {
+  display: none;
+}

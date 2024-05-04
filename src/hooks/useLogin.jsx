@@ -1,4 +1,4 @@
-import axios from "../helpers/axios";
+import { axios } from "../helpers/axios";
 import useToast from "./useToast";
 import * as Yup from "yup";
 

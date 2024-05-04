@@ -12,6 +12,7 @@ const Profile = () => {
       dni: user?.dni || "",
       phone_number: user?.phone_number || "",
       password: "",
+      url_image: user?.url_image || "",
     },
     validationSchema,
     onSubmit: async (values) => {
@@ -23,7 +24,7 @@ const Profile = () => {
   return (
     <div className="flex flex-col items-center px-10 py-10 gap-10">
       <h1 className="text-4xl font-bold">Perfil</h1>
-      <div className="w-full flex justify-around gap-10">
+      <div className="w-full md:flex-row flex-col flex justify-around gap-10">
         <div className="flex flex-col gap-4">
           <h2 className="text-xl">Tus pedidos</h2>
 
@@ -38,10 +39,10 @@ const Profile = () => {
             action=""
             onSubmit={formik.handleSubmit}
           >
-            <div className="flex gap-4">
+            <div className="flex flex-col md:flex-row gap-4">
               <div className="flex flex-col gap-2">
                 {/* name */}
-                <label className="input input-bordered flex items-center gap-2 w-30">
+                <label className="input input-bordered flex items-center gap-2 w-full md:w-60">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
@@ -66,7 +67,7 @@ const Profile = () => {
               </div>
               <div className="flex flex-col gap-2">
                 {/* last_name */}
-                <label className="input input-bordered flex items-center gap-2">
+                <label className="input input-bordered flex items-center gap-2 w-full md:w-60">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
@@ -114,10 +115,10 @@ const Profile = () => {
                 <span></span>
               </div>
             </div>
-            <div className="flex gap-4">
+            <div className="flex flex-col md:flex-row gap-4">
               <div className="flex flex-col gap-2">
                 {/* dni */}
-                <label className="input input-bordered flex items-center gap-2">
+                <label className="input input-bordered flex items-center gap-2 w-full md:w-60">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -146,7 +147,7 @@ const Profile = () => {
               </div>
               <div className="flex flex-col gap-2">
                 {/* phone_number */}
-                <label className="input input-bordered flex items-center gap-2">
+                <label className="input input-bordered flex items-center gap-2 w-full md:w-60">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -176,38 +177,77 @@ const Profile = () => {
                 </span>
               </div>
             </div>
-            <label className="input input-bordered flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-4 h-4 opacity-70"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
-                  clipRule="evenodd"
-                />
-              </svg>
+            <div className="flex flex-col gap-2">
+              {/* password */}
+              <label className="input input-bordered flex items-center gap-2 w-30">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-4 h-4 opacity-70"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
 
-              <input
-                type="password"
-                className="grow"
-                name="password"
-                placeholder="Confirmar contraseña"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-            </label>
-            <span className="text-red-500 text-xs">
-              {formik.touched.password ? formik.errors.password : null}
-            </span>
+                <input
+                  type="password"
+                  className="grow"
+                  name="password"
+                  placeholder="Confirmar contraseña"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+              </label>
+              <span className="text-red-500 text-xs">
+                {formik.touched.password ? formik.errors.password : null}
+              </span>
+            </div>
+            <div className="flex flex-col gap-2">
+              {/* url_image */}
+              <label className="input input-bordered flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-4 h-4 opacity-70"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+
+                <input
+                  type="file"
+                  name="url_image"
+                  className="grow file-input file-input-ghost w-24 "
+                  accept=".png,.jpg,.jpeg,.webp"
+                  onChange={(event) => {
+                    formik.setFieldValue(
+                      "url_image",
+                      event.currentTarget.files[0]
+                    );
+                  }}
+                  onBlur={formik.handleBlur}
+                />
+              </label>
+              <span className="text-red-500 text-xs">
+                {formik.touched.url_image ? formik.errors.url_image : null}
+              </span>
+            </div>
+
             <button className="btn btn-primary no-animation" type="submit">
               Actualizar
             </button>
           </form>
         </div>
       </div>
+      <p>{JSON.stringify(formik.values)}</p>
       <ToastContainer />
     </div>
   );
