@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../../helpers/axios";
+import { axios } from "../../../helpers/axios";
 import IconDelete from "../Icons/IconDelete";
 import IconView from "../Icons/IconView";
 import useToast from "../../../hooks/useToast";

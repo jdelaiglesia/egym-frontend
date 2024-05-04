@@ -10,7 +10,7 @@ const CreateOpinion = ({ product_id }) => {
   const formik = useFormik({
     initialValues: {
       product_id: product_id,
-      username: user,
+      user: user,
       body: "",
       rating: "",
     },

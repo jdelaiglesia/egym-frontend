@@ -91,6 +91,17 @@ const ProductDetail = () => {
                   </span>
                 </div>
               </div>
+              <div>
+                <WhatsappShareButton url={url} className="mr-1">
+                  <WhatsappIcon size={25} round />
+                </WhatsappShareButton>
+                <TelegramShareButton url={url} className="mr-1">
+                  <TelegramIcon size={25} round></TelegramIcon>
+                </TelegramShareButton>
+                <FacebookShareButton url={url} className="mr-1">
+                  <FacebookIcon size={25} round></FacebookIcon>
+                </FacebookShareButton>
+              </div>
               <div className="detail-info-2 flex flex-col gap-4 justify-around">
                 <div className="detail-set-qty">
                   <label className="input input-bordered flex items-center gap-2">
@@ -136,71 +147,6 @@ const ProductDetail = () => {
                   )}
                 </div>
               </div>
-            </div>
-            <Rating
-              rating={
-                !product?.averageRating ? 0 : product?.averageRating.toFixed(1)
-              }
-            />
-            <div>
-              <span className="text-3xl">
-                ${product?.price?.toLocaleString()} ARS
-              </span>
-            </div>
-          </div>
-          <div>
-            <WhatsappShareButton url={url} className="mr-1">
-              <WhatsappIcon size={25} round />
-            </WhatsappShareButton>
-            <TelegramShareButton url={url} className="mr-1">
-              <TelegramIcon size={25} round></TelegramIcon>
-            </TelegramShareButton>
-            <FacebookShareButton url={url} className="mr-1">
-              <FacebookIcon size={25} round></FacebookIcon>
-            </FacebookShareButton>
-          </div>
-          <div className="detail-info-2 flex flex-col gap-4 justify-around">
-            <div className="detail-set-qty">
-              <label className="input input-bordered flex items-center gap-2">
-                Cant.
-                <input
-                  type="number"
-                  min={1}
-                  max={product?.stock}
-                  defaultValue={1}
-                  className="grow"
-                  placeholder="Ingrese una cantidad"
-                  onChange={handleChangeQty}
-                />
-              </label>
-            </div>
-            <div className="flex justify-between gap-4">
-              {product?.stock < 1 ? (
-                <button className="btn btn-primary" disabled>
-                  {" "}
-                  Comprar
-                </button>
-              ) : (
-                <button
-                  className="btn btn-primary"
-                  onClick={() => buyNow(product)}
-                >
-                  Comprar
-                </button>
-              )}
-              {product?.stock < 1 ? (
-                <button className="btn btn-neutral" disabled>
-                  {" "}
-                  Añadir al carrito{" "}
-                </button>
-              ) : (
-                <button
-                  className="btn btn-neutral"
-                  onClick={() => addToCart(product)}
-                >
-                  Añadir al carrito
-                </button>
-              )}
             </div>
           </div>
           <Description
