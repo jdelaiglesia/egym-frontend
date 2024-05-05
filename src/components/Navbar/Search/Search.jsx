@@ -24,16 +24,24 @@ const Search = () => {
   }, [error]);
 
   const handleSearch = () => {
-    const product = Object.values(products).find(
+    const search = Object.values(products).find(
       (product) => product.name.toLowerCase() === state.toLowerCase()
     );
-
-    if (product) {
-      navigate(`/shop/product/${product._id}`);
-      setError(null);
-    } else {
+    try {
+      if(search){
+        navigate(`/shop/product/${search._id}`);
+        setError(null);
+      } else {
+        const productsMatch = products.filter(p => {
+          return p.name.toLowerCase().includes(state.toLowerCase());
+        });
+        navigate('/shop', {state: {productsMatch}});
+        setError(null);
+      }
+    } catch (error) {
       setError("Producto no encontrado!");
     }
+    
   };
 
   const handleChange = (event) => {
