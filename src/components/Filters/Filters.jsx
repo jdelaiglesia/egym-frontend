@@ -64,7 +64,7 @@ function Filters({ products, setProducts, update, setUpdate, setPage }) {
   };
 
   return (
-    <div className="dropdown flex justify-center pt-10">
+    <div className="dropdown flex justify-center ">
       <div tabIndex={0} role="button" className="btn m-1">
         Filtros
       </div>

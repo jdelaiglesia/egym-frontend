@@ -24,9 +24,9 @@ function Products() {
   const selectedData = products.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const { pathname } = useLocation();
+  const location = useLocation();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
+  const getProducts = () => {
     axios
       .get("/products")
       .then(({ data }) => {
@@ -35,13 +35,31 @@ function Products() {
         setIsLoading(false);
       })
       .catch((error) => null);
-  }, []);
+  };
+
+  const [key, setKey] = useState(Math.random());
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if(location.state?.productsMatch && location.state?.productsMatch.length >= 1){
+      setProducts(location.state?.productsMatch);
+      setProductsAux(location.state?.productsMatch);
+      setIsLoading(false);
+      setKey(Math.random()); // Forzar una nueva renderización
+    } else{
+      getProducts();
+    }
+  }, [location.state]);
 
   return (
-    <>
+    <div key={key}>
       {pathname === "/shop" ? (
         <>
           <h2 className="mt-10 font-bold text-4xl text-center">Productos</h2>
+          <div className="flex justify-center pt-10">
+          <button onClick={getProducts} className="btn m-1 ">
+            Todos los productos
+          </button>
           <Filters
             products={productsAux}
             setProducts={setProducts}
@@ -49,6 +67,7 @@ function Products() {
             setUpdate={setUpdate}
             setPage={setCurrentPage}
           />
+          </div>
           <div className="flex flex-wrap justify-center gap-8 mx-10 my-10">
             {pathname === "/shop" && isLoading
               ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
@@ -83,7 +102,7 @@ function Products() {
           </Link>
         </>
       ) : null}
-    </>
+    </div>
   );
 }
 

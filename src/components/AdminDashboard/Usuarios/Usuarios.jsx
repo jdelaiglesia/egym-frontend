@@ -46,6 +46,7 @@ function Usuarios() {
         <table className="table table-zebra bg-transparent mt-2 ml-2">
           <thead className="max-w-md w-full">
             <tr>
+              <th className="text-base p-2 max-w-xs overflow-auto"></th>
               <th className="text-base p-2 max-w-xs overflow-auto">Nombre</th>
               <th className="text-base p-2 max-w-xs overflow-auto">Email</th>
               <th className="text-base p-2 max-w-xs overflow-auto">
@@ -62,6 +63,9 @@ function Usuarios() {
             {users?.map((u) => {
               return (
                 <tr>
+                  <td className="font-bold text-primary max-w-xs overflow-auto">
+                    <img src={u.url_image} alt={u.name} className="w-8 rounded-full" />
+                  </td>
                   <td className="font-bold text-primary max-w-xs overflow-auto">
                     {u.name} {u.last_name}
                   </td>
@@ -97,7 +101,7 @@ function Usuarios() {
                       className={`btn bg-transparent border-none shadow-none m-1 hover:bg-${
                         u.is_member ? "success" : "gray-400"
                       } ${
-                        u.is_member ? "text-success hover:text-black"  : null
+                        u.is_member ? "text-success hover:text-black" : null
                       }`}
                     >
                       <IconMember />
