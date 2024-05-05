@@ -1,14 +1,9 @@
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import axios from "../../helpers/axios"
 import { useEffect, useState } from 'react';
-import { useCart } from "../../hooks/useCart";
 
-const ViewMercadoPago = () => {
+const ViewMercadoPago = ({products}) => {
   let [preferenceId, setPreferenceId] = useState("");
-
-  const {
-    cart: { products, total },
-  } = useCart();
 
   useEffect(() => {
     // Inicializador MercadoPago
@@ -16,23 +11,25 @@ const ViewMercadoPago = () => {
   }, []);
 
   useEffect(() => {
-    const getPreference = async()=>{
-      try {
-        const response = await axios.post("/payment", products);
-        setPreferenceId(response.data);
-        console.log(response.data)
-      } catch (error) {
-        console.log("No se pudo procesar Mercado Pago", error.message);
-      }
-    }
-    getPreference()
+    // Reinicia preferenceId cuando cambia products
+    setPreferenceId("");
+    // console.log("asdasd")
   }, [products]);
 
-  console.log(preferenceId)
-
+  const getPreference = async()=>{
+        try {
+          const response = await axios.post("/payment", products);
+          setPreferenceId(response.data);
+          console.log(response.data)
+        } catch (error) {
+          console.log("No se pudo procesar Mercado Pago", error.message);
+        }
+      }
+// console.log(products)
   return (
     <div>
-      {preferenceId!=="" && <Wallet initialization={{ preferenceId : preferenceId}}/>}
+      {preferenceId!=="" ? <Wallet initialization={{ preferenceId : preferenceId}}/>: 
+      <button className="btn btn-primary" onClick={()=>getPreference()}>Finalizar Pago</button>}
     </div>
   );
   
