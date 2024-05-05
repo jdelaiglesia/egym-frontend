@@ -35,7 +35,7 @@ export function CartProvider({ children }) {
     if (checkProductIndex >= 0) {
       ToastError("El producto ya esta en el carrito.", 1350);
     } else {
-      if (product.quantity > product.stock) {
+      if (product.quantity > product.stock || product.quantity < 0) {
         ToastWarning(`El maximo de productos es ${product.stock}`, 1350);
       } else {
         setCart({
@@ -53,11 +53,14 @@ export function CartProvider({ children }) {
   };
 
   const buyNow = (product) => {
-    addToCart(product);
-    ToastSuccess("Redirigiendo al carrito", 1350)
-    setTimeout(() => {
-      navigate("/cart");
-    }, 2000)
+    if (product.quantity > product.stock || product.quantity < 0) {
+      ToastError("Este producto no cuenta con stock", 1350);
+    } else {
+      addToCart(product);
+      setTimeout(() => {
+        navigate("/cart");
+      }, 2000);
+    }
   };
 
   const removeToCart = (product) => {

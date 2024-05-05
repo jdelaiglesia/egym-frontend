@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import axios from "../../helpers/axios";
-import { ToastContainer} from "react-toastify";
+import { axios } from "../../helpers/axios";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useCreate from "../../hooks/useCreate";
 
 const CreateProduct = () => {
   const [categories, setCategories] = useState([]);
-  const {createProduct, validationSchema} = useCreate();
+  const { createProduct, validationSchema } = useCreate();
 
   const formik = useFormik({
     initialValues: {
@@ -21,7 +21,7 @@ const CreateProduct = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      createProduct(values)
+      createProduct(values);
     },
   });
 

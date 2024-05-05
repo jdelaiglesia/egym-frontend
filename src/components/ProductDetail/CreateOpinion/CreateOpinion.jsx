@@ -10,7 +10,7 @@ const CreateOpinion = ({ product_id }) => {
   const formik = useFormik({
     initialValues: {
       product_id: product_id,
-      username: user,
+      user: user,
       body: "",
       rating: "",
     },
@@ -40,10 +40,16 @@ const CreateOpinion = ({ product_id }) => {
             <input
               type="radio"
               name="rating"
+              className="mask mask-star-2 hidden"
+              defaultChecked={true}
+            />
+            <input
+              type="radio"
+              name="rating"
               value={1}
               className="mask mask-star-2"
               onChange={formik.handleChange}
-              checked
+              defaultChecked={formik.values.rating === 1}
             />
             <input
               type="radio"
@@ -51,6 +57,7 @@ const CreateOpinion = ({ product_id }) => {
               value={2}
               className="mask mask-star-2"
               onChange={formik.handleChange}
+              defaultChecked={formik.values.rating === 2}
             />
             <input
               type="radio"
@@ -58,6 +65,7 @@ const CreateOpinion = ({ product_id }) => {
               value={3}
               className="mask mask-star-2"
               onChange={formik.handleChange}
+              defaultChecked={formik.values.rating === 3}
             />
             <input
               type="radio"
@@ -65,6 +73,7 @@ const CreateOpinion = ({ product_id }) => {
               value={4}
               className="mask mask-star-2"
               onChange={formik.handleChange}
+              defaultChecked={formik.values.rating === 4}
             />
             <input
               type="radio"
@@ -72,6 +81,7 @@ const CreateOpinion = ({ product_id }) => {
               value={5}
               className="mask mask-star-2"
               onChange={formik.handleChange}
+              defaultChecked={formik.values.rating === 5}
             />
           </div>
           <span className="text-red-500 text-xs">

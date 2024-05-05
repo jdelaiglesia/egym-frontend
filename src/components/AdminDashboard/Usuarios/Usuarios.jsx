@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../../helpers/axios";
+import { axios } from "../../../helpers/axios";
 import IconDelete from "../Icons/IconDelete";
-import IconEdit from "../Icons/IconEdit";
 import IconAdmin from "../Icons/IconAdmin";
 import IconMember from "../Icons/IconMember";
+import useToast from "../../../hooks/useToast";
+import { ToastContainer } from "react-toastify";
 
 function Usuarios() {
+  const { ToastError } = useToast();
   const [users, setUsers] = useState([]);
 
   const getUsers = () => {
@@ -13,12 +15,11 @@ function Usuarios() {
       .then(({ data }) => {
         setUsers(data);
       })
-      .catch((error) => window.alert(error));
+      .catch((error) => ToastError("Oh no, error en el servidor", 1350));
   };
 
   useEffect(() => {
     getUsers();
-    console.log(users);
   }, []);
 
   const handleDelete = (id) => {
@@ -45,6 +46,7 @@ function Usuarios() {
         <table className="table table-zebra bg-transparent mt-2 ml-2">
           <thead className="max-w-md w-full">
             <tr>
+              <th className="text-base p-2 max-w-xs overflow-auto"></th>
               <th className="text-base p-2 max-w-xs overflow-auto">Nombre</th>
               <th className="text-base p-2 max-w-xs overflow-auto">Email</th>
               <th className="text-base p-2 max-w-xs overflow-auto">
@@ -62,13 +64,20 @@ function Usuarios() {
               return (
                 <tr>
                   <td className="font-bold text-primary max-w-xs overflow-auto">
+                    <img src={u.url_image} alt={u.name} className="w-8 rounded-full" />
+                  </td>
+                  <td className="font-bold text-primary max-w-xs overflow-auto">
                     {u.name} {u.last_name}
                   </td>
                   <td className="max-w-xs overflow-auto">{u.email}</td>
-                  <td className="max-w-64 overflow-auto truncate">
-                    {u.address}
+                  <td className="max-w-40 h-16 overflow-auto flex-wrap text-xs">
+                    {u.address ? u.address : "Sin dirección"}
                   </td>
-                  <td className="max-w-xs overflow-auto">{u.phone_number}</td>
+                  <td className="max-w-xs overflow-auto">
+                    {u.phone_number.toString().length > 5
+                      ? u.phone_number
+                      : "Sin numero"}
+                  </td>
                   <td
                     className={`font-bold max-w-xs overflow-auto ${
                       u.rank === 10
@@ -123,6 +132,7 @@ function Usuarios() {
             })}
           </tbody>
         </table>
+        <ToastContainer />
       </div>
     </>
   );

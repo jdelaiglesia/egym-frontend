@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "../../helpers/axios";
+import { axios } from "../../helpers/axios";
 
 function Filters({ products, setProducts, update, setUpdate, setPage }) {
   const [filters, setFilters] = useState({
@@ -64,7 +64,7 @@ function Filters({ products, setProducts, update, setUpdate, setPage }) {
   };
 
   return (
-    <div className="dropdown flex justify-center pt-10">
+    <div className="dropdown flex justify-center ">
       <div tabIndex={0} role="button" className="btn m-1">
         Filtros
       </div>
@@ -103,8 +103,10 @@ function Filters({ products, setProducts, update, setUpdate, setPage }) {
             <option value="" hidden>
               Seleccione una opción
             </option>
-            {categories.map((category) => (
-              <option value={category.name}>{category.name}</option>
+            {categories.map((category, index) => (
+              <option value={category.name} key={index}>
+                {category.name}
+              </option>
             ))}
           </select>
         </div>
