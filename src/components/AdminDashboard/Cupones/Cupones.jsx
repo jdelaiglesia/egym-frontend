@@ -6,95 +6,103 @@ import useToast from "../../../hooks/useToast";
 import { ToastContainer } from "react-toastify";
 
 function Cupones() {
-  const [coupons, setCoupons] = useState([]);
-  const { ToastError } = useToast();
+    const [coupons, setCoupons] = useState([]);
+    const { ToastError } = useToast();
 
-  const getCoupons = () => {
-    axios("/coupons")
-      .then(({ data }) => {
-        setCoupons(data);
-      })
-      .catch((error) => ToastError("Oh no, error en el servidor", 1350));
-  };
-  useEffect(() => {
-    getCoupons();
-  }, []);
-
-  const handleAvailable = (coupon) => {
-    const updatedCoupon = {
-      name: coupon.name,
-      available: !coupon.available,
+    const getCoupons = () => {
+        axios("/coupons")
+            .then(({ data }) => {
+                setCoupons(data);
+            })
+            .catch((error) => ToastError("Oh no, error en el servidor", 1350));
     };
-    axios.put(`/coupon`, updatedCoupon).then((res) => {
-      getCoupons();
-    });
-  };
-  const handleDelete = (id) => {
-    axios.delete(`/coupon/${id}`).then((res) => {
-      getCoupons();
-    });
-  };
-  return (
-    <div className="flex flex-col bg-base-100 h-screen w-full">
-      <div className="overflow-hidden w-full ">
-        <table className="table table-zebra bg-transparent mt-2 ml-2">
-          <thead>
-            <tr>
-              <th className="text-base p-2">Nombre</th>
-              <th className="text-base p-2">Descuento</th>
-              <th className="text-base p-2">Disponibilidad</th>
-              <th className="text-base p-2 pl-10">Acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            {coupons?.map((c) => {
-              return (
-                <tr>
-                  <td className="font-bold text-primary">{c.name}</td>
-                  <td className="">
-                    {c.percentage}
-                    <span className="text-primary">%</span>
-                  </td>
-                  <td
-                    className={`font-bold ${
-                      c.available ? "text-success" : "text-error"
-                    }`}
-                  >
-                    {c.available ? "Disponible" : "No disponible"}
-                  </td>
-                  <td className="flex">
-                    <button
-                      onClick={() => {
-                        handleAvailable(c);
-                      }}
-                      className={`btn bg-transparent border-none shadow-none m-1 hover:bg-${
-                        c.available ? "success" : "error"
-                      } ${
-                        c.available
-                          ? "text-success hover:text-black"
-                          : "text-error hover:text-white"
-                      }`}
-                    >
-                      <IconCoupon />
-                    </button>
-                    <button
-                      onClick={() => {
-                        handleDelete(c._id);
-                      }}
-                      className="btn bg-transparent border-none shadow-none m-1 text-primary hover:bg-error hover:text-white"
-                    >
-                      <IconDelete />
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-      <ToastContainer />
-    </div>
-  );
+    useEffect(() => {
+        getCoupons();
+    }, []);
+
+    const handleAvailable = (coupon) => {
+        const updatedCoupon = {
+            name: coupon.name,
+            available: !coupon.available,
+        };
+        axios.put(`/coupon`, updatedCoupon).then((res) => {
+            getCoupons();
+        });
+    };
+    const handleDelete = (id) => {
+        axios.delete(`/coupon/${id}`).then((res) => {
+            getCoupons();
+        });
+    };
+    return (
+        <div className="flex flex-col bg-base-100 h-screen w-full">
+            <div className="overflow-hidden w-full ">
+                <table className="table table-zebra bg-transparent mt-2 ml-2">
+                    <thead>
+                        <tr>
+                            <th className="text-base p-2">Nombre</th>
+                            <th className="text-base p-2">Descuento</th>
+                            <th className="text-base p-2">Disponibilidad</th>
+                            <th className="text-base p-2 pl-10">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {coupons?.map((c) => {
+                            return (
+                                <tr>
+                                    <td className="font-bold text-primary">
+                                        {c.name}
+                                    </td>
+                                    <td className="">
+                                        {c.percentage}
+                                        <span className="text-primary">%</span>
+                                    </td>
+                                    <td
+                                        className={`font-bold ${
+                                            c.available
+                                                ? "text-success"
+                                                : "text-error"
+                                        }`}
+                                    >
+                                        {c.available
+                                            ? "Disponible"
+                                            : "No disponible"}
+                                    </td>
+                                    <td className="flex">
+                                        <button
+                                            onClick={() => {
+                                                handleAvailable(c);
+                                            }}
+                                            className={`btn bg-transparent border-none shadow-none m-1 hover:bg-${
+                                                c.available
+                                                    ? "success"
+                                                    : "error"
+                                            } ${
+                                                c.available
+                                                    ? "text-success hover:text-black"
+                                                    : "text-error hover:text-white"
+                                            }`}
+                                        >
+                                            <IconCoupon />
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                handleDelete(c._id);
+                                            }}
+                                            className="btn bg-transparent border-none shadow-none m-1 text-primary hover:bg-error hover:text-white"
+                                        >
+                                            <IconDelete />
+                                        </button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+            <ToastContainer />
+        </div>
+    );
 }
 
 export default Cupones;
