@@ -1,11 +1,13 @@
 import { NavLink } from "react-router-dom";
+import { useTheme } from "../Navbar/ToggleTheme/ToggleTheme";
 
 
 const Footer = () => {
+  const {theme} = useTheme()
   return (
     <footer className="footer p-10 bg-neutral text-neutral-content mt-auto">
       <aside>
-        <img src="/logo.jpg" alt="" className="w-40" />
+        <img src={theme === "black" ? "./logo-dark.svg" : "./logo-light.svg"} alt="e-gym logo" className="w-40" />
         <p>
           E GYM
           <br />

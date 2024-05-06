@@ -58,5 +58,17 @@ const ToggleTheme = () => {
     </label>
   );
 };
+export const useTheme = () => {
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "black",
+  );
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    document.querySelector("html").setAttribute("data-theme", theme);
+  }, [theme]);
+
+  return {theme, setTheme}
+}
 
 export default ToggleTheme;
