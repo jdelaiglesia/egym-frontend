@@ -45,6 +45,7 @@ function Products() {
       setProducts(location.state?.productsMatch);
       setProductsAux(location.state?.productsMatch);
       setIsLoading(false);
+      setCurrentPage(1)
       setKey(Math.random()); // Forzar una nueva renderización
     } else{
       getProducts();

@@ -85,11 +85,11 @@ function Productos() {
           </select>
         </label>
       </div>
-      <div className="overflow-hidden w-full ">
+      <div className="overflow-auto w-full ">
         <table className="table table-zebra bg-transparent mt-2 ml-2">
           <thead>
             <tr>
-              <th className="text-base p-2 pl-4">Imagen</th>
+              <th className="text-base p-2 pl-4"></th>
               <th className="text-base p-2">Nombre</th>
               <th className="text-base p-2">Categoria</th>
               <th className="text-base p-2">Precio</th>

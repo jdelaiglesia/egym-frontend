@@ -31,7 +31,7 @@ const Navbar = () => {
                         <label
                             htmlFor="my-drawer-3"
                             aria-label="open sidebar"
-                            className="btn btn-square btn-ghost"
+                            className="btn btn-square btn-ghost no-animation"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -52,16 +52,16 @@ const Navbar = () => {
                         <h1 className="text-2xl font-bold">EGYM</h1>
                     </div>
                     <div className="flex-none hidden lg:block lg:gap-2 lg:flex lg:items-center z-99">
-                        <ul className="menu menu-horizontal gap-2">
+                        <ul className="menu menu-horizontal gap-2 items-center">
                             {/* Navbar menu content here */}
                             <li>
                                 <NavLink
                                     to="/"
-                                    className={
+                                    className={`no-animation ${
                                         pathname === "/"
                                             ? "btn btn-primary btn-sm"
                                             : "btn btn-sm"
-                                    }
+                                    }`}
                                 >
                                     Inicio
                                 </NavLink>
@@ -69,21 +69,24 @@ const Navbar = () => {
                             <li>
                                 <NavLink
                                     to="/shop"
-                                    className={
+                                    className={`no-animation ${
                                         pathname === "/shop"
                                             ? "btn btn-primary btn-sm"
                                             : "btn btn-sm"
-                                    }
+                                    }`}
                                 >
                                     Tienda
                                 </NavLink>
+                            </li>
+                            <li>
+                                <Search />
                             </li>
                         </ul>
                         <NavLink to="/cart">
                             <div
                                 tabIndex={0}
                                 role="button"
-                                className="btn btn-ghost btn-circle"
+                                className="btn btn-ghost btn-circle no-animation"
                             >
                                 <div className="indicator">
                                     <svg
@@ -100,7 +103,7 @@ const Navbar = () => {
                                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                                         />
                                     </svg>
-                                    <span className="badge badge-sm indicator-item">
+                                    <span className="badge badge-sm indicator-item border-none">
                                         {count}
                                     </span>
                                 </div>
@@ -111,7 +114,7 @@ const Navbar = () => {
                                 <div
                                     tabIndex={0}
                                     role="button"
-                                    className="btn btn-ghost btn-circle avatar online"
+                                    className="btn btn-ghost btn-circle avatar online no-animation"
                                 >
                                     <div className="w-10 rounded-full">
                                         <img
@@ -129,13 +132,12 @@ const Navbar = () => {
                                             className="justify-between"
                                             to="/profile"
                                         >
-                                            Perfil
-                                            <span className="badge">Nuevo</span>
+                                            Editar perfil
                                         </NavLink>
                                     </li>
                                     <li>
                                         <NavLink to="/dashboard">
-                                            Dashboard
+                                            Panel
                                         </NavLink>
                                     </li>
                                     <li>
@@ -193,7 +195,7 @@ const Navbar = () => {
                     <li>
                         <NavLink
                             to="/"
-                            className={` flex justify-between w-full
+                            className={` flex justify-between w-full no-animation
                             ${
                                 pathname === "/"
                                     ? "btn btn-primary btn-sm"
@@ -222,7 +224,7 @@ const Navbar = () => {
                     <li>
                         <NavLink
                             to="/shop"
-                            className={` flex justify-between w-full
+                            className={`flex justify-between w-full no-animation
                             ${
                                 pathname === "/shop"
                                     ? "btn btn-primary btn-sm"
@@ -250,7 +252,7 @@ const Navbar = () => {
                     </li>
                     <li>
                         <NavLink
-                            className={`flex justify-between w-full
+                            className={`flex justify-between w-full no-animation 
                             ${
                                 pathname === "/cart"
                                     ? "btn btn-primary btn-sm"
@@ -278,7 +280,7 @@ const Navbar = () => {
                                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                                         />
                                     </svg>
-                                    <span className="badge badge-sm indicator-item">
+                                    <span className="badge badge-sm indicator-item border-none ">
                                         {count}
                                     </span>
                                 </span>
@@ -288,13 +290,16 @@ const Navbar = () => {
                             </div>
                         </NavLink>
                     </li>
+                    <li className="w-full p-0 hover:bg-transparent">
+                        <Search />
+                    </li>
                     {user?.token ? (
                         <li className="flex p-0 ">
-                            <div className="dropdown dropdown-bottom dropdown-end p-0 flex w-full px-3">
+                            <div className="dropdown dropdown-bottom dropdown-end p-0 flex w-full">
                                 <div
                                     tabIndex={0}
                                     role="button"
-                                    className="flex justify-between btn btn-ghost btn-circle w-full"
+                                    className="flex justify-between btn w-full no-animation "
                                 >
                                     <img
                                         className="w-8 rounded-full"
@@ -306,22 +311,19 @@ const Navbar = () => {
 
                                 <ul
                                     tabIndex={0}
-                                    className="mt-3 z-[1] p-2 menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                                    className="mt-3 z-[1] p-2 menu menu-sm dropdown-content bg-base-100 rounded-box w-52 before:bg-transparent"
                                 >
                                     <li>
                                         <NavLink
                                             className="justify-between"
                                             to="/profile"
                                         >
-                                            Perfil
-                                            <span className="badge ">
-                                                Nuevo
-                                            </span>
+                                            Editar perfil
                                         </NavLink>
                                     </li>
                                     <li>
                                         <NavLink to="/dashboard">
-                                            Dashboard
+                                            Panel 
                                         </NavLink>
                                     </li>
                                     <li>

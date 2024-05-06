@@ -54,8 +54,7 @@ function Cupones() {
                                         {c.name}
                                     </td>
                                     <td className="">
-                                        {c.percentage}
-                                        <span className="text-primary">%</span>
+                                        {c.percentage}%
                                     </td>
                                     <td
                                         className={`font-bold ${
