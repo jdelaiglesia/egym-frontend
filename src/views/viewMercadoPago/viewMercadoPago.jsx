@@ -1,15 +1,21 @@
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
-import axios from "../../helpers/axios"
+import {axios} from "../../helpers/axios"
 import { useEffect, useState } from 'react';
 
 const ViewMercadoPago = ({products}) => {
   let [preferenceId, setPreferenceId] = useState("");
-
+  let [idUser, setIdUser] = useState("")
+  
   useEffect(() => {
     // Inicializador MercadoPago
     initMercadoPago(import.meta.env.VITE_PUBLIC_KEY, { locale: 'es-AR' });
-  }, []);
 
+    //obtiene id de user del local y guarda en estado
+    const userString = localStorage.getItem('user');
+    const userObject = JSON.parse(userString);
+    setIdUser(userObject._id);
+  }, []);
+  console.log(idUser)
   useEffect(() => {
     // Reinicia preferenceId cuando cambia products
     setPreferenceId("");
@@ -18,7 +24,7 @@ const ViewMercadoPago = ({products}) => {
 
   const getPreference = async()=>{
         try {
-          const response = await axios.post("/payment", products);
+          const response = await axios.post("/payment", {products, idUser});
           setPreferenceId(response.data);
           console.log(response.data)
         } catch (error) {
