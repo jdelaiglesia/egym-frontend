@@ -71,7 +71,7 @@ const ProductDetail = () => {
                   >
                     {product?.available}
                   </div>
-                  <div className="badge badge-outline">
+                  <div className="badge badge-outline w-max">
                     Stock: {product?.stock}
                   </div>
                   <div className="badge badge-outline">
