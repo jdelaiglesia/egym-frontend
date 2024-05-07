@@ -24,7 +24,7 @@ const Navbar = () => {
     return (
         <div className="drawer">
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col">
+            <div className="flex flex-col drawer-content">
                 {/* Navbar */}
                 <div className="w-full navbar bg-base-100">
                     <div className="flex-none lg:hidden">
@@ -52,7 +52,7 @@ const Navbar = () => {
                         <h1 className="text-2xl font-bold">EGYM</h1>
                     </div>
                     <div className="flex-none hidden lg:block lg:gap-2 lg:flex lg:items-center z-99">
-                        <ul className="menu menu-horizontal gap-2 items-center">
+                        <ul className="items-center gap-2 menu menu-horizontal">
                             {/* Navbar menu content here */}
                             <li>
                                 <NavLink
@@ -91,7 +91,7 @@ const Navbar = () => {
                                 <div className="indicator">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        className="h-5 w-5"
+                                        className="w-5 h-5"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         stroke="currentColor"
@@ -103,7 +103,7 @@ const Navbar = () => {
                                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                                         />
                                     </svg>
-                                    <span className="badge badge-sm indicator-item border-none">
+                                    <span className="border-none badge badge-sm indicator-item">
                                         {count}
                                     </span>
                                 </div>
@@ -161,7 +161,7 @@ const Navbar = () => {
                             </div>
                         ) : (
                             <NavLink
-                                className="btn bg-transparent no-animation"
+                                className="bg-transparent btn no-animation"
                                 to="/login"
                             >
                                 <svg
@@ -190,7 +190,7 @@ const Navbar = () => {
                     aria-label="close sidebar"
                     className="drawer-overlay"
                 ></label>
-                <ul className="menu p-4 w-80 min-h-full h-full bg-base-200 gap-2">
+                <ul className="h-full min-h-full gap-2 p-4 menu w-80 bg-base-200">
                     {/* Sidebar content here */}
                     <li>
                         <NavLink
@@ -268,7 +268,7 @@ const Navbar = () => {
                                 <span className="indicator">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        className="h-5 w-5"
+                                        className="w-5 h-5"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         stroke="currentColor"
@@ -280,7 +280,7 @@ const Navbar = () => {
                                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                                         />
                                     </svg>
-                                    <span className="badge badge-sm indicator-item border-none ">
+                                    <span className="border-none badge badge-sm indicator-item ">
                                         {count}
                                     </span>
                                 </span>
@@ -295,11 +295,11 @@ const Navbar = () => {
                     </li>
                     {user?.token ? (
                         <li className="flex p-0 ">
-                            <div className="dropdown dropdown-bottom dropdown-end p-0 flex w-full">
+                            <div className="flex w-full p-0 dropdown dropdown-bottom dropdown-end">
                                 <div
                                     tabIndex={0}
                                     role="button"
-                                    className="flex justify-between btn w-full no-animation "
+                                    className="flex justify-between w-full btn no-animation "
                                 >
                                     <img
                                         className="w-8 rounded-full"
@@ -348,7 +348,7 @@ const Navbar = () => {
                         </li>
                     ) : (
                         <NavLink
-                            className="btn bg-transparent no-animation"
+                            className="bg-transparent btn no-animation"
                             to="/login"
                         >
                             <svg
@@ -373,16 +373,16 @@ const Navbar = () => {
         </div>
         // -----------------------------------------------------------------------------------
         // <div className="navbar bg-base-100">
-        //   <div className="flex-1 items-center">
+        //   <div className="items-center flex-1">
         //     <NavLink
         //       to="/"
-        //       className="p-0 w-24 btn btn-ghost bg-black font-bold hover:bg-black"
+        //       className="w-24 p-0 font-bold bg-black btn btn-ghost hover:bg-black"
         //     >
         //       <div className="w-24 rounded-full">
         //         <img alt="Tailwind CSS Navbar component" src="/logo.jpg" />
         //       </div>
         //     </NavLink>
-        //     <div className="flex gap-2 mx-4 items-center">
+        //     <div className="flex items-center gap-2 mx-4">
         // <NavLink
         //   to="/"
         //   className={
@@ -410,7 +410,7 @@ const Navbar = () => {
         //   <div className="indicator">
         //     <svg
         //       xmlns="http://www.w3.org/2000/svg"
-        //       className="h-5 w-5"
+        //       className="w-5 h-5"
         //       fill="none"
         //       viewBox="0 0 24 24"
         //       stroke="currentColor"
@@ -467,7 +467,7 @@ const Navbar = () => {
         //     </ul>
         //   </div>
         // ) : (
-        //   <NavLink className="btn bg-transparent no-animation" to="/login">
+        //   <NavLink className="bg-transparent btn no-animation" to="/login">
         //     <svg
         //       xmlns="http://www.w3.org/2000/svg"
         //       fill="none"

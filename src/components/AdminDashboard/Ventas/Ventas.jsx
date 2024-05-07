@@ -35,92 +35,138 @@ function Ventas() {
     navigate("/dashboard/sale/detail", { state: { sale } });
   };
   return (
-    <>
-      <div className="overflow-x-auto w-full ">
-        <table className="table table-zebra bg-transparent mt-2 ml-2">
-          <thead className="max-w-md w-full">
-            <tr>
-              <th className="text-base p-2 max-w-xs overflow-auto">Email</th>
-              <th className="text-base p-2 max-w-xs overflow-auto">
-                Direccion
-              </th>
-              <th className="text-base p-2 max-w-xs overflow-auto">
-                Productos
-              </th>
-              <th className="text-base p-2 max-w-xs overflow-auto">Total</th>
-              <th className="text-base p-2 max-w-xs overflow-auto">Status</th>
-              <th className="text-base p-2 pl-10 max-w-xs overflow-auto">
-                Fecha
-              </th>
-              <th className="text-base p-2 pl-10 max-w-xs overflow-auto">
-                Acciones
-              </th>
-            </tr>
-          </thead>
-          <tbody className="max-w-md w-full">
-            {sales?.map((s) => {
-              return (
-                <tr className="overflow-hidden">
-                  <td className={`max-w-xs overflow-auto ${s.user?.email ? "text-primary" : null}`}>
-                    {s.user?.email ? s.user?.email : "Sin email"}
-                  </td>
-                  <td className="max-w-xs overflow-auto">
-                    {s.user?.address ? s.user?.address : "Sin dirección"}
-                  </td>
-                  <td className="flex flex-wrap gap-1 max-w-40 overflow-auto max-h-[105px]">
-                    {s.products.map((p) => {
-                      return (
-                        <div className="indicator flex gap-1 my-1 items-center">
-                          <img
-                            src={p._id.url_image}
-                            alt={p._id.name}
-                            className="h-8 rounded-full "
-                          ></img>
-                        </div>
-                      );
-                    })}
-                  </td>
-                  <td className="max-w-xs text-primary">${s.total}</td>
-                  <td
-                    className={`max-w-xs font-bold ${
-                      s.status === "completed" ? "text-success" : "text-warning"
+    <div className="w-full overflow-y-auto ">
+      <table className="table w-full bg-transparent table-zebra">
+        <thead className="w-full ">
+          <tr className="flex items-center justify-between w-[98%]">
+            <th className="hidden p-0 text-xs md:text-base xl:block xl:w-32">Email</th>
+            <th className="hidden p-0 text-xs md:text-base md:p-2 xl:block xl:w-32">
+              Direccion
+            </th>
+            <th className="p-0 text-xs md:text-base md:p-2 xl:hidden lg:w-32">
+              Contacto
+            </th>
+            <th className="hidden p-0 text-xs md:text-base md:p-2 sm:block xl:w-40">
+              Productos
+            </th>
+            <th className="p-0 text-xs md:text-base md:p-2 md:hidden">
+              Detalles
+            </th>
+            <th className="hidden p-0 text-xs md:text-base md:p-2 md:block md:w-32 md:text-center">
+              Total
+            </th>
+            <th className="hidden p-0 text-xs md:text-base md:p-2 md:block">
+              Estado
+            </th>
+            <th className="hidden p-0 text-xs md:pl-10 md:text-base md:p-2 md:block">
+              Fecha
+            </th>
+            <th className="p-0 mr-3 text-xs md:text-base md:p-2 md:pl-10">
+              Acciones
+            </th>
+          </tr>
+        </thead>
+        <tbody className="w-full ">
+          {sales?.map((s) => {
+            return (
+              <tr className="flex items-center justify-between w-[98%]">
+                <td
+                  className={` overflow-auto hidden xl:block md:font-bold md:text-sm xl:w-40 ${
+                    s.user?.email ? "text-primary" : null
+                  }`}
+                >
+                  {s.user?.email ? s.user?.email : "Sin email"}
+                </td>
+                <td className="hidden overflow-auto xl:block xl:w-32">
+                  {s.user?.address ? s.user?.address : "Sin dirección"}
+                </td>
+                <td className="flex flex-col w-24 gap-2 p-0 xl:hidden lg:w-40">
+                  {/* CONTACTO XS */}
+                  <p
+                    className={`overflow-auto text-[13px] lg:text-sm  ${
+                      s.user?.email ? "text-primary" : null
                     }`}
                   >
-                    {s.status === "completed" ? "Completada" : "Pendiente..."}
-                  </td>
-                  <td className="max-w-xs ">
+                    {s.user?.email ? s.user?.email : "Sin email"}
+                  </p>
+                  <p className="overflow-auto text-[11px] ">
+                    {s.user?.address ? s.user?.address : "Sin dirección"}
+                  </p>
+                </td>
+                
+                <td className="hidden gap-1 sm:flex md:flex-wrap md:overflow-auto xl:items-center xl:justify-center md:w-32 xl:w-40">
+                  {s.products.map((p) => {
+                    return (
+                      <div className="flex justify-center gap-1 my-1 center indicator">
+                        <img
+                          src={p._id.url_image}
+                          alt={p._id.name}
+                          className="h-8 rounded-full "
+                        ></img>
+                      </div>
+                    );
+                  })}
+                </td>
+                <td className="flex flex-col w-32 gap-2 p-1 text-center md:hidden">
+                  {/* DETALLES XS */}
+                  <p
+                    className={`font-bold ${
+                      s?.status === "completed"
+                        ? "text-success"
+                        : "text-warning"
+                    }`}
+                  >
+                    {s?.status === "completed" ? "Completada" : "Pendiente..."}
+                  </p>
+                  <p>
                     {s.date.slice(8, 10) +
                       "/" +
                       s.date.slice(5, 7) +
                       "/" +
                       s.date.slice(0, 4)}
-                  </td>
-                  <td className="flex max-w-xs ">
-                    <button
-                      onClick={() => {
-                        handleViewDetail(s);
-                      }}
-                      className="btn bg-transparent border-none shadow-none text-primary m-1 hover:bg-primary hover:text-black"
-                    >
-                      <IconView />
-                    </button>
-                    <button
-                      onClick={() => {
-                        handleDelete(s._id);
-                      }}
-                      className="btn bg-transparent border-none shadow-none m-1 text-primary hover:bg-error hover:text-white"
-                    >
-                      <IconDelete />
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <ToastContainer />
-      </div>
-    </>
+                  </p>
+                  <p>${s?.total}</p>
+                </td>
+                <td className="hidden text-primary md:block">${s.total}</td>
+                <td
+                  className={` font-bold hidden md:block ${
+                    s.status === "completed" ? "text-success" : "text-warning"
+                  }`}
+                >
+                  {s.status === "completed" ? "Completada" : "Pendiente..."}
+                </td>
+                <td className="hidden md:block">
+                  {s.date.slice(8, 10) +
+                    "/" +
+                    s.date.slice(5, 7) +
+                    "/" +
+                    s.date.slice(0, 4)}
+                </td>
+                <td className="flex ">
+                  <button
+                    onClick={() => {
+                      handleViewDetail(s);
+                    }}
+                    className="p-0 m-0 bg-transparent border-none shadow-none md:p-1 btn text-primary hover:bg-primary hover:text-black"
+                  >
+                    <IconView />
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleDelete(s._id);
+                    }}
+                    className="p-0 m-0 bg-transparent border-none shadow-none md:p-1 btn text-primary hover:bg-error hover:text-white"
+                  >
+                    <IconDelete />
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <ToastContainer />
+    </div>
   );
 }
 

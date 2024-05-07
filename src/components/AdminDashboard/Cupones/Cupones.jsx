@@ -35,29 +35,31 @@ function Cupones() {
         });
     };
     return (
-        <div className="flex flex-col bg-base-100 h-screen w-full">
-            <div className="overflow-hidden w-full ">
-                <table className="table table-zebra bg-transparent mt-2 ml-2">
+        <div className="flex flex-col w-full bg-base-100">
+            <div className="w-full overflow-auto ">
+                <table className="table bg-transparent sm:mt-2 sm:ml-2 table-zebra">
                     <thead>
-                        <tr>
-                            <th className="text-base p-2">Nombre</th>
-                            <th className="text-base p-2">Descuento</th>
-                            <th className="text-base p-2">Disponibilidad</th>
-                            <th className="text-base p-2 pl-10">Acción</th>
+                        <tr className="flex gap-2 xs:w-[98%] xs:justify-between md:justify-evenly items-center">
+                            <th className="p-0 xs:w-14 xs:text-xs sm:p-2 sm:text-base sm:w-20">Nombre</th>
+                            <th className="p-0 md:p-2 sm:text-base xs:hidden sm:block">Descuento</th>
+                            <th className="p-0 xs:block sm:hidden">%</th>
+                            <th className="p-0 xs:text-xs md:p-2 sm:text-base xs:hidden sm:block">Disponibilidad</th>
+                            <th className="p-0 xs:block sm:hidden xs:w-24 xs:text-center">✓</th>
+                            <th className="p-0 xs:text-xs xs:w-16 xs:text-center sm:text-start sm:p-2 sm:text-base sm:w-20 ">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {coupons?.map((c) => {
                             return (
-                                <tr>
-                                    <td className="font-bold text-primary">
+                                <tr className="flex items-center gap-2 xs:w-full xs:justify-between md:justify-evenly ">
+                                    <td className="font-bold text-primary xs:text-xs xs:p-1 sm:text-base sm:w-20">
                                         {c.name}
                                     </td>
-                                    <td className="">
+                                    <td className="xs:text-xs xs:p-1 sm:text-base sm:w-16 sm:text-center">
                                         {c.percentage}%
                                     </td>
                                     <td
-                                        className={`font-bold ${
+                                        className={`font-bold xs:text-xs xs:p-1 sm:text-base sm:w-40 sm:text-end ${
                                             c.available
                                                 ? "text-success"
                                                 : "text-error"
@@ -67,12 +69,12 @@ function Cupones() {
                                             ? "Disponible"
                                             : "No disponible"}
                                     </td>
-                                    <td className="flex">
+                                    <td className="flex xs:p-0 sm:p-2">
                                         <button
                                             onClick={() => {
                                                 handleAvailable(c);
                                             }}
-                                            className={`btn bg-transparent border-none shadow-none m-1 hover:bg-${
+                                            className={`btn bg-transparent border-none shadow-none m-1 xs:p-0 sm:p-2 hover:bg-${
                                                 c.available
                                                     ? "success"
                                                     : "error"
@@ -88,7 +90,7 @@ function Cupones() {
                                             onClick={() => {
                                                 handleDelete(c._id);
                                             }}
-                                            className="btn bg-transparent border-none shadow-none m-1 text-primary hover:bg-error hover:text-white"
+                                            className="m-1 bg-transparent border-none shadow-none btn text-primary hover:bg-error hover:text-white xs:p-0 sm:p-2"
                                         >
                                             <IconDelete />
                                         </button>
