@@ -10,7 +10,7 @@ lightFooterLogo.src = "./logo-light.svg";
 const Footer = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   return (
-    <footer className="footer p-10 bg-neutral text-neutral-content mt-auto">
+    <footer className="p-10 mt-auto footer bg-neutral text-neutral-content">
       <aside>
         <img
           src={theme === "black" ? darkFooterLogo.src : lightFooterLogo.src}
