@@ -4,10 +4,10 @@ import "react-toastify/dist/ReactToastify.css";
 import useLogin from "../../hooks/useLogin";
 import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
-import url from "../../helpers/axios";
+import { axios } from "../../helpers/axios";
 import { useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
-import axios from "axios";
+import axios_base from "axios";
 
 
 //Login google
@@ -30,7 +30,7 @@ const Login = () => {
   const dataUser = async (access_token) => {
     try {
       if (access_token) {
-        const res = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token}`, {
+        const res = await axios_base.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token}`, {
           headers: {
             Authorization: `Bearer ${access_token}`,
             Accept: 'application/json'
@@ -60,7 +60,7 @@ const Login = () => {
 
   const loginGoogle = async (profile) => {
     try {
-      const existe = await url.post('/user', profile);
+      const existe = await axios.post('/user', profile);
       const { user } = existe.data;
       const { email, password } = user;
       SignIn({ email, password });
