@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="footer p-10 bg-neutral text-neutral-content mt-auto">
+    <footer className="p-10 mt-auto footer bg-neutral text-neutral-content">
       <aside>
         <img src="/logo.jpg" alt="" className="w-40" />
         <p>
