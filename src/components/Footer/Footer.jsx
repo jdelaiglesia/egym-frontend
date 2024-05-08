@@ -1,5 +1,9 @@
 import { NavLink } from "react-router-dom";
 
+const darkFooterLogo = new Image();
+darkFooterLogo.src = "./logo-dark.svg";
+const lightFooterLogo = new Image();
+lightFooterLogo.src = "./logo-light.svg";
 
 const Footer = () => {
   return (
@@ -15,8 +19,6 @@ const Footer = () => {
       <nav>
         <h6 className="footer-title">Social</h6>
         <div className="grid grid-flow-col gap-4">
-        
-        
           <NavLink to="https://twitter.com/elonmusk" className="">
             <svg
               xmlns="http://www.w3.org/2000/svg"

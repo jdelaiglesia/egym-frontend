@@ -124,7 +124,13 @@ function Productos() {
                     />
                   </td>
                   <td className="font-bold text-primary xs:p-0 xs:text-xs xs:pl-2 sm:text-base sm:w-36 xs:w-12">
-                    <button onClick={()=>{handleProductDetail(p)}}>{p.name}</button>
+                    <button
+                      onClick={() => {
+                        handleProductDetail(p);
+                      }}
+                    >
+                      {p.name}
+                    </button>
                   </td>
                   <td className="xs:hidden sm:block sm:text-base sm:p-0 sm:w-20 ">
                     {p.category.name}

@@ -6,8 +6,6 @@ import {
   Footer,
 } from "../../components/components";
 
-
-
 const ViewHome = () => {
   return (
     <>

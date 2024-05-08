@@ -3,6 +3,13 @@ import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/theme";
+const darkNavbarLogo = new Image();
+darkNavbarLogo.src = "./logo-dark.svg";
+
+const lightNavbarLogo = new Image();
+lightNavbarLogo.src = "./logo-light.svg";
 
 const Navbar = () => {
     const { pathname } = useLocation();
