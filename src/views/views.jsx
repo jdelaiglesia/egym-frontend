@@ -8,7 +8,8 @@ import ViewProductDetail from "./ViewProductDetail/ViewProductDetail";
 import ViewCreateProduct from "./ViewCreateProduct/ViewCreateProduct";
 import ViewEditProduct from "./ViewEditProduct/ViewEditProduct";
 import ViewProfile from "./ViewProfile/ViewProfile";
-import ViewSaleDetail from './ViewSaleDetail/ViewSaleDetail'
+import ViewSaleDetail from "./ViewSaleDetail/ViewSaleDetail";
+import ViewDashboardLogin from "./ViewDashboardLogin/ViewDashboardLogin";
 
 export {
   ViewDashboard,
@@ -21,5 +22,6 @@ export {
   ViewCreateProduct,
   ViewEditProduct,
   ViewProfile,
-  ViewSaleDetail
+  ViewSaleDetail,
+  ViewDashboardLogin,
 };

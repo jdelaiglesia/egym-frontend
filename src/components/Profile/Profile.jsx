@@ -1,6 +1,7 @@
-import { useFormik } from "formik";
-import useProfile from "../../hooks/useProfile";
 import { ToastContainer } from "react-toastify";
+import useProfile from "../../hooks/useProfile";
+import { useFormik } from "formik";
+import Loader from "../ProductDetail/Loader/Loader";
 
 const Profile = () => {
   const { updateProfile, validationSchema, user } = useProfile();
@@ -20,6 +21,10 @@ const Profile = () => {
     },
     enableReinitialize: true,
   });
+
+  if (Object.keys(user).length === 0) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex flex-col items-center px-10 py-10 gap-10">
@@ -251,7 +256,6 @@ items-center gap-2 w-30"
           </form>
         </div>
       </div>
-      <p>{JSON.stringify(formik.values)}</p>
       <ToastContainer />
     </div>
   );

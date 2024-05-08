@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {axios} from "../../../helpers/axios";
-import IconScale from "../Icons/IconScale";
-import IconUsers from "../Icons/IconUsers";
+import IconScaleStats from "../Icons/IconScaleStats";
+import IconUsersStats from "../Icons/IconUsersStats";
 import IconStar from "../Icons/IconStar";
 import useToast from "../../../hooks/useToast";
 import { ToastContainer } from "react-toastify";
@@ -42,14 +42,14 @@ function Estadisticas() {
   useEffect(() => {
     getStats();
   }, []);
-  return (
+  return stats.sales ?(
     <div className="overflow-auto xl:m-8 xl:w-3/5">
       <div className="flex flex-col overflow-auto">
-        <div className="flex flex-col border-none md:flex-row xl:mb-3">
-          <div className="flex justify-between w-full xl:px-10 ">
+        <div className="flex flex-col border-none md:flex-row xl:mb-3 xl:px-10 " >
+          <div className="flex justify-between w-full">
             <div className="flex flex-col justify-center md:pl-2">
               <div className="pl-1 text-md xl:text-md">Ingresos totales</div>
-              <div className="text-xl font-bold xl:text-4xl text-success">
+              <div className="pl-4 text-xl font-bold md:pl-1 xl:text-4xl text-success">
                 ${formatNumber(stats.sales?.totalMoney)}
               </div>
               <div className="pl-1 text-sm">
@@ -57,11 +57,11 @@ function Estadisticas() {
               </div>
             </div>
             <div className="mr-10 stat-figure text-primary">
-              <IconScale />
+              <IconScaleStats />
             </div>
           </div>
 
-          <div className="flex justify-between w-full py-3 border-t border-primary md:border-none xl:px-10">
+          <div className="flex justify-between w-full border-t border-primary md:border-none ">
             <div className="flex flex-col md:border-l md:border-primary md:pl-2">
               <div className="pl-1 text-md md:text-md">Usuarios totales</div>
               <div className="pl-4 text-xl font-bold md:text-4xl text-primary">
@@ -80,16 +80,16 @@ function Estadisticas() {
               </div>
             </div>
             <div className="mr-10 stat-figure text-primary w-[20px]">
-              <IconUsers />
+              <IconUsersStats />
             </div>
           </div>
         </div>
 
-        <div className="border-none ">
+        <div className="mt-1 border-none">
           <p className="pt-1 text-center border-t text-md md:text-xl border-primary text-primary">
             Productos
           </p>
-          <div className="flex">
+          <div className="flex ">
             <div className="p-1 md:p-4 stat">
               <p className="text-sm md:text-lg">Mas vendidos</p>
               <div className="text-xs md:text-lg">
@@ -138,7 +138,10 @@ function Estadisticas() {
       </div>
       <ToastContainer />
     </div>
-  );
+  ):(<div className="flex items-center w-full font-bold justify-evenly text-primary text:sm md:text-lg lg:text:2xl">
+    <p>Calculando estadisticas...</p>
+    <ToastContainer />
+  </div>);
 }
 
 export default Estadisticas;
