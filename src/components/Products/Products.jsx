@@ -41,13 +41,16 @@ function Products() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if(location.state?.productsMatch && location.state?.productsMatch.length >= 1){
+    if (
+      location.state?.productsMatch &&
+      location.state?.productsMatch.length >= 1
+    ) {
       setProducts(location.state?.productsMatch);
       setProductsAux(location.state?.productsMatch);
       setIsLoading(false);
-      setCurrentPage(1)
+      setCurrentPage(1);
       setKey(Math.random()); // Forzar una nueva renderización
-    } else{
+    } else {
       getProducts();
     }
   }, [location.state]);
@@ -58,16 +61,18 @@ function Products() {
         <>
           <h2 className="mt-10 font-bold text-4xl text-center">Productos</h2>
           <div className="flex justify-center pt-10">
-          <button onClick={getProducts} className="btn m-1 ">
-            Todos los productos
-          </button>
-          <Filters
-            products={productsAux}
-            setProducts={setProducts}
-            update={update}
-            setUpdate={setUpdate}
-            setPage={setCurrentPage}
-          />
+            <div className="flex flex-col md:flex-row">
+              <button onClick={getProducts} className="btn m-1">
+                Todos los productos
+              </button>
+              <Filters
+                products={productsAux}
+                setProducts={setProducts}
+                update={update}
+                setUpdate={setUpdate}
+                setPage={setCurrentPage}
+              />
+            </div>
           </div>
           <div className="flex flex-wrap justify-center gap-8 mx-10 my-10">
             {pathname === "/shop" && isLoading
