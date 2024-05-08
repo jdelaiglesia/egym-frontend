@@ -3,7 +3,23 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/theme";
 
-import { useTheme } from "../Navbar/ToggleTheme/ToggleTheme";
+const darkImage1 = new Image();
+darkImage1.src = "./slides/bannerDark1.svg";
+const darkImage2 = new Image();
+darkImage2.src = "./slides/bannerDark2.svg";
+const darkImage3 = new Image();
+darkImage3.src = "./slides/bannerDark3.svg";
+const darkImage4 = new Image();
+darkImage4.src = "./slides/bannerDark4.svg";
+
+const lightImage1 = new Image();
+lightImage1.src = "./slides/bannerLight1.svg";
+const lightImage2 = new Image();
+lightImage2.src = "./slides/bannerLight2.svg";
+const lightImage3 = new Image();
+lightImage3.src = "./slides/bannerLight3.svg";
+const lightImage4 = new Image();
+lightImage4.src = "./slides/bannerLight4.svg";
 
 const Featured = () => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -21,11 +37,7 @@ const Featured = () => {
         className="carousel-item relative w-full flex justify-center items-center bg-cover min-h-screen"
       >
         <img
-          src={
-            theme === "black"
-              ? "./slides/bannerDark1.svg"
-              : "./slides/bannerLight1.svg"
-          }
+          src={theme === "black" ? darkImage1.src : lightImage1.src}
           className="w-full"
         />
         <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
@@ -42,11 +54,7 @@ const Featured = () => {
         className="carousel-item relative w-full flex justify-center items-center bg-cover min-h-screen"
       >
         <img
-          src={
-            theme === "black"
-              ? "./slides/bannerDark2.svg"
-              : "./slides/bannerLight2.svg"
-          }
+          src={theme === "black" ? darkImage2.src : lightImage2.src}
           className="w-full"
         />
         <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
@@ -63,11 +71,7 @@ const Featured = () => {
         className="carousel-item relative w-full flex justify-center items-center bg-cover min-h-screen"
       >
         <img
-          src={
-            theme === "black"
-              ? "./slides/bannerDark3.svg"
-              : "./slides/bannerLight3.svg"
-          }
+          src={theme === "black" ? darkImage3.src : lightImage3.src}
           className="w-full"
         />
         <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
@@ -84,11 +88,7 @@ const Featured = () => {
         className="carousel-item relative w-full flex justify-center items-center bg-cover min-h-screen"
       >
         <img
-          src={
-            theme === "black"
-              ? "./slides/bannerDark4.svg"
-              : "./slides/bannerLight4.svg"
-          }
+          src={theme === "black" ? darkImage4.src : lightImage4.src}
           className="w-full"
         />
         <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
