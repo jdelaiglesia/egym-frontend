@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
-// import { useTheme } from "../Navbar/ToggleTheme/ToggleTheme";
+import { ThemeContext } from "../../context/theme";
+import { useContext } from "react";
 
 const Footer = () => {
-  const theme = "black";
+  const theme = useContext(ThemeContext);
   return (
     <footer className="footer p-10 bg-neutral text-neutral-content mt-auto">
       <aside>

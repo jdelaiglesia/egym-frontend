@@ -1,16 +1,13 @@
 import { ToggleTheme, Search } from "../components";
-import { NavLink } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, NavLink } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
-import { useNavigate } from "react-router-dom";
-import { ThemeProvider } from "../../context/theme.jsx";
+import { ThemeContext } from "../../context/theme";
 import { useContext } from "react";
 
 const Navbar = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  //   const { theme, setTheme } = useContext(ThemeProvider);
-  const theme = "black";
+  const { theme, setTheme } = useContext(ThemeContext);
 
   const localUser = JSON.parse(localStorage.getItem("user"))
     ? JSON.parse(localStorage.getItem("user"))

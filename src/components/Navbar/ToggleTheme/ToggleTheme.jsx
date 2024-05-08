@@ -1,11 +1,9 @@
 // Import Hooks
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { ThemeContext } from "../../../context/theme";
 
 const ToggleTheme = () => {
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "black"
-  );
+  const { theme, setTheme } = useContext(ThemeContext);
 
   const handleChange = (e) => {
     if (e.target.checked) {
@@ -57,6 +55,19 @@ const ToggleTheme = () => {
       </svg>
     </label>
   );
+};
+export const useTheme = () => {
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "black"
+  );
+
+  useEffect(() => {
+    console.log(theme);
+    localStorage.setItem("theme", theme);
+    document.querySelector("html").setAttribute("data-theme", theme);
+  }, [theme]);
+
+  return { theme, setTheme };
 };
 
 export default ToggleTheme;
