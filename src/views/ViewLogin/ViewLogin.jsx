@@ -9,7 +9,7 @@ const ViewLogin = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem("user"));
-    if (localUser.token) {
+    if (localUser?.token) {
       navigate("/");
     } else {
       null;

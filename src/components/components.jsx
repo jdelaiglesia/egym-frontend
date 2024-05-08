@@ -16,7 +16,10 @@ import Register from "./Register/Register";
 import AdminDashboard from "./AdminDashboard/AdminDashoard";
 import EditProduct from "./EditProduct/EditProduct";
 import Profile from "./Profile/Profile";
-import SaleDetail from './SaleDetail/SaleDetail'
+import SaleDetail from "./SaleDetail/SaleDetail";
+import NavbarDashboard from "./AdminDashboard/NavbarDashboard/NavbarDashboard";
+import Loader from "./ProductDetail/Loader/Loader";
+import LoginDashboard from "./AdminDashboard/LoginDashboard/LoginDashboard";
 
 export {
   Cart,
@@ -38,4 +41,7 @@ export {
   EditProduct,
   Profile,
   SaleDetail,
+  NavbarDashboard,
+  LoginDashboard,
+  Loader,
 };
