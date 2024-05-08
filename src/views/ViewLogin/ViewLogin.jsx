@@ -1,6 +1,6 @@
 // Import Components
 import { Navbar, Footer, Login } from "../../components/components";
-
+//
 const ViewLogin = () => {
   const navigate = useNavigate();
   useEffect(() => {
