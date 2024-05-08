@@ -1,15 +1,17 @@
 import { NavLink } from "react-router-dom";
-
-const darkFooterLogo = new Image();
-darkFooterLogo.src = "./logo-dark.svg";
-const lightFooterLogo = new Image();
-lightFooterLogo.src = "./logo-light.svg";
+import { ThemeContext } from "../../context/theme";
+import { useContext } from "react";
 
 const Footer = () => {
+  const theme = useContext(ThemeContext);
   return (
-    <footer className="p-10 mt-auto footer bg-neutral text-neutral-content">
+    <footer className="footer p-10 bg-neutral text-neutral-content mt-auto">
       <aside>
-        <img src="/logo.jpg" alt="" className="w-40" />
+        <img
+          src={theme === "black" ? "./logo-dark.svg" : "./logo-light.svg"}
+          alt="e-gym logo"
+          className="w-40"
+        />
         <p>
           E GYM
           <br />
