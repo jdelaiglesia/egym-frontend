@@ -3,12 +3,19 @@ import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "./ToggleTheme/ToggleTheme";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/theme";
+
+const darkNavbarLogo = new Image();
+darkNavbarLogo.src = "./logo-dark.svg";
+
+const lightNavbarLogo = new Image();
+lightNavbarLogo.src = "./logo-light.svg";
 
 const Navbar = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const {theme} = useTheme();
+  const { theme, setTheme } = useContext(ThemeContext);
 
   const localUser = JSON.parse(localStorage.getItem("user"))
     ? JSON.parse(localStorage.getItem("user"))
@@ -26,12 +33,12 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1 items-center">
-        <NavLink
-          to="/"
-          className="p-0 w-24 btn btn-ghost"
-        >
+        <NavLink to="/" className="p-0 w-24 btn btn-ghost">
           <div className="w-12 rounded-full">
-            <img alt="Tailwind CSS Navbar component" src={theme === "black" ? '/logo-light.svg' : '/logo-dark.svg'} />
+            <img
+              alt="Tailwind CSS Navbar component"
+              src={theme === "black" ? darkNavbarLogo.src : lightNavbarLogo.src}
+            />
           </div>
         </NavLink>
         <div className="flex gap-2 mx-4 items-center">
@@ -72,7 +79,7 @@ const Navbar = () => {
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                /> 
+                />
               </svg>
               <span className="badge badge-sm indicator-item">{count}</span>
             </div>
@@ -85,7 +92,6 @@ const Navbar = () => {
               role="button"
               className="btn btn-ghost btn-circle avatar online"
             >
-
               <div className="w-10 rounded-full">
                 <img alt={localUser?.name} src={localUser?.url_image} />
               </div>
