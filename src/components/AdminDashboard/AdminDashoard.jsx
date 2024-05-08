@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState  } from "react";
 import Productos from "./Productos/Productos";
 import Ventas from "./Ventas/Ventas";
 import Usuarios from "./Usuarios/Usuarios";
@@ -12,13 +12,11 @@ import IconMoney from "./Icons/IconMoney";
 
 function AdminDashboard() {
   const [component, setComponent] = useState("Productos");
-  const [activeButton, setActiveButton] = useState("Productos");
 
   const handleClick = (event) => {
     setComponent(event.currentTarget.name);
-    setActiveButton(event.currentTarget.name);
-    console.log(event.currentTarget.name);
   };
+
   return (
     <div className="flex flex-row w-full gap-2 mb-8 overflow-x-hidden">
       <ul className="h-full p-0 text-lg menu lg:w-56 bg-base-100 rounded-box">
@@ -26,7 +24,7 @@ function AdminDashboard() {
           <button
             name="Productos"
             className={` ml-4 ${
-              activeButton === "Productos"
+              component === "Productos"
                 ? "bg-primary text-black focus:bg-primary focus:text-black"
                 : ""
             }`}
@@ -38,7 +36,7 @@ function AdminDashboard() {
           <button
             name="Cupones"
             className={` ml-4 ${
-              activeButton === "Cupones"
+              component === "Cupones"
                 ? "bg-primary text-black focus:bg-primary focus:text-black"
                 : ""
             }`}
@@ -50,7 +48,7 @@ function AdminDashboard() {
           <button
             name="Usuarios"
             className={` ml-4 ${
-              activeButton === "Usuarios"
+              component === "Usuarios"
                 ? "bg-primary text-black focus:bg-primary focus:text-black"
                 : ""
             }`}
@@ -62,7 +60,7 @@ function AdminDashboard() {
           <button
             name="Ventas"
             className={` ml-4 ${
-              activeButton === "Ventas"
+              component === "Ventas"
                 ? "bg-primary text-black focus:bg-primary focus:text-black"
                 : ""
             }`}
@@ -73,8 +71,8 @@ function AdminDashboard() {
           </button>
           <button
             name="Estadisticas"
-            className={` ml-4 ${
-              activeButton === "Estadisticas"
+            className={` ml-4  ${
+              component === "Estadisticas"
                 ? "bg-primary text-black focus:bg-primary focus:text-black"
                 : ""
             }`}
@@ -88,7 +86,7 @@ function AdminDashboard() {
           <button
             name="Productos"
             className={` p-1 ${
-              activeButton === "Productos"
+              component === "Productos"
                 ? "bg-primary text-black focus:bg-primary focus:text-black"
                 : ""
             }`}
@@ -99,7 +97,7 @@ function AdminDashboard() {
           <button
             name="Cupones"
             className={`p-1 ${
-              activeButton === "Cupones"
+              component === "Cupones"
                 ? "bg-primary text-black focus:bg-primary focus:text-black m-0"
                 : ""
             }`}
@@ -110,7 +108,7 @@ function AdminDashboard() {
           <button
             name="Usuarios"
             className={` p-1 ${
-              activeButton === "Usuarios"
+              component === "Usuarios"
                 ? "bg-primary text-black focus:bg-primary focus:text-black"
                 : ""
             }`}
@@ -121,7 +119,7 @@ function AdminDashboard() {
           <button
             name="Ventas"
             className={` p-1 ${
-              activeButton === "Ventas"
+              component === "Ventas"
                 ? "bg-primary text-black focus:bg-primary focus:text-black"
                 : ""
             }`}
@@ -132,7 +130,7 @@ function AdminDashboard() {
           <button
             name="Estadisticas"
             className={` p-1 ${
-              activeButton === "Estadisticas"
+              component === "Estadisticas"
                 ? "bg-primary text-black focus:bg-primary focus:text-black"
                 : ""
             }`}

@@ -95,7 +95,7 @@ function Productos() {
               <th className="p-2 pl-4 xs:p-0 xs:text-xs sm:text-base sm:block xs:hidden sm:w-18">
                 Imagen
               </th>
-              <th className="p-2 sm:p-0 xs:p-0 xs:text-xs xs:w-16 sm:text-base sm:w-36 m:pl-2">
+              <th className="p-2 sm:p-0 xs:p-0 xs:text-xs xs:w-16 sm:text-base sm:w-36 md:w-48 m:pl-2">
                 Nombre
               </th>
               <th className="p-2 text-base sm:p-0 xs:hidden xs:p-0 xs:text-xs sm:text-base sm:block sm:w-20 ">
@@ -123,14 +123,8 @@ function Productos() {
                       className="p-0 sm:w-10 xl:w-16 "
                     />
                   </td>
-                  <td className="font-bold text-primary xs:p-0 xs:text-xs xs:pl-2 sm:text-base sm:w-36 xs:w-12">
-                    <button
-                      onClick={() => {
-                        handleProductDetail(p);
-                      }}
-                    >
-                      {p.name}
-                    </button>
+                  <td className="font-bold text-primary xs:p-0 xs:text-xs xs:pl-2 sm:w-36 md:w-48 sm:text-sm xs:w-12 text-start">
+                    <button onClick={()=>{handleProductDetail(p)}}>{p.name}</button>
                   </td>
                   <td className="xs:hidden sm:block sm:text-base sm:p-0 sm:w-20 ">
                     {p.category.name}
@@ -149,7 +143,7 @@ function Productos() {
                   >
                     {p.stock}
                   </td>
-                  <td className="flex gap-2 xs:p-1 xs:w-20 sm:w-28 sm:p-2">
+                  <td className="flex gap-1 xs:w-20 sm:w-28 sm:p-2">
                     <button
                       onClick={() => {
                         handleEdit(p);
