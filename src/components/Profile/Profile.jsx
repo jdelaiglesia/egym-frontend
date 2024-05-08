@@ -1,7 +1,6 @@
-import { ToastContainer } from "react-toastify";
-import useProfile from "../../hooks/useProfile";
 import { useFormik } from "formik";
-import Loader from "../ProductDetail/Loader/Loader";
+import useProfile from "../../hooks/useProfile";
+import { ToastContainer } from "react-toastify";
 
 const Profile = () => {
   const { updateProfile, validationSchema, user } = useProfile();
@@ -12,8 +11,8 @@ const Profile = () => {
       last_name: user?.last_name || "",
       dni: user?.dni || "",
       phone_number: user?.phone_number || "",
+      password: "",
       url_image: user?.url_image || "",
-      address: user?.address || "",
     },
     validationSchema,
     onSubmit: async (values) => {
@@ -21,10 +20,6 @@ const Profile = () => {
     },
     enableReinitialize: true,
   });
-
-  if (Object.keys(user).length === 0) {
-    return <Loader />;
-  }
 
   return (
     <div className="flex flex-col items-center px-10 py-10 gap-10">
@@ -183,6 +178,35 @@ const Profile = () => {
               </div>
             </div>
             <div className="flex flex-col gap-2">
+              {/* password */}
+              <label className="input input-bordered flex items-center gap-2 w-30">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-4 h-4 opacity-70"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+
+                <input
+                  type="password"
+                  className="grow"
+                  name="password"
+                  placeholder="Confirmar contraseña"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+              </label>
+              <span className="text-red-500 text-xs">
+                {formik.touched.password ? formik.errors.password : null}
+              </span>
+            </div>
+            <div className="flex flex-col gap-2">
               {/* url_image */}
               <label className="input input-bordered flex items-center gap-2">
                 <svg
@@ -216,39 +240,6 @@ const Profile = () => {
                 {formik.touched.url_image ? formik.errors.url_image : null}
               </span>
             </div>
-            <div className="flex flex-col gap-2">
-              {/* address */}
-              <label
-                className="input input-bordered flex 
-items-center gap-2 w-30"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-4 h-4 opacity-70"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-
-                <input
-                  type="text"
-                  className="grow"
-                  name="address"
-                  placeholder="Dirección"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  defaultValue={formik.values.address}
-                />
-              </label>
-              <span className="text-red-500 text-xs">
-                {formik.touched.address ? formik.errors.address : null}
-              </span>
-            </div>
 
             <button className="btn btn-primary no-animation" type="submit">
               Actualizar
@@ -256,6 +247,7 @@ items-center gap-2 w-30"
           </form>
         </div>
       </div>
+      <p>{JSON.stringify(formik.values)}</p>
       <ToastContainer />
     </div>
   );

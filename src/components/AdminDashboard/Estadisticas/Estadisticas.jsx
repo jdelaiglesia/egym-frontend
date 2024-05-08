@@ -20,7 +20,7 @@ function Rating({ averageRating }) {
   const roundedRating = Math.round(averageRating);
 
   return (
-    <div className="flex text-primary">
+    <div className="text-primary flex">
       {[...Array(roundedRating)].map((_, i) => (
         <p key={i}>
           <IconStar />
@@ -43,32 +43,32 @@ function Estadisticas() {
     getStats();
   }, []);
   return (
-    <div className="overflow-auto xl:m-8 xl:w-3/5">
-      <div className="flex flex-col overflow-auto">
-        <div className="flex flex-col border-none md:flex-row xl:mb-3">
-          <div className="flex justify-between w-full xl:px-10 ">
-            <div className="flex flex-col justify-center md:pl-2">
-              <div className="pl-1 text-md xl:text-md">Ingresos totales</div>
-              <div className="text-xl font-bold xl:text-4xl text-success">
+    <div className="m-8 w-3/5">
+      <div className="flex flex-col">
+        <div className="flex border-none mb-3">
+          <div className="flex justify-between w-full px-10 ">
+            <div className="flex flex-col">
+              <div className="text-md pl-1">Ingresos totales</div>
+              <div className="font-bold text-4xl text-success">
                 ${formatNumber(stats.sales?.totalMoney)}
               </div>
-              <div className="pl-1 text-sm">
+              <div className="text-sm pl-1">
                 Ventas totales: {stats.sales?.totalSales}
               </div>
             </div>
-            <div className="mr-10 stat-figure text-primary">
+            <div className="stat-figure text-primary">
               <IconScale />
             </div>
           </div>
 
-          <div className="flex justify-between w-full py-3 border-t border-primary md:border-none xl:px-10">
-            <div className="flex flex-col md:border-l md:border-primary md:pl-2">
-              <div className="pl-1 text-md md:text-md">Usuarios totales</div>
-              <div className="pl-4 text-xl font-bold md:text-4xl text-primary">
+          <div className="flex justify-between w-full px-10 ">
+            <div className="flex flex-col">
+              <div className="text-md pl-1">Usuarios totales</div>
+              <div className="font-bold text-4xl text-primary">
                 {stats.users?.total}
               </div>
-              <div className="pl-1 text-xs md:text-md">
-                <p className="">
+              <div className="text-sm pl-1">
+                <p className=" ">
                   <span className="text-success ">
                     {Math.round(
                       (stats.users?.members * 100) / stats.users?.total
@@ -79,31 +79,31 @@ function Estadisticas() {
                 </p>
               </div>
             </div>
-            <div className="mr-10 stat-figure text-primary w-[20px]">
+            <div className="stat-figure text-primary">
               <IconUsers />
             </div>
           </div>
         </div>
 
         <div className="border-none ">
-          <p className="pt-1 text-center border-t text-md md:text-xl border-primary text-primary">
+          <p className="text-center border-primary border-t pt-1 text-xl text-primary">
             Productos
           </p>
           <div className="flex">
-            <div className="p-1 md:p-4 stat">
-              <p className="text-sm md:text-lg">Mas vendidos</p>
-              <div className="text-xs md:text-lg">
+            <div className="stat">
+              <p className="text-lg">Mas vendidos</p>
+              <div>
                 {stats.products?.bestSellers.map((p) => {
                   return (
                     <div className="flex items-center">
                       <img
                         src={p.url_image}
                         alt={p.name}
-                        className="w-8 m-1 rounded-full md:w-12"
+                        className="w-12 rounded-full m-1"
                       />
                       <div>
-                        <p className="text-sm">{p.name}</p>
-                        <p className="text-xs text-primary">
+                        <p className="text-lg">{p.name}</p>
+                        <p className="text-sm text-primary">
                           {p.quantity} vendidos
                         </p>
                       </div>
@@ -113,8 +113,8 @@ function Estadisticas() {
               </div>
             </div>
 
-            <div className="p-1 md:p-4 stat">
-              <p className="text-sm md:text-lg">Mas populares</p>
+            <div className="stat">
+              <p className="text-lg">Mas populares</p>
               <div>
                 {stats.products?.bestsRating.map((p) => {
                   return (
@@ -122,10 +122,10 @@ function Estadisticas() {
                       <img
                         src={p.url_image}
                         alt={p.name}
-                        className="w-8 m-1 rounded-full md:w-12"
+                        className="w-12 rounded-full m-1"
                       />
                       <div>
-                        <p className="text-sm">{p.name}</p>
+                        <p>{p.name}</p>
                         <Rating averageRating={p.averageRating} />
                       </div>
                     </div>

@@ -57,11 +57,11 @@ const Search = () => {
   };
 
   return (
-    <div className="flex flex-col items-start w-full gap-0 p-0 hover:bg-transparent">
+    <div>
       <input
         type="text"
         placeholder="Buscar productos"
-        className="input input-bordered h-10 w-full lg:w-max focus:outline-none"
+        className="input input-bordered w-24 md:w-auto focus:outline-none"
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         value={state}
