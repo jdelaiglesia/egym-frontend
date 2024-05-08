@@ -1,6 +1,10 @@
 // Import Components
 import { Navbar, Footer, Register } from "../../components/components";
 
+// Import Hooks
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 const ViewRegister = () => {
   const navigate = useNavigate();
   useEffect(() => {

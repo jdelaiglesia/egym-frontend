@@ -1,10 +1,15 @@
 // Import Components
 import { Navbar, Footer, Login } from "../../components/components";
+
+// Import Hooks
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 const ViewLogin = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem("user"));
-    if (localUser?.token) {
+    if (localUser.token) {
       navigate("/");
     } else {
       null;

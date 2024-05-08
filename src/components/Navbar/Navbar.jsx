@@ -12,22 +12,21 @@ const lightNavbarLogo = new Image();
 lightNavbarLogo.src = "./logo-light.svg";
 
 const Navbar = () => {
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-  const { theme, setTheme } = useContext(ThemeContext);
+    const { pathname } = useLocation();
+    const navigate = useNavigate();
 
-  const localUser = JSON.parse(localStorage.getItem("user"))
-    ? JSON.parse(localStorage.getItem("user"))
-    : {};
+    const localUser = JSON.parse(localStorage.getItem("user"))
+        ? JSON.parse(localStorage.getItem("user"))
+        : {};
 
-  const {
-    cart: { count },
-    clearCart,
-  } = useCart();
+    const {
+        cart: { count },
+        clearCart,
+    } = useCart();
 
-  const user = JSON.parse(window.localStorage.getItem("user"))
-    ? JSON.parse(window.localStorage.getItem("user"))
-    : {};
+    const user = JSON.parse(window.localStorage.getItem("user"))
+        ? JSON.parse(window.localStorage.getItem("user"))
+        : {};
 
     return (
         <div className="drawer">
