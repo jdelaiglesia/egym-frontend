@@ -31,9 +31,7 @@ export default function useProfile() {
       .max(9999999999)
       .integer()
       .required("Este campo es requerido"),
-    password: Yup.string().required(
-      "Para confirmar cambios ingrese su contraseña"
-    ),
+    address: Yup.string().required("Este campo es requerido"),
     url_image: Yup.mixed(),
   });
 
