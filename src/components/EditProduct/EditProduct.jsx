@@ -16,7 +16,6 @@ const EditProduct = () => {
     name: Yup.string().required("Ingrese un nombre"),
     stock: Yup.number().required("Ingrese un número de stock"),
     price: Yup.number().required("Ingrese un precio"),
-    description: Yup.string().required("Ingrese una descripción"),
   });
 
   const product = location.state.product;
@@ -25,14 +24,13 @@ const EditProduct = () => {
       name: product?.name,
       stock: product.stock,
       price: product.price,
-      description: product.description
     },
     validationSchema,
     onSubmit: async (values) => {
       try {
         await axios.put(`/product/${product._id}`, values);
 
-        toast.success("Producto editado", {
+        toast.success("Producto editado.", {
           position: "bottom-right",
           autoClose: 1350,
           hideProgressBar: false,
@@ -47,7 +45,7 @@ const EditProduct = () => {
           navigate("/dashboard");
         }, 2000);
       } catch (error) {
-        toast.error("Ha ocurrido un error al editar", {
+        toast.error("Ha ocurrido un error al editar.", {
           position: "bottom-right",
           autoClose: 1350,
           hideProgressBar: false,
@@ -85,25 +83,6 @@ const EditProduct = () => {
 
           <span className="text-red-500 text-xs">
             {formik.touched.name ? formik.errors.name : null}
-          </span>
-        </div>
-
-        <div className="flex flex-col gap-2 mb-4">
-          <div className="label">
-            <span className="label-text">Descripción</span>
-          </div>
-          <textarea
-            type="text"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.description}
-            name="description"
-            className="textarea textarea-bordered"
-            placeholder="Descripción del producto"
-          />
-
-          <span className="text-red-500 text-xs">
-            {formik.touched.description ? formik.errors.description : null}
           </span>
         </div>
 

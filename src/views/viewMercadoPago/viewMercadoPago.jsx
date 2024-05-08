@@ -1,44 +1,42 @@
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
-import {axios} from "../../helpers/axios"
-import { useEffect, useState } from 'react';
+import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+import { axios } from "../../helpers/axios";
+import { useEffect, useState } from "react";
+import { useCart } from "../../hooks/useCart";
 
-const ViewMercadoPago = ({products}) => {
+const ViewMercadoPago = () => {
   let [preferenceId, setPreferenceId] = useState("");
-  let [idUser, setIdUser] = useState("")
-  
+
+  const {
+    cart: { products, total },
+  } = useCart();
+
   useEffect(() => {
     // Inicializador MercadoPago
-    initMercadoPago(import.meta.env.VITE_PUBLIC_KEY, { locale: 'es-AR' });
-
-    //obtiene id de user del local y guarda en estado
-    const userString = localStorage.getItem('user');
-    const userObject = JSON.parse(userString);
-    setIdUser(userObject._id);
+    initMercadoPago(import.meta.env.VITE_PUBLIC_KEY, { locale: "es-AR" });
   }, []);
-  console.log(idUser)
+
   useEffect(() => {
-    // Reinicia preferenceId cuando cambia products
-    setPreferenceId("");
-    // console.log("asdasd")
+    const getPreference = async () => {
+      try {
+        const response = await axios.post("/payment", products);
+        setPreferenceId(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log("No se pudo procesar Mercado Pago", error.message);
+      }
+    };
+    getPreference();
   }, [products]);
 
-  const getPreference = async()=>{
-        try {
-          const response = await axios.post("/payment", {products, idUser});
-          setPreferenceId(response.data);
-          console.log(response.data)
-        } catch (error) {
-          console.log("No se pudo procesar Mercado Pago", error.message);
-        }
-      }
-// console.log(products)
+  console.log(preferenceId);
+
   return (
     <div>
-      {preferenceId!=="" ? <Wallet initialization={{ preferenceId : preferenceId}}/>: 
-      <button className="btn btn-primary" onClick={()=>getPreference()}>Finalizar Pago</button>}
+      {preferenceId !== "" && (
+        <Wallet initialization={{ preferenceId: preferenceId }} />
+      )}
     </div>
   );
-  
 };
 
 export default ViewMercadoPago;
