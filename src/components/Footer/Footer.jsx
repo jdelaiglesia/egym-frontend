@@ -4,7 +4,6 @@ import { ThemeContext } from "../../context/theme";
 
 const darkFooterLogo = new Image();
 darkFooterLogo.src = "./logo-dark.svg";
-//
 const lightFooterLogo = new Image();
 lightFooterLogo.src = "./logo-light.svg";
 
