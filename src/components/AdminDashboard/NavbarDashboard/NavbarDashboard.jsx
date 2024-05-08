@@ -3,11 +3,15 @@ import { ToggleTheme } from "../../components";
 
 // Import Hooks
 import { NavLink, useLocation } from "react-router-dom";
+import { ThemeContext } from "../../../context/theme";
+import { useContext } from "react";
 
 const NavbarDashboard = () => {
   const user = JSON.parse(window.localStorage.getItem("user"))
     ? JSON.parse(window.localStorage.getItem("user"))
     : {};
+
+  const { theme } = useContext(ThemeContext);
 
   const { pathname } = useLocation();
   return (
@@ -38,7 +42,12 @@ const NavbarDashboard = () => {
             </label>
           </div>
           <div className="flex-1 px-2 mx-2">
-            <h1 className="text-2xl font-bold">EGYM</h1>
+            <div className="w-12 rounded-full">
+              <img
+                alt="Tailwind CSS Navbar component"
+                src={theme === "black" ? "/logo-light.svg" : "/logo-dark.svg"}
+              />
+            </div>
           </div>
           <div className="flex-none hidden lg:gap-2 lg:flex lg:items-center z-99">
             <ul className="items-center gap-2 menu menu-horizontal">
