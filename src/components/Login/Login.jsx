@@ -110,13 +110,13 @@ const Login = () => {
         <NavLink className="text-xs mb-6 underline" to="/register">
           ¿No tienes cuenta? Regístrate
         </NavLink>
-        <button className="btn btn-primary" type="submit">
+        <button className="btn btn-primary no-animation" type="submit">
           Ingresar
         </button>
 
         <button
           type="button"
-          className="btn bg-base-10 font-bold py-2 px-4 rounded-full mt-10"
+          className="btn bg-base-10 font-bold py-2 px-4 rounded-full mt-10 no-animation"
           onClick={login}
         >
           <svg
