@@ -5,7 +5,7 @@ import Whatsapp from "./components/Whatsapp/Whatsapp.jsx";
 
 // Import CartProvider
 import { CartProvider } from "./context/cart.jsx";
-import ViewMercadoPago from "./views/viewMercadoPago/viewMercadoPago.jsx";
+import ViewPayment from "./views/ViewPayment/ViewPayment.jsx";
 
 // Import Views
 import {
@@ -36,7 +36,7 @@ export const App = () => {
         <Route path="/profile" element={<ViewProfile />}></Route>
         <Route path="/dashboard" element={<ViewDashboard />}></Route>
         <Route path="/dashboard/create" element={<ViewCreateProduct />}></Route>
-        {/* <Route path="/payment" element={<ViewMercadoPago/>}></Route> */}
+        <Route path="/payment" element={<ViewPayment/>}></Route>
         <Route
           path="/dashboard/product/create"
           element={<ViewCreateProduct />}
