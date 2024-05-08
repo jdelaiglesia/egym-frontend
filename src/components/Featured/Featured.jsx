@@ -99,7 +99,9 @@ const Featured = () => {
             ❯
           </a>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Featured;

@@ -30,7 +30,7 @@ function Cart() {
             </div>
             <div>
               {/* <button className="btn btn-primary">Ir a pagar</button> */}
-              <ViewMercadoPago products={products}/>
+              <ViewMercadoPago />
             </div>
           </div>
         )}
