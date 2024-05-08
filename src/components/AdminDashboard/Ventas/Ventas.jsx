@@ -14,8 +14,8 @@ function Ventas() {
   const getSales = () => {
     axios("/sales")
       .then(({ data }) => {
-        const sortedSales = data.sort(
-          (a, b) => new Date(b.date) - new Date(a.date)
+        const sortedSales = data.sort((a, b) =>{new Date(a.date) - new Date(b.date)
+            }
         );
         setSales(sortedSales);
       })
@@ -39,7 +39,7 @@ function Ventas() {
       <table className="table w-full bg-transparent table-zebra">
         <thead className="w-full ">
           <tr className="flex items-center justify-between w-[98%]">
-            <th className="hidden p-0 text-xs md:text-base xl:block xl:w-32">Email</th>
+            <th className="hidden p-0 text-xs md:text-base xl:block xl:w-40">Email</th>
             <th className="hidden p-0 text-xs md:text-base md:p-2 xl:block xl:w-32">
               Direccion
             </th>
@@ -69,15 +69,15 @@ function Ventas() {
         <tbody className="w-full ">
           {sales?.map((s) => {
             return (
-              <tr className="flex items-center justify-between w-[98%]">
+              <tr className="flex items-center justify-between w-[98%] md:pl-2">
                 <td
-                  className={` overflow-auto hidden xl:block md:font-bold md:text-sm xl:w-40 ${
+                  className={` overflow-auto hidden xl:block md:font-bold md:text-sm xl:w-40 lg:p-0 lg:pl-1 ${
                     s.user?.email ? "text-primary" : null
                   }`}
                 >
                   {s.user?.email ? s.user?.email : "Sin email"}
                 </td>
-                <td className="hidden overflow-auto xl:block xl:w-32">
+                <td className="hidden overflow-auto xl:block xl:w-32 lg:p-0">
                   {s.user?.address ? s.user?.address : "Sin dirección"}
                 </td>
                 <td className="flex flex-col w-24 gap-2 p-0 xl:hidden lg:w-40">
@@ -94,10 +94,10 @@ function Ventas() {
                   </p>
                 </td>
                 
-                <td className="hidden gap-1 sm:flex md:flex-wrap md:overflow-auto xl:items-center xl:justify-center md:w-32 xl:w-40">
+                <td className="hidden gap-1 sm:flex md:flex-wrap md:overflow-auto xl:items-center sm:w-32 xl:w-40">
                   {s.products.map((p) => {
                     return (
-                      <div className="flex justify-center gap-1 my-1 center indicator">
+                      <div className="flex gap-1 my-1 justify-ceter indicator">
                         <img
                           src={p._id.url_image}
                           alt={p._id.name}
@@ -127,7 +127,7 @@ function Ventas() {
                   </p>
                   <p>${s?.total}</p>
                 </td>
-                <td className="hidden text-primary md:block">${s.total}</td>
+                <td className="hidden text-primary md:block lg:font-bold">${s.total}</td>
                 <td
                   className={` font-bold hidden md:block ${
                     s.status === "completed" ? "text-success" : "text-warning"
@@ -142,7 +142,7 @@ function Ventas() {
                     "/" +
                     s.date.slice(0, 4)}
                 </td>
-                <td className="flex ">
+                <td className="flex gap-1">
                   <button
                     onClick={() => {
                       handleViewDetail(s);

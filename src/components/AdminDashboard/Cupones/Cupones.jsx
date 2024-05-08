@@ -52,14 +52,14 @@ function Cupones() {
                         {coupons?.map((c) => {
                             return (
                                 <tr className="flex items-center gap-2 xs:w-full xs:justify-between md:justify-evenly ">
-                                    <td className="font-bold text-primary xs:text-xs xs:p-1 sm:text-base sm:w-20">
+                                    <td className="pl-2 font-bold text-primary xs:text-xs sm:text-base xs:w-14 sm:w-20">
                                         {c.name}
                                     </td>
                                     <td className="xs:text-xs xs:p-1 sm:text-base sm:w-16 sm:text-center">
                                         {c.percentage}%
                                     </td>
                                     <td
-                                        className={`font-bold xs:text-xs xs:p-1 sm:text-base sm:w-40 sm:text-end ${
+                                        className={`font-bold xs:text-xs xs:p-1 sm:text-base xs:w-24 sm:w-40 sm:text-end ${
                                             c.available
                                                 ? "text-success"
                                                 : "text-error"
@@ -69,7 +69,7 @@ function Cupones() {
                                             ? "Disponible"
                                             : "No disponible"}
                                     </td>
-                                    <td className="flex xs:p-0 sm:p-2">
+                                    <td className="flex gap-1 xs:p-0 sm:p-2">
                                         <button
                                             onClick={() => {
                                                 handleAvailable(c);
