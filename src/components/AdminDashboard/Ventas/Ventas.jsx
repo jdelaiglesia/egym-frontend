@@ -81,9 +81,12 @@ function Ventas() {
           </tr>
         </thead>
         <tbody className="w-full ">
-          {sales?.map((s) => {
+          {sales?.map((s, index) => {
             return (
-              <tr className="flex items-center justify-between w-[98%] md:pl-2">
+              <tr
+                className="flex items-center justify-between w-[98%] md:pl-2"
+                key={index}
+              >
                 <td
                   className={` overflow-auto hidden xl:block md:font-bold md:text-sm xl:w-40 lg:p-0 lg:pl-1 ${
                     s.user?.email ? "text-primary" : null
@@ -109,9 +112,12 @@ function Ventas() {
                 </td>
 
                 <td className="hidden gap-1 sm:flex md:flex-wrap md:overflow-auto xl:items-center sm:w-32 xl:w-40">
-                  {s.products.map((p) => {
+                  {s.products.map((p, index) => {
                     return (
-                      <div className="flex gap-1 my-1 justify-ceter indicator">
+                      <div
+                        className="flex gap-1 my-1 justify-ceter indicator"
+                        key={index}
+                      >
                         <img
                           src={p._id.url_image}
                           alt={p._id.name}

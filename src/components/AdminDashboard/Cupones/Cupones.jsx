@@ -77,9 +77,12 @@ function Cupones() {
             </tr>
           </thead>
           <tbody>
-            {coupons?.map((c) => {
+            {coupons?.map((c, index) => {
               return (
-                <tr className="flex items-center gap-2 xs:w-full xs:justify-between md:justify-evenly ">
+                <tr
+                  className="flex items-center gap-2 xs:w-full xs:justify-between md:justify-evenly"
+                  key={index}
+                >
                   <td className="font-bold text-primary xs:text-xs xs:p-1 sm:text-base sm:w-20">
                     {c.name}
                   </td>

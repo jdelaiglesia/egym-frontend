@@ -101,9 +101,12 @@ function Usuarios() {
           </tr>
         </thead>
         <tbody>
-          {users?.map((u) => {
+          {users?.map((u, index) => {
             return (
-              <tr className="flex items-center w-[98%] md:w-[98%] gap-2 xs:justify-between md:pl-2">
+              <tr
+                className="flex items-center w-[98%] md:w-[98%] gap-2 xs:justify-between md:pl-2"
+                key={index}
+              >
                 <div className="items-center justify-between hidden md:flex lg:w-48 xl:w-60">
                   <td className="font-bold text-primary xs:hidden lg:flex md:p-0">
                     <img
@@ -120,7 +123,7 @@ function Usuarios() {
                   {u.email}
                 </td>
                 <td className="flex-wrap text-[11px] xs:hidden md:block md:p-0 md:w-32 lg:text-sm lg:w-32 xl:w-40">
-                  {u.address ? u.address : "Sin dirección"}
+                  {u.address ? u.address : "Sin direcciÃ³n"}
                 </td>
                 <td className="text-[11px] xs:hidden md:block lg:text-sm xl:w-24">
                   {u.phone_number?.toString().length > 5

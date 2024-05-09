@@ -113,9 +113,12 @@ function Productos() {
             </tr>
           </thead>
           <tbody>
-            {products?.map((p) => {
+            {products?.map((p, index) => {
               return (
-                <tr className="flex items-center sm:justify-evenly xs:justify-between xl:justify-between xs:w-full sm:w-[98%]">
+                <tr
+                  className="flex items-center sm:justify-evenly xs:justify-between xl:justify-between xs:w-full sm:w-[98%]"
+                  key={index}
+                >
                   <td className="p-0 xs:hidden sm:block sm:w-10 xl:w-14">
                     <img
                       src={p.url_image}
@@ -124,7 +127,13 @@ function Productos() {
                     />
                   </td>
                   <td className="font-bold text-primary xs:p-0 xs:text-xs xs:pl-2 sm:w-36 md:w-48 sm:text-sm xs:w-12 text-start">
-                    <button onClick={()=>{handleProductDetail(p)}}>{p.name}</button>
+                    <button
+                      onClick={() => {
+                        handleProductDetail(p);
+                      }}
+                    >
+                      {p.name}
+                    </button>
                   </td>
                   <td className="xs:hidden sm:block sm:text-base sm:p-0 sm:w-20 ">
                     {p.category.name}

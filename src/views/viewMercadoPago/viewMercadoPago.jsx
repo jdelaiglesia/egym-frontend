@@ -15,13 +15,13 @@ const ViewMercadoPago = ({ products }) => {
     //obtiene id de user del local y guarda en estado
     const userString = localStorage.getItem("user");
     const userObject = JSON.parse(userString);
+
     setIdUser(userObject._id);
   }, []);
-  console.log(idUser);
+
   useEffect(() => {
     // Reinicia preferenceId cuando cambia products
     setPreferenceId("");
-    // console.log("asdasd")
   }, [products]);
 
   const getPreference = async () => {
@@ -30,16 +30,15 @@ const ViewMercadoPago = ({ products }) => {
         "/payment",
         { products, idUser },
         {
-          headers: { Authorization: `Bearer ${auth.token}` },
+          headers: { Authorization: Bearer ${auth.token} },
         }
       );
       setPreferenceId(response.data);
-      console.log(response.data);
     } catch (error) {
       console.log("No se pudo procesar Mercado Pago", error.message);
     }
   };
-  // console.log(products)
+
   return (
     <div>
       {preferenceId !== "" ? (
