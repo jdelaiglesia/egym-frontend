@@ -1,11 +1,17 @@
 import { NavLink } from "react-router-dom";
-
+import { ThemeContext } from "../../context/theme";
+import { useContext } from "react";
 
 const Footer = () => {
+  const theme = useContext(ThemeContext);
   return (
     <footer className="footer p-10 bg-neutral text-neutral-content mt-auto">
       <aside>
-        <img src="/logo.jpg" alt="" className="w-40" />
+        <img
+          src={theme === "black" ? "/logo-darj.svg" : "/logo-light.svg"}
+          alt="e-gym logo"
+          className="w-40"
+        />
         <p>
           E GYM
           <br />
@@ -15,8 +21,6 @@ const Footer = () => {
       <nav>
         <h6 className="footer-title">Social</h6>
         <div className="grid grid-flow-col gap-4">
-        
-        
           <NavLink to="https://twitter.com/elonmusk" className="">
             <svg
               xmlns="http://www.w3.org/2000/svg"

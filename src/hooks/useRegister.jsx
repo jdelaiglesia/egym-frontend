@@ -30,12 +30,12 @@ export default function useRegister() {
     try {
       await axios.post(`/user`, values);
 
-      ToastSuccess("Usuario registrado con exito.", 1350);
+      ToastSuccess("Usuario registrado con exito.", 1000);
       setTimeout(() => {
         navigate("/login");
-      }, 2000);
+      }, 1500);
     } catch (error) {
-      ToastError(error.response.data.message, 1350);
+      ToastError(error.response.data.message, 1000);
     }
   };
 

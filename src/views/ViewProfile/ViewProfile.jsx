@@ -4,13 +4,17 @@ import { Navbar, Profile, Footer } from "../../components/components";
 // Import Hooks
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useAuth } from "../../hooks/useAuth";
 import { axios } from "../../helpers/axios";
 
 const ViewProfile = () => {
   const navigate = useNavigate();
+  const { auth } = useAuth();
   useEffect(() => {
     axios
-      .get("/auth/token")
+      .get("/auth/token", {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      })
       .then((res) => {
         return;
       })

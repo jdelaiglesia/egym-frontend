@@ -49,6 +49,9 @@ function Productos() {
     navigate("/dashboard/product/edit", { state: { product } });
   };
 
+  const handleProductDetail = (product) => {
+    navigate(`/shop/product/${product._id}`);
+  };
   const handleDelete = (id) => {
     axios
       .delete(`/product/${id}`)
@@ -59,14 +62,14 @@ function Productos() {
   };
 
   return (
-    <div className="flex flex-col bg-base-100 h-screen w-full">
-      <div className="flex gap-2 absolute justify-center top-0 z-10 inset-x-[40%] p-1 mt-1">
-        <label className="flex w-full max-w-xs gap-2">
+    <div className="flex flex-col w-full h-screen bg-base-100 ">
+      <div className="flex gap-2 absolute justify-center top-0 z-10 md:inset-x-[40%] lg:left-0 p-1 mt-1 xs:right-4">
+        <label className="flex w-full max-w-xs gap-2 ">
           <select
             onChange={handleChange}
             value={filter.option}
             name="option"
-            className="select select-bordered"
+            className="select select-bordered xs:w-20 sm:w-40"
           >
             <option hidden>Opcion</option>
             <option value="name">Nombre</option>
@@ -77,7 +80,7 @@ function Productos() {
             onChange={handleChange}
             value={filter.order}
             name="order"
-            className="select select-bordered"
+            className="select select-bordered xs:w-20 sm:w-40"
           >
             <option hidden>Orden</option>
             <option value="asc">Ascendente</option>
@@ -85,30 +88,61 @@ function Productos() {
           </select>
         </label>
       </div>
-      <div className="overflow-auto w-full ">
-        <table className="table table-zebra bg-transparent mt-2 ml-2">
+      <div className="w-full overflow-auto ">
+        <table className="table mt-2 ml-2 bg-transparent table-zebra">
           <thead>
-            <tr>
-              <th className="text-base p-2 pl-4"></th>
-              <th className="text-base p-2">Nombre</th>
-              <th className="text-base p-2">Categoria</th>
-              <th className="text-base p-2">Precio</th>
-              <th className="text-base p-2">Stock</th>
-              <th className="text-base p-2 pl-10">Accion</th>
+            <tr className="flex items-center sm:justify-evenly xs:justify-between xl:justify-between xs:w-full sm:w-[98%] md:w-[98%]">
+              <th className="p-2 pl-4 xs:p-0 xs:text-xs sm:text-base sm:block xs:hidden sm:w-18">
+                Imagen
+              </th>
+              <th className="p-2 sm:p-0 xs:p-0 xs:text-xs xs:w-16 sm:text-base sm:w-36 md:w-48 m:pl-2">
+                Nombre
+              </th>
+              <th className="p-2 text-base sm:p-0 xs:hidden xs:p-0 xs:text-xs sm:text-base sm:block sm:w-20 ">
+                Categoria
+              </th>
+              <th className="p-2 text-base sm:p-0 xs:p-0 xs:text-xs xs:w-16 sm:text-base">
+                Precio
+              </th>
+              <th className="p-2 text-base sm:p-0 xs:p-0 xs:text-xs xs:w-12 sm:text-base">
+                Stock
+              </th>
+              <th className="p-2 pl-10 text-base sm:p-0 xs:p-0 xs:text-xs sm:text-base xs:w-16 text-start sm:w-24">
+                Acciones
+              </th>
             </tr>
           </thead>
           <tbody>
-            {products?.map((p,index) => {
+            {products?.map((p, index) => {
               return (
-                <tr key={index}>
-                  <td>
-                    <img src={p.url_image} alt={p.name} className="w-16" />
+                <tr
+                  className="flex items-center sm:justify-evenly xs:justify-between xl:justify-between xs:w-full sm:w-[98%]"
+                  key={index}
+                >
+                  <td className="p-0 xs:hidden sm:block sm:w-10 xl:w-14">
+                    <img
+                      src={p.url_image}
+                      alt={p.name}
+                      className="p-0 sm:w-10 xl:w-16 "
+                    />
                   </td>
-                  <td className="font-bold text-primary">{p.name}</td>
-                  <td>{p.category.name}</td>
-                  <td className="font-bold text-primary">${p.price}</td>
+                  <td className="font-bold text-primary xs:p-0 xs:text-xs xs:pl-2 sm:w-36 md:w-48 sm:text-sm xs:w-12 text-start">
+                    <button
+                      onClick={() => {
+                        handleProductDetail(p);
+                      }}
+                    >
+                      {p.name}
+                    </button>
+                  </td>
+                  <td className="xs:hidden sm:block sm:text-base sm:p-0 sm:w-20 ">
+                    {p.category.name}
+                  </td>
+                  <td className="sm:font-bold sm:text-primary xs:text-xs xs:p-2 xs:w-16 sm:text-base">
+                    ${p.price}
+                  </td>
                   <td
-                    className={`font-bold ${
+                    className={`font-bold xs:text-xs xs:p-0 sm:w-10 sm:text-center ${
                       p.stock > 5
                         ? "text-success"
                         : p.stock > 3
@@ -118,12 +152,12 @@ function Productos() {
                   >
                     {p.stock}
                   </td>
-                  <td className="flex">
+                  <td className="flex gap-1 xs:w-20 sm:w-28 sm:p-2">
                     <button
                       onClick={() => {
                         handleEdit(p);
                       }}
-                      className="btn bg-transparent border-none shadow-none m-1 hover:bg-primary hover:text-black"
+                      className="m-0 bg-transparent border-none shadow-none btn hover:bg-primary hover:text-black xs:p-0 sm:p-2 "
                     >
                       <IconEdit />
                     </button>
@@ -132,7 +166,7 @@ function Productos() {
                       onClick={() => {
                         handleDelete(p._id);
                       }}
-                      className="btn bg-transparent border-none shadow-none m-1 text-primary hover:bg-error hover:text-white"
+                      className="m-0 bg-transparent border-none shadow-none btn text-primary hover:bg-error hover:text-white xs:p-0 sm:p-2 "
                     >
                       <IconDelete />
                     </button>

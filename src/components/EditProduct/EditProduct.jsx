@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { axios } from "../../helpers/axios";
@@ -10,12 +9,11 @@ const EditProduct = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  console.log(location.state);
-
   const validationSchema = Yup.object({
     name: Yup.string().required("Ingrese un nombre"),
     stock: Yup.number().required("Ingrese un número de stock"),
     price: Yup.number().required("Ingrese un precio"),
+    description: Yup.string().required("Ingrese una descripción"),
   });
 
   const product = location.state.product;
@@ -24,13 +22,14 @@ const EditProduct = () => {
       name: product?.name,
       stock: product.stock,
       price: product.price,
+      description: product.description,
     },
     validationSchema,
     onSubmit: async (values) => {
       try {
         await axios.put(`/product/${product._id}`, values);
 
-        toast.success("Producto editado.", {
+        toast.success("Producto editado", {
           position: "bottom-right",
           autoClose: 1350,
           hideProgressBar: false,
@@ -45,7 +44,7 @@ const EditProduct = () => {
           navigate("/dashboard");
         }, 2000);
       } catch (error) {
-        toast.error("Ha ocurrido un error al editar.", {
+        toast.error("Ha ocurrido un error al editar", {
           position: "bottom-right",
           autoClose: 1350,
           hideProgressBar: false,
@@ -62,10 +61,10 @@ const EditProduct = () => {
   return (
     <div className="flex justify-center">
       <form
-        className="flex flex-col my-10 p-10 w-96"
+        className="flex flex-col p-10 my-10 w-96"
         onSubmit={formik.handleSubmit}
       >
-        <h2 className="text-4xl font-bold text-center mb-6">Editar producto</h2>
+        <h2 className="mb-6 text-4xl font-bold text-center">Editar producto</h2>
         <div className="flex flex-col gap-2 mb-4">
           <img src={product.url_image} alt={product.name} />
           <div className="label">
@@ -77,12 +76,31 @@ const EditProduct = () => {
             onBlur={formik.handleBlur}
             value={formik.values.name}
             name="name"
-            className="input input-bordered w-full max-w-xs"
+            className="w-full max-w-xs input input-bordered"
             placeholder="Nombre del producto"
           />
 
-          <span className="text-red-500 text-xs">
+          <span className="text-xs text-red-500">
             {formik.touched.name ? formik.errors.name : null}
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-2 mb-4">
+          <div className="label">
+            <span className="label-text">Descripción</span>
+          </div>
+          <textarea
+            type="text"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.description}
+            name="description"
+            className="textarea textarea-bordered"
+            placeholder="Descripción del producto"
+          />
+
+          <span className="text-xs text-red-500">
+            {formik.touched.description ? formik.errors.description : null}
           </span>
         </div>
 
@@ -96,11 +114,11 @@ const EditProduct = () => {
             onBlur={formik.handleBlur}
             value={formik.values.price}
             name="price"
-            className="input input-bordered w-full max-w-xs"
+            className="w-full max-w-xs input input-bordered"
             placeholder="Precio"
           />
 
-          <span className="text-red-500 text-xs">
+          <span className="text-xs text-red-500">
             {formik.touched.price ? formik.errors.price : null}
           </span>
         </div>
@@ -115,11 +133,11 @@ const EditProduct = () => {
             onBlur={formik.handleBlur}
             value={formik.values.stock}
             name="stock"
-            className="input input-bordered w-full max-w-xs"
+            className="w-full max-w-xs input input-bordered"
             placeholder="Número de stock"
           />
 
-          <span className="text-red-500 text-xs">
+          <span className="text-xs text-red-500">
             {formik.touched.stock ? formik.errors.stock : null}
           </span>
         </div>
