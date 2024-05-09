@@ -6,7 +6,7 @@ import Whatsapp from "./components/Whatsapp/Whatsapp.jsx";
 // Import CartProvider
 import { CartProvider } from "./context/cart.jsx";
 import ViewMercadoPago from "./views/viewMercadoPago/viewMercadoPago.jsx";
-
+import ViewMembership from "./views/ViewMembership/ViewMembership.jsx";
 // Import Views
 import {
   ViewDashboard,
@@ -19,7 +19,8 @@ import {
   ViewCreateProduct,
   ViewEditProduct,
   ViewProfile,
-  ViewSaleDetail
+  ViewSaleDetail,
+  
 } from "./views/views.jsx";
 
 export const App = () => {
@@ -36,7 +37,7 @@ export const App = () => {
         <Route path="/profile" element={<ViewProfile />}></Route>
         <Route path="/dashboard" element={<ViewDashboard />}></Route>
         <Route path="/dashboard/create" element={<ViewCreateProduct />}></Route>
-        {/* <Route path="/payment" element={<ViewMercadoPago/>}></Route> */}
+        <Route path="/payment" element={<ViewMercadoPago/>}></Route> 
         <Route
           path="/dashboard/product/create"
           element={<ViewCreateProduct />}
@@ -46,6 +47,7 @@ export const App = () => {
           element={<ViewEditProduct />}
         ></Route>
         <Route path="/dashboard/sale/detail" element={<ViewSaleDetail />}></Route>
+        <Route path="/membership" element={<ViewMembership/>}></Route>
       </Routes>
     </CartProvider>
   );

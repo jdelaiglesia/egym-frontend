@@ -98,9 +98,9 @@ function Productos() {
             </tr>
           </thead>
           <tbody>
-            {products?.map((p) => {
+            {products?.map((p,index) => {
               return (
-                <tr>
+                <tr key={index}>
                   <td>
                     <img src={p.url_image} alt={p.name} className="w-16" />
                   </td>

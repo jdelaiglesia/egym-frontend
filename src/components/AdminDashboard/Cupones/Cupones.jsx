@@ -47,9 +47,9 @@ function Cupones() {
                         </tr>
                     </thead>
                     <tbody>
-                        {coupons?.map((c) => {
+                        {coupons?.map((c,index) => {
                             return (
-                                <tr>
+                                <tr key={index}>
                                     <td className="font-bold text-primary">
                                         {c.name}
                                     </td>

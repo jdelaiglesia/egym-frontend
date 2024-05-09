@@ -58,9 +58,9 @@ function Ventas() {
             </tr>
           </thead>
           <tbody className="max-w-md w-full">
-            {sales?.map((s) => {
+            {sales?.map((s,index) => {
               return (
-                <tr className="overflow-hidden">
+                <tr className="overflow-hidden" key={index}>
                   <td className={`max-w-xs overflow-auto ${s.user?.email ? "text-primary" : null}`}>
                     {s.user?.email ? s.user?.email : "Sin email"}
                   </td>
@@ -68,9 +68,9 @@ function Ventas() {
                     {s.user?.address ? s.user?.address : "Sin dirección"}
                   </td>
                   <td className="flex flex-wrap gap-1 max-w-40 overflow-auto max-h-[105px]">
-                    {s.products.map((p) => {
+                    {s.products.map((p,index) => {
                       return (
-                        <div className="indicator flex gap-1 my-1 items-center">
+                        <div className="indicator flex gap-1 my-1 items-center" key={index}>
                           <img
                             src={p._id.url_image}
                             alt={p._id.name}

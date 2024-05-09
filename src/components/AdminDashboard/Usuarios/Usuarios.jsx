@@ -60,9 +60,9 @@ function Usuarios() {
             </tr>
           </thead>
           <tbody className="max-w-md w-full">
-            {users?.map((u) => {
+            {users?.map((u,index) => {
               return (
-                <tr>
+                <tr key={index}>
                   <td className="font-bold text-primary max-w-xs overflow-auto">
                     <img src={u.url_image} alt={u.name} className="w-8 rounded-full" />
                   </td>

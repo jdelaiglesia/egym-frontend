@@ -13,25 +13,26 @@ const ViewMercadoPago = ({products}) => {
     //obtiene id de user del local y guarda en estado
     const userString = localStorage.getItem('user');
     const userObject = JSON.parse(userString);
+   
     setIdUser(userObject._id);
   }, []);
-  console.log(idUser)
+
   useEffect(() => {
     // Reinicia preferenceId cuando cambia products
     setPreferenceId("");
-    // console.log("asdasd")
+  
   }, [products]);
 
   const getPreference = async()=>{
         try {
           const response = await axios.post("/payment", {products, idUser});
           setPreferenceId(response.data);
-          console.log(response.data)
         } catch (error) {
-          console.log("No se pudo procesar Mercado Pago", error.message);
+          console.log(error)
+      
         }
       }
-// console.log(products)
+
   return (
     <div>
       {preferenceId!=="" ? <Wallet initialization={{ preferenceId : preferenceId}}/>: 

@@ -31,8 +31,9 @@ export function CartProvider({ children }) {
     const checkProductIndex = cart.products.findIndex(
       (cartItem) => cartItem._id === product._id
     );
-
-    if (checkProductIndex >= 0) {
+    if(product.quantity == 0) {
+      ToastWarning("Por favor indica una cantidad",1350)
+    }else if (checkProductIndex >= 0) {
       ToastError("El producto ya esta en el carrito.", 1350);
     } else {
       if (product.quantity > product.stock || product.quantity < 0) {
@@ -74,7 +75,6 @@ export function CartProvider({ children }) {
       newCart.products.splice(productIndex, 1);
       newCart.total -= removeCartItem.price * removeCartItem.quantity;
       newCart.count -= removeCartItem.quantity;
-
       setCart(newCart);
     }
   };

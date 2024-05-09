@@ -7,7 +7,7 @@ function Cart() {
     cart: { products, total },
   } = useCart();
 
-  // console.log(products)
+ 
 
   return (
     <div className="cart-container mx-4 mb-10 mt-4">
@@ -18,7 +18,7 @@ function Cart() {
             Todavía no has agregado productos.
           </span>
         ) : (
-          products.map((cartItem) => <CartItem product={cartItem} />)
+          products.map((cartItem, index) => <CartItem product={cartItem} key={index}/>)
         )}
         {products.length > 0 && (
           <div className="flex justify-between items-center px-4 py-2">
@@ -29,7 +29,7 @@ function Cart() {
               </span>
             </div>
             <div>
-              {/* <button className="btn btn-primary">Ir a pagar</button> */}
+        
               <ViewMercadoPago products={products}/>
             </div>
           </div>
