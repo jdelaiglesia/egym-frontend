@@ -4,8 +4,10 @@ import { axios } from "../../helpers/axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "../../hooks/useAuth";
 
 const EditProduct = () => {
+  const { auth } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -27,7 +29,9 @@ const EditProduct = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        await axios.put(`/product/${product._id}`, values);
+        await axios.put(`/product/${product._id}`, values, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        });
 
         toast.success("Producto editado", {
           position: "bottom-right",

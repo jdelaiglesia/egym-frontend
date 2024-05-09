@@ -2,11 +2,14 @@ import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { axios } from "../../helpers/axios";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
+import CompleteInformation from "../../components/Cart/CompleteInformation/CompleteInformation";
 
 const ViewMercadoPago = ({ products }) => {
   let [preferenceId, setPreferenceId] = useState("");
   let [idUser, setIdUser] = useState("");
-  const { auth } = useAuth();
+  const [force, setForce] = useState(false);
+
+  const { auth, user } = useAuth();
 
   useEffect(() => {
     // Inicializador MercadoPago
@@ -18,6 +21,10 @@ const ViewMercadoPago = ({ products }) => {
 
     setIdUser(userObject._id);
   }, []);
+
+  useEffect(() => {
+    setForce(!force);
+  }, [user]);
 
   useEffect(() => {
     // Reinicia preferenceId cuando cambia products
@@ -41,13 +48,23 @@ const ViewMercadoPago = ({ products }) => {
 
   return (
     <div>
-      {preferenceId !== "" ? (
+      {!user.dni || !user.address || !user.phone_number ? (
+        <CompleteInformation />
+      ) : preferenceId !== "" ? (
         <Wallet initialization={{ preferenceId: preferenceId }} />
       ) : (
         <button className="btn btn-primary" onClick={() => getPreference()}>
           Finalizar Pago
         </button>
       )}
+
+      {/* {preferenceId !== "" ? (
+        <Wallet initialization={{ preferenceId: preferenceId }} />
+      ) : (
+        <button className="btn btn-primary" onClick={() => getPreference()}>
+          Finalizar Pago
+        </button>
+      )} */}
     </div>
   );
 };
