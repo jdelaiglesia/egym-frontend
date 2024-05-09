@@ -5,8 +5,10 @@ import IconDelete from "../Icons/IconDelete";
 import IconEdit from "../Icons/IconEdit";
 import useToast from "../../../hooks/useToast";
 import { ToastContainer } from "react-toastify";
+import { useAuth } from "../../../hooks/useAuth";
 
 function Productos() {
+  const { auth } = useAuth()
   const { ToastError } = useToast();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
@@ -54,7 +56,9 @@ function Productos() {
   };
   const handleDelete = (id) => {
     axios
-      .delete(`/product/${id}`)
+      .delete(`/product/${id}`, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      })
       .then((res) => {
         getProducts();
       })

@@ -15,11 +15,14 @@ function ViewEditProduct() {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const { auth } = useAuth();
+  const localUser = JSON.parse(localStorage.getItem("user"))
+  ? JSON.parse(localStorage.getItem("user"))
+  : { token: "Unknown" };
 
   useEffect(() => {
     axios
       .get("/dashboard/verify", {
-        headers: { Authorization: `Bearer ${auth.token}` },
+        headers: { Authorization: `Bearer ${localUser.token}` },
       })
       .then((res) => setIsLoading(false))
       .catch((error) => {

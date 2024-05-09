@@ -141,6 +141,7 @@ const Profile = () => {
                     className="grow"
                     name="dni"
                     placeholder="Numero de Documento"
+                    maxLength={8}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     defaultValue={formik.values.dni}
