@@ -4,13 +4,19 @@ import IconDelete from "../Icons/IconDelete";
 import IconCoupon from "../Icons/IconCoupon";
 import useToast from "../../../hooks/useToast";
 import { ToastContainer } from "react-toastify";
+import { useAuth } from "../../../hooks/useAuth";
 
 function Cupones() {
   const [coupons, setCoupons] = useState([]);
+  const { auth } = useAuth();
   const { ToastError } = useToast();
 
   const getCoupons = () => {
-    axios("/coupons")
+    axios("/coupons", {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    })
       .then(({ data }) => {
         setCoupons(data);
       })
@@ -25,14 +31,26 @@ function Cupones() {
       name: coupon.name,
       available: !coupon.available,
     };
-    axios.put(`/coupon`, updatedCoupon).then((res) => {
-      getCoupons();
-    });
+    axios
+      .put(`/coupon`, updatedCoupon, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      })
+      .then((res) => {
+        getCoupons();
+      });
   };
   const handleDelete = (id) => {
-    axios.delete(`/coupon/${id}`).then((res) => {
-      getCoupons();
-    });
+    axios
+      .delete(`/coupon/${id}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      })
+      .then((res) => {
+        getCoupons();
+      });
   };
   return (
     <div className="flex flex-col w-full bg-base-100">

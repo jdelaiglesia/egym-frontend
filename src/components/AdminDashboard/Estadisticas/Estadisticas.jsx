@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {axios} from "../../../helpers/axios";
+import { axios } from "../../../helpers/axios";
 import IconScaleStats from "../Icons/IconScaleStats";
 import IconUsersStats from "../Icons/IconUsersStats";
 import IconStar from "../Icons/IconStar";
 import useToast from "../../../hooks/useToast";
 import { ToastContainer } from "react-toastify";
+import { useAuth } from "../../../hooks/useAuth";
 
 function formatNumber(num) {
   if (num >= 1000000) {
@@ -31,21 +32,26 @@ function Rating({ averageRating }) {
 }
 
 function Estadisticas() {
+  const { auth } = useAuth();
   const { ToastError } = useToast();
   const [stats, setStats] = useState({});
 
   const getStats = () => {
-    axios("/stats")
+    axios("/stats", {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    })
       .then(({ data }) => setStats(data))
       .catch((error) => ToastError("Oh no, error en el servidor", 1350));
   };
   useEffect(() => {
     getStats();
   }, []);
-  return stats.sales ?(
+  return stats.sales ? (
     <div className="overflow-auto xl:m-8 xl:w-3/5">
       <div className="flex flex-col overflow-auto">
-        <div className="flex flex-col border-none md:flex-row xl:mb-3 xl:px-10 " >
+        <div className="flex flex-col border-none md:flex-row xl:mb-3 xl:px-10 ">
           <div className="flex justify-between w-full">
             <div className="flex flex-col justify-center md:pl-2">
               <div className="pl-1 text-md xl:text-md">Ingresos totales</div>
@@ -138,10 +144,12 @@ function Estadisticas() {
       </div>
       <ToastContainer />
     </div>
-  ):(<div className="flex items-center w-full font-bold justify-evenly text-primary text:sm md:text-lg lg:text:2xl">
-    <p>Calculando estadisticas...</p>
-    <ToastContainer />
-  </div>);
+  ) : (
+    <div className="flex items-center w-full font-bold justify-evenly text-primary text:sm md:text-lg lg:text:2xl">
+      <p>Calculando estadisticas...</p>
+      <ToastContainer />
+    </div>
+  );
 }
 
 export default Estadisticas;

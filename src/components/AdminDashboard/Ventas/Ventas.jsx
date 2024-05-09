@@ -5,18 +5,24 @@ import IconDelete from "../Icons/IconDelete";
 import IconView from "../Icons/IconView";
 import useToast from "../../../hooks/useToast";
 import { ToastContainer } from "react-toastify";
+import { useAuth } from "../../../hooks/useAuth";
 
 function Ventas() {
   const { ToastError } = useToast();
   const [sales, setSales] = useState([]);
   const navigate = useNavigate();
+  const { auth } = useAuth();
 
   const getSales = () => {
-    axios("/sales")
+    axios("/sales", {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    })
       .then(({ data }) => {
-        const sortedSales = data.sort((a, b) =>{new Date(a.date) - new Date(b.date)
-            }
-        );
+        const sortedSales = data.sort((a, b) => {
+          new Date(a.date) - new Date(b.date);
+        });
         setSales(sortedSales);
       })
       .catch((error) => ToastError("Oh no, error en el servidor", 1350));
@@ -27,9 +33,15 @@ function Ventas() {
   }, []);
 
   const handleDelete = (id) => {
-    axios.delete(`/sale/${id}`).then((res) => {
-      getSales();
-    });
+    axios
+      .delete(`/sale/${id}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      })
+      .then((res) => {
+        getSales();
+      });
   };
   const handleViewDetail = (sale) => {
     navigate("/dashboard/sale/detail", { state: { sale } });
@@ -39,7 +51,9 @@ function Ventas() {
       <table className="table w-full bg-transparent table-zebra">
         <thead className="w-full ">
           <tr className="flex items-center justify-between w-[98%]">
-            <th className="hidden p-0 text-xs md:text-base xl:block xl:w-40">Email</th>
+            <th className="hidden p-0 text-xs md:text-base xl:block xl:w-40">
+              Email
+            </th>
             <th className="hidden p-0 text-xs md:text-base md:p-2 xl:block xl:w-32">
               Direccion
             </th>
@@ -93,7 +107,7 @@ function Ventas() {
                     {s.user?.address ? s.user?.address : "Sin dirección"}
                   </p>
                 </td>
-                
+
                 <td className="hidden gap-1 sm:flex md:flex-wrap md:overflow-auto xl:items-center sm:w-32 xl:w-40">
                   {s.products.map((p) => {
                     return (
@@ -127,7 +141,9 @@ function Ventas() {
                   </p>
                   <p>${s?.total}</p>
                 </td>
-                <td className="hidden text-primary md:block lg:font-bold">${s.total}</td>
+                <td className="hidden text-primary md:block lg:font-bold">
+                  ${s.total}
+                </td>
                 <td
                   className={` font-bold hidden md:block ${
                     s.status === "completed" ? "text-success" : "text-warning"
