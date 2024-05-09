@@ -306,7 +306,7 @@ const Navbar = () => {
                       Perfil
                     </NavLink>
                   </li>
-                  {auth?.rank === 10 && (
+                  {user?.rank === 10 && (
                     <li>
                       <NavLink to="/dashboard">Panel</NavLink>
                     </li>
