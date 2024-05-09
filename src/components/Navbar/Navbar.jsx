@@ -1,33 +1,20 @@
 import { ToggleTheme, Search } from "../components";
-import { useLocation, NavLink } from "react-router-dom";
+import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
+import { useAuth } from "../../hooks/useAuth";
 import { ThemeContext } from "../../context/theme";
-import { useContext, useEffect, useState } from "react";
-import { axios } from "../../helpers/axios";
+import { useContext } from "react";
 
 const Navbar = () => {
-  const { pathname } = useLocation();
   const { theme, setTheme } = useContext(ThemeContext);
-  const [accessAdmin, setAccessAdmin] = useState(false);
-
-  const localUser = JSON.parse(window.localStorage.getItem("user"))
-    ? JSON.parse(localStorage.getItem("user"))
-    : {};
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const {
     cart: { count },
-    clearCart,
   } = useCart();
 
-  useEffect(() => {
-    if (localUser.email) {
-      axios
-        .get(`/user/${localUser.email}`)
-        .then(({ data }) =>
-          data.rank === 10 ? setAccessAdmin(true) : setAccessAdmin(false)
-        );
-    }
-  }, []);
+  const { auth, setAuth, user } = useAuth();
 
   return (
     <div className="drawer">
@@ -124,7 +111,7 @@ const Navbar = () => {
                 </div>
               </div>
             </NavLink>
-            {localUser?.token ? (
+            {auth?.token ? (
               <div className="dropdown dropdown-end">
                 <div
                   tabIndex={0}
@@ -132,7 +119,7 @@ const Navbar = () => {
                   className="btn btn-ghost btn-circle avatar online no-animation"
                 >
                   <div className="w-10 rounded-full">
-                    <img alt={localUser?.name} src={localUser?.url_image} />
+                    <img alt={auth?.name} src={auth?.url_image} />
                   </div>
                 </div>
                 <ul
@@ -141,10 +128,10 @@ const Navbar = () => {
                 >
                   <li>
                     <NavLink className="justify-between" to="/profile">
-                      Editar perfil
+                      Perfil
                     </NavLink>
                   </li>
-                  {accessAdmin && (
+                  {user?.rank === 10 && (
                     <li>
                       <NavLink to="/dashboard">Panel</NavLink>
                     </li>
@@ -153,8 +140,8 @@ const Navbar = () => {
                     <a
                       onClick={() => {
                         localStorage.setItem("user", JSON.stringify({}));
-                        clearCart();
-                        window.location.reload();
+                        setAuth({});
+                        navigate("/");
                       }}
                     >
                       Cerrar Sesión
@@ -294,7 +281,7 @@ const Navbar = () => {
           <li className="w-full p-0 hover:bg-transparent">
             <Search />
           </li>
-          {localUser?.token ? (
+          {auth?.token ? (
             <li className="flex p-0 ">
               <div className="flex w-full p-0 dropdown dropdown-bottom dropdown-end">
                 <div
@@ -304,8 +291,8 @@ const Navbar = () => {
                 >
                   <img
                     className="w-8 rounded-full"
-                    alt={localUser?.name}
-                    src={localUser?.url_image}
+                    alt={auth?.name}
+                    src={auth?.url_image}
                   />
                   <p>Perfil</p>
                 </div>
@@ -316,10 +303,10 @@ const Navbar = () => {
                 >
                   <li>
                     <NavLink className="justify-between" to="/profile">
-                      Editar perfil
+                      Perfil
                     </NavLink>
                   </li>
-                  {accessAdmin && (
+                  {auth?.rank === 10 && (
                     <li>
                       <NavLink to="/dashboard">Panel</NavLink>
                     </li>
@@ -328,8 +315,8 @@ const Navbar = () => {
                     <a
                       onClick={() => {
                         localStorage.setItem("user", JSON.stringify({}));
-                        clearCart();
-                        window.location.reload();
+                        setAuth({});
+                        navigate("/");
                       }}
                     >
                       Cerrar Sesión

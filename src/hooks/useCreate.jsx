@@ -2,9 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { axios, cloudinary } from "../helpers/axios";
 import useToast from "./useToast";
 import * as Yup from "yup";
+import { useAuth } from "./useAuth";
 
 export default function useCreate() {
   const { ToastSuccess, ToastError } = useToast();
+  const { auth } = useAuth();
   const navigate = useNavigate();
 
   const validationSchema = Yup.object({
@@ -28,16 +30,17 @@ export default function useCreate() {
       });
       values.url_image = response.data.secure_url;
 
-      await axios.post(`/product`, values);
+      await axios.post(`/product`, values, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      });
 
-      ToastSuccess("Producto publicado", 2000);
+      ToastSuccess("Produdw qs  wVBNcto publicado", 1000);
 
       setTimeout(() => {
         navigate("/shop");
-      }, 2000);
+      }, 1500);
     } catch (error) {
-      console.log(error);
-      ToastError("Ha ocurrido un error al publicar", 2000);
+      ToastError("Ha ocurrido un error al publicar", 1500);
     }
   };
   return { createProduct, validationSchema };

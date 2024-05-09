@@ -5,13 +5,19 @@ import IconAdmin from "../Icons/IconAdmin";
 import IconMember from "../Icons/IconMember";
 import useToast from "../../../hooks/useToast";
 import { ToastContainer } from "react-toastify";
+import { useAuth } from "../../../hooks/useAuth";
 
 function Usuarios() {
   const { ToastError } = useToast();
   const [users, setUsers] = useState([]);
+  const { auth } = useAuth();
 
   const getUsers = () => {
-    axios("/users")
+    axios("/users", {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    })
       .then(({ data }) => {
         setUsers(data);
       })
@@ -23,22 +29,48 @@ function Usuarios() {
   }, []);
 
   const handleDelete = (id) => {
-    axios.delete(`/user/${id}`).then((res) => {
-      getUsers();
-    });
+    axios
+      .delete(`/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      })
+      .then((res) => {
+        getUsers();
+      });
   };
 
   const handlePutRank = (user) => {
     const rank = user.rank === 10 ? 0 : 10;
-    axios.put(`/user/rank/${user._id}`, { rank }).then((res) => {
-      getUsers();
-    });
+    axios
+      .put(
+        `/user/rank/${user._id}`,
+        { rank },
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        getUsers();
+      });
   };
   const handlePutMember = (user) => {
     const member = !user.is_member;
-    axios.put(`/user/member/${user._id}`, { member }).then((res) => {
-      getUsers();
-    });
+    axios
+      .put(
+        `/user/member/${user._id}`,
+        { member },
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        getUsers();
+      });
   };
   return (
     <div className="w-full overflow-y-auto ">
@@ -91,7 +123,7 @@ function Usuarios() {
                   {u.address ? u.address : "Sin dirección"}
                 </td>
                 <td className="text-[11px] xs:hidden md:block lg:text-sm xl:w-24">
-                  {u.phone_number.toString().length > 5
+                  {u.phone_number?.toString().length > 5
                     ? u.phone_number
                     : "Sin numero"}
                 </td>

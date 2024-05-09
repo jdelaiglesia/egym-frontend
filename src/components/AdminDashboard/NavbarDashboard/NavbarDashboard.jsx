@@ -2,14 +2,14 @@
 import { ToggleTheme } from "../../components";
 
 // Import Hooks
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../../context/theme";
 import { useContext } from "react";
+import { useAuth } from "../../../hooks/useAuth";
 
 const NavbarDashboard = () => {
-  const user = JSON.parse(window.localStorage.getItem("user"))
-    ? JSON.parse(window.localStorage.getItem("user"))
-    : {};
+  const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
 
   const { theme } = useContext(ThemeContext);
 
@@ -42,18 +42,34 @@ const NavbarDashboard = () => {
             </label>
           </div>
           <div className="flex-1 px-2 mx-2">
-            <div className="w-12 rounded-full">
+            <NavLink
+              to="/"
+              className="p-0 w-24 h-10 no-animation flex items-center"
+            >
               <img
+                className=""
                 alt="Tailwind CSS Navbar component"
                 src={theme === "black" ? "/logo-light.svg" : "/logo-dark.svg"}
               />
-            </div>
+            </NavLink>
           </div>
           <div className="flex-none hidden lg:gap-2 lg:flex lg:items-center z-99">
             <ul className="items-center gap-2 menu menu-horizontal">
               {/* Navbar menu content here */}
               {pathname === "/dashboard/login" ? (
-                <ToggleTheme />
+                <>
+                  <li>
+                    <ToggleTheme />
+                  </li>
+                  <li>
+                    <NavLink
+                      className="btn btn-ghost btn-sm justify-start"
+                      to="/"
+                    >
+                      Web
+                    </NavLink>
+                  </li>
+                </>
               ) : (
                 <div className="dropdown dropdown-end">
                   <div
@@ -62,7 +78,7 @@ const NavbarDashboard = () => {
                     className="btn btn-ghost btn-circle avatar online no-animation"
                   >
                     <div className="w-10 rounded-full">
-                      <img alt={user?.name} src={user?.url_image} />
+                      <img alt={auth?.name} src={auth?.url_image} />
                     </div>
                   </div>
                   <ul
@@ -98,7 +114,8 @@ const NavbarDashboard = () => {
                         className="btn btn-ghost btn-sm justify-start"
                         onClick={() => {
                           localStorage.setItem("user", JSON.stringify({}));
-                          window.location.href = "/";
+                          setAuth({});
+                          navigate("/");
                         }}
                       >
                         Cerrar Sesión
@@ -123,7 +140,16 @@ const NavbarDashboard = () => {
         <ul className="h-full min-h-full gap-2 p-4 menu w-80 bg-base-200">
           {/* Sidebar content here */}
           {pathname === "/dashboard/login" ? (
-            <ToggleTheme />
+            <>
+              <li>
+                <ToggleTheme />
+              </li>
+              <li>
+                <NavLink className="btn btn-ghost btn-sm justify-start" to="/">
+                  Web
+                </NavLink>
+              </li>
+            </>
           ) : (
             <li className="flex p-0 ">
               <div className="flex w-full p-0 dropdown dropdown-bottom dropdown-end">
@@ -134,8 +160,8 @@ const NavbarDashboard = () => {
                 >
                   <img
                     className="w-10 rounded-full"
-                    alt={user?.name}
-                    src={user?.url_image}
+                    alt={auth?.name}
+                    src={auth?.url_image}
                   />
                   <p>Perfil</p>
                 </div>
@@ -172,7 +198,8 @@ const NavbarDashboard = () => {
                       className="btn btn-ghost btn-sm justify-start"
                       onClick={() => {
                         localStorage.setItem("user", JSON.stringify({}));
-                        window.location.href = "/";
+                        setAuth({});
+                        navigate("/");
                       }}
                     >
                       Cerrar Sesión

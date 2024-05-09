@@ -4,9 +4,13 @@ import useToast from "../../../hooks/useToast";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ToastContainer } from "react-toastify";
+import { useAuth } from "../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const LoginDashboard = () => {
   const { ToastError } = useToast();
+  const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -23,9 +27,11 @@ const LoginDashboard = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const res = await axios.post("/dashboard/auth", values);
+        const res = await axios.post("/dashboard/auth", values, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        });
         window.localStorage.setItem("user", JSON.stringify(res.data.user));
-        window.location.href = "/dashboard";
+        navigate("/dashboard");
       } catch (error) {
         ToastError("Credenciales invalidas", 1350);
       }
