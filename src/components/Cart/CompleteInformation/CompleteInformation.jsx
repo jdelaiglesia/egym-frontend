@@ -4,6 +4,7 @@ import useToast from "../../../hooks/useToast";
 import { axios } from "../../../helpers/axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { NavLink } from "react-router-dom";
 
 const CompleteInformation = () => {
   const { user, auth, setUser, localAuth } = useAuth();
@@ -60,6 +61,14 @@ const CompleteInformation = () => {
     },
     enableReinitialize: true,
   });
+
+  if (!localAuth.token) {
+    return (
+      <NavLink className="btn" to="/login">
+        Inicia sesíon
+      </NavLink>
+    );
+  }
 
   return (
     <>
