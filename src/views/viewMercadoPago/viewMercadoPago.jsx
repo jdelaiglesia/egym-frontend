@@ -30,7 +30,7 @@ const ViewMercadoPago = ({ products }) => {
         "/payment",
         { products, idUser },
         {
-          headers: { Authorization: Bearer ${auth.token} },
+          headers: { Authorization: Bearer`${auth.token}` },
         }
       );
       setPreferenceId(response.data);
