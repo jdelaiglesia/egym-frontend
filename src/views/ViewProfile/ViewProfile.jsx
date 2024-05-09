@@ -9,11 +9,13 @@ import { axios } from "../../helpers/axios";
 
 const ViewProfile = () => {
   const navigate = useNavigate();
-  const { auth } = useAuth();
+  const localUser = JSON.parse(localStorage.getItem("user"))
+    ? JSON.parse(localStorage.getItem("user"))
+    : { token: "Unknown" };
   useEffect(() => {
     axios
       .get("/auth/token", {
-        headers: { Authorization: `Bearer ${auth.token}` },
+        headers: { Authorization: `Bearer ${localUser.token}` },
       })
       .then((res) => {
         return;

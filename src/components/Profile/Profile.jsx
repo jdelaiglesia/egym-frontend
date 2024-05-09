@@ -2,6 +2,7 @@ import { ToastContainer } from "react-toastify";
 import useProfile from "../../hooks/useProfile";
 import { useFormik } from "formik";
 import Loader from "../ProductDetail/Loader/Loader";
+import Pedidos from "./Pedidos/Pedidos";
 
 const Profile = () => {
   const { updateProfile, validationSchema, user } = useProfile();
@@ -29,12 +30,11 @@ const Profile = () => {
   return (
     <div className="flex flex-col items-center px-10 py-10 gap-10">
       <h1 className="text-4xl font-bold">Perfil</h1>
-      <div className="w-full md:flex-row flex-col flex justify-around gap-10">
-        <div className="flex flex-col gap-4">
-          <h2 className="text-xl">Tus pedidos</h2>
-
-          <div>
-            <h2 className="text-4xl">Todavía no tienes pedidos</h2>
+      <div className="w-full md:flex-row flex-col flex justify-center gap-10">
+        <div className="flex flex-col gap-4 md:w-[25%]">
+          <h2 className="text-xl w-full">Tus pedidos</h2>
+          <div className="w-full">
+            <Pedidos />
           </div>
         </div>
         <div className="flex flex-col gap-4">
@@ -99,7 +99,7 @@ const Profile = () => {
             <div className="flex flex-col gap-2">
               <div className="flex flex-col gap-2">
                 {/* email */}
-                <label className="input input-bordered flex items-center gap-2">
+                <label className="input input-disabled flex items-center gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"

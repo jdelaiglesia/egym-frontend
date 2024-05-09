@@ -29,7 +29,6 @@ function Cart() {
               </span>
             </div>
             <div>
-        
               <ViewMercadoPago products={products}/>
             </div>
           </div>
