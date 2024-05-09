@@ -3,12 +3,12 @@ import { ThemeContext } from "../../context/theme";
 import { useContext } from "react";
 
 const Footer = () => {
-  const theme = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   return (
     <footer className="footer p-10 bg-neutral text-neutral-content mt-auto">
       <aside>
         <img
-          src={theme === "black" ? "/logo-darj.svg" : "/logo-light.svg"}
+          src={theme === "black" ? "/logo-dark.svg" : "/logo-light.svg"}
           alt="e-gym logo"
           className="w-40"
         />

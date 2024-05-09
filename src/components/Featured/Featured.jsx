@@ -3,34 +3,30 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/theme";
 
-const darkImage1 = new Image();
-darkImage1.src = "./slides/bannerDark1.svg";
-const darkImage2 = new Image();
-darkImage2.src = "./slides/bannerDark2.svg";
-const darkImage3 = new Image();
-darkImage3.src = "./slides/bannerDark3.svg";
-const darkImage4 = new Image();
-darkImage4.src = "./slides/bannerDark4.svg";
-
-const lightImage1 = new Image();
-lightImage1.src = "./slides/bannerLight1.svg";
-const lightImage2 = new Image();
-lightImage2.src = "./slides/bannerLight2.svg";
-const lightImage3 = new Image();
-lightImage3.src = "./slides/bannerLight3.svg";
-const lightImage4 = new Image();
-lightImage4.src = "./slides/bannerLight4.svg";
+import {
+  darkImage1,
+  darkImage2,
+  darkImage3,
+  darkImage4,
+  mdDarkImage1,
+  mdDarkImage2,
+  mdDarkImage3,
+  mdDarkImage4,
+} from "./Images";
+import {
+  lightImage1,
+  lightImage2,
+  lightImage3,
+  lightImage4,
+  mdLightImage1,
+  mdLightImage2,
+  mdLightImage3,
+  mdLightImage4,
+} from "./Images";
 
 const Featured = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   return (
-    /*  <div
-      className="flex justify-center items-center w-full bg-cover min-h-screen"
-      style={{
-        backgroundImage: `url(${theme === "black" ? dark : light})`,
-      }}
-      </div>
-      > */
     <div className="carousel w-full">
       <div
         id="slide1"
@@ -38,7 +34,11 @@ const Featured = () => {
       >
         <img
           src={theme === "black" ? darkImage1.src : lightImage1.src}
-          className="w-full"
+          className="hidden md:block w-full"
+        />
+        <img
+          src={theme === "black" ? mdDarkImage1.src : mdLightImage1.src}
+          className="md:hidden w-full"
         />
         <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
           <a href="#slide4" className="btn btn-circle">
@@ -55,7 +55,11 @@ const Featured = () => {
       >
         <img
           src={theme === "black" ? darkImage2.src : lightImage2.src}
-          className="w-full"
+          className="hidden md:block w-full"
+        />
+        <img
+          src={theme === "black" ? mdDarkImage2.src : mdLightImage2.src}
+          className="md:hidden w-full"
         />
         <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
           <a href="#slide1" className="btn btn-circle">
@@ -72,7 +76,11 @@ const Featured = () => {
       >
         <img
           src={theme === "black" ? darkImage3.src : lightImage3.src}
-          className="w-full"
+          className="hidden md:block w-full"
+        />
+        <img
+          src={theme === "black" ? mdDarkImage3.src : mdLightImage3.src}
+          className="md:hidden w-full"
         />
         <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
           <a href="#slide2" className="btn btn-circle">
@@ -89,7 +97,11 @@ const Featured = () => {
       >
         <img
           src={theme === "black" ? darkImage4.src : lightImage4.src}
-          className="w-full"
+          className="hidden md:block w-full"
+        />
+        <img
+          src={theme === "black" ? mdDarkImage4.src : mdLightImage4.src}
+          className="md:hidden w-full"
         />
         <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
           <a href="#slide3" className="btn btn-circle">
