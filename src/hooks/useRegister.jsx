@@ -29,13 +29,19 @@ export default function useRegister() {
   const SignUp = async (values) => {
     try {
       await axios.post(`/user`, values);
+      await axios.post("/registeremail", { email: values.email });
 
-      ToastSuccess("Usuario registrado con exito.", 1000);
+      ToastSuccess("Usuario registrado", 1000);
       setTimeout(() => {
         navigate("/login");
       }, 1500);
     } catch (error) {
-      ToastError(error.response.data.message, 1000);
+      const message = error.response.data.message;
+      if (message.includes("User already")) {
+        return ToastError("Este email esta en uso", 1000);
+      } else {
+        ToastError("Ha ocurrido un error", 1000);
+      }
     }
   };
 
