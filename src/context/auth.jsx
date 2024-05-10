@@ -20,6 +20,7 @@ export function AuthProvider({ children }) {
       setAuth(localAuth);
     } else {
       setAuth({});
+      window.localStorage.setItem("user", JSON.stringify({}));
     }
   }, []);
 

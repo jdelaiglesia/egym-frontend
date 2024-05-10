@@ -3,6 +3,7 @@ import { useCart } from "../../hooks/useCart";
 import ViewMercadoPago from "../../views/viewMercadoPago/viewMercadoPago";
 import DiscountCoupon from "../DiscountCoupon/DiscountCoupon";
 import { useState, useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 
 function Cart() {
   const [coupon, setCoupon] = useState({});
@@ -42,13 +43,14 @@ function Cart() {
                 ${newTotal?.toLocaleString("es-AR")}
               </span>
             </div>
-            <div>
+            <div className="flex flex-col md:flex-row gap-2">
               <DiscountCoupon coupon={coupon} setCoupon={setCoupon} />
               <ViewMercadoPago products={products} coupon={coupon.name} />
             </div>
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }

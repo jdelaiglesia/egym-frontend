@@ -1,4 +1,5 @@
 import { useCart } from "../../hooks/useCart.jsx";
+import { ToastContainer } from "react-toastify";
 
 function CartItem({ product }) {
   const { incrementQty, decrementQty, removeToCart } = useCart();
@@ -33,7 +34,7 @@ function CartItem({ product }) {
 
           <span>{product.quantity}</span>
 
-          <button onClick={() => incrementQty(product)}>
+          <button onClick={() => {incrementQty(product)}}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -54,7 +55,7 @@ function CartItem({ product }) {
         <div className="product-del-btn">
           <button
             className="btn btn-circle"
-            onClick={() => removeToCart(product)}
+            onClick={() => {removeToCart(product)}}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -107,12 +107,16 @@ export function CartProvider({ children }) {
     );
 
     if (productIndex >= 0) {
-      const newCart = { ...cart };
-      newCart.products[productIndex].quantity += 1;
-      newCart.total += product.price;
-      newCart.count += 1;
-
-      setCart(newCart);
+      if(product.quantity + 1 > product.stock){
+        ToastWarning(`El maximo es ${product.stock}`, 1000)
+      } else {
+        const newCart = { ...cart };
+        newCart.products[productIndex].quantity += 1;
+        newCart.total += product.price;
+        newCart.count += 1;
+  
+        setCart(newCart);
+      }
     }
   };
 

@@ -26,30 +26,33 @@ function DiscountCoupon({ coupon, setCoupon }) {
   }, [dataInput]);
 
   return (
-    <div>
-      <p className="my-2">¿Cupón de descuento?</p>
+    <div className="flex flex-col">
+      <div className="flex flex-row gap-2">
       <input
-        className="input input-bordered input-sm w-full max-w-xs"
+        className="input input-bordered w-full max-w-28"
         type="text"
-        placeholder="Ingrese un cupón de descuento"
+        placeholder="¿Cupón?"
         value={dataInput}
         onChange={changeDataInput}
       />
-      {Object.keys(coupon).length === 0 ? (
-        false
-      ) : coupon && coupon.available === true ? (
-        <p className="text-primary my-2">{`Descuento del ${coupon.percentage}%`}</p>
-      ) : coupon && coupon.message ? (
-        <p className="text-error my-2">{coupon.message}</p>
-      ) : (
-        <p className="text-error my-2">Cupón no disponible</p>
-      )}
       <button
-        className="btn mt-2 btn-xs sm:btn-sm md:btn-md"
+        className="btn"
         onClick={searchCoupon}
       >
         Aplicar
       </button>
+      </div>
+
+      {Object.keys(coupon).length === 0 ? (
+        false
+      ) : coupon && coupon.available === true ? (
+        <p className="text-primary text-xs font-semibold my-1">{`Descuento del ${coupon.percentage}%`}</p>
+      ) : coupon && coupon.message ? (
+        <p className="text-error text-xs font-semibold my-1">{coupon.message}</p>
+      ) : (
+        <p className="text-error text-xs font-semibold my-1">Cupón no disponible</p>
+      )}
+
     </div>
   );
 }
