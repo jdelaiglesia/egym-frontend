@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     axios
-      .get(`/user/${localAuth.email}`)
+      .get(`/user/${localAuth?.email}`)
       .then(({ data }) => setUser(data))
       .catch((e) => setUser({}));
   }, [auth]);

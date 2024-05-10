@@ -22,6 +22,9 @@ const Register = () => {
     validationSchema,
     onSubmit: async (values) => {
       SignUp(values);
+
+      axios.post("/registeremail", { email: values.email });
+
     },
   });
 
