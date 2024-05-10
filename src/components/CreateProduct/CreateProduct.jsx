@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import axios from "../../helpers/axios";
+import { axios } from "../../helpers/axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
