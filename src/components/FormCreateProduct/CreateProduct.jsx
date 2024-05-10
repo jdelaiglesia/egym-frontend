@@ -5,7 +5,7 @@ import { axios } from "../../helpers/axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+// VERCEL LA CONCHA DE TU MADRE
 const CreateProduct = () => {
   const [categories, setCategories] = useState([]);
 
