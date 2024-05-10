@@ -20,6 +20,8 @@ import SaleDetail from "./SaleDetail/SaleDetail";
 import NavbarDashboard from "./AdminDashboard/NavbarDashboard/NavbarDashboard";
 import Loader from "./ProductDetail/Loader/Loader";
 import LoginDashboard from "./AdminDashboard/LoginDashboard/LoginDashboard";
+import CreateCoupon from "./CreateCoupon/CreateCoupon";
+import CreateCategory from "./CreateCategory/CreateCategory";
 
 export {
   Cart,
@@ -44,4 +46,6 @@ export {
   NavbarDashboard,
   LoginDashboard,
   Loader,
+  CreateCoupon,
+  CreateCategory,
 };

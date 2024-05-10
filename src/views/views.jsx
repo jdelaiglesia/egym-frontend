@@ -10,6 +10,8 @@ import ViewEditProduct from "./ViewEditProduct/ViewEditProduct";
 import ViewProfile from "./ViewProfile/ViewProfile";
 import ViewSaleDetail from "./ViewSaleDetail/ViewSaleDetail";
 import ViewDashboardLogin from "./ViewDashboardLogin/ViewDashboardLogin";
+import ViewCreateCategory from "./ViewCreateCategory/ViewCreateCategory";
+import ViewCreateCoupon from "./ViewCreateCoupon/ViewCreateCoupon";
 
 export {
   ViewDashboard,
@@ -24,4 +26,6 @@ export {
   ViewProfile,
   ViewSaleDetail,
   ViewDashboardLogin,
+  ViewCreateCategory,
+  ViewCreateCoupon,
 };
