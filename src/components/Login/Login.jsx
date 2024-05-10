@@ -46,10 +46,9 @@ const Login = () => {
         };
         setProfile(filteredProfile);
         loginGoogle(filteredProfile);
-        return console.log("acces true");
       }
     } catch (error) {
-      console.log("acces denied");
+      console.log("")
     }
   };
 
@@ -57,7 +56,7 @@ const Login = () => {
     onSuccess: (codeResponse) => {
       dataUser(codeResponse.access_token);
     },
-    onError: (error) => console.log("Login Failed:"),
+    onError: (error) => console.log(null),
   });
 
   const loginGoogle = async (profile) => {
@@ -67,7 +66,7 @@ const Login = () => {
       const { email, password } = user;
       SignIn({ email, password });
     } catch (error) {
-      console.log("no se puede registrar/iniciar sesion");
+      console.log(null);
     }
   };
 

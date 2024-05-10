@@ -62,7 +62,6 @@ export const useTheme = () => {
   );
 
   useEffect(() => {
-    console.log(theme);
     localStorage.setItem("theme", theme);
     document.querySelector("html").setAttribute("data-theme", theme);
   }, [theme]);

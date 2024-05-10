@@ -8,18 +8,18 @@ export default function useRegister() {
   const navigate = useNavigate();
 
   const validationSchema = Yup.object({
-    name: Yup.string("Ingrese un nombre.").required("Ingrese un nombre válido"),
+    name: Yup.string("Ingrese un nombre").required("Ingrese un nombre válido"),
     last_name: Yup.string().required("Ingrese un apellido válido"),
     email: Yup.string()
       .email("Ingrese un correo válido")
       .required("Ingrese un correo"),
     password: Yup.string().required("Ingrese una contraseña"),
-    dni: Yup.number().min(10000000).max(99999999).required("Ingrese un DNI"),
+    dni: Yup.number().typeError("Ingrese un DNI válido").min(10000000).typeError("Ingrese un DNI válido").max(99999999).typeError("Ingrese un DNI válido").required("Ingrese un DNI"),
     address: Yup.string().required("Ingrese una dirección"),
-    age: Yup.number()
+    age: Yup.number().typeError("Ingrese una edad válida")
       .min(16, "Debe ser mayor de 16")
       .required("Ingrese una edad"),
-    phone_number: Yup.number()
+    phone_number: Yup.number().typeError("Ingrese un telefono valido")
       .min(100000000)
       .max(9999999999)
       .integer()

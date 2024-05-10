@@ -12,7 +12,7 @@ function Filters({ products, setProducts, update, setUpdate, setPage }) {
   useEffect(() => {
     axios("/categories")
       .then((res) => setCategories(res.data))
-      .catch((e) => console.log(e));
+      .catch((e) => console.log(null));
   }, []);
 
   const handleChange = (e) => {

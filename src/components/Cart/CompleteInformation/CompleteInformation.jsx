@@ -13,11 +13,11 @@ const CompleteInformation = () => {
   const validationSchema = Yup.object({
     name: Yup.string().required("Este campo es requerido"),
     last_name: Yup.string().required("Este campo es requerido"),
-    dni: Yup.number()
+    dni: Yup.number().typeError("Ingrese un DNI valido")
       .min(10000000)
       .max(99999999)
       .required("Este campo es requerido"),
-    phone_number: Yup.number()
+    phone_number: Yup.number().typeError("Ingrese un telefono valido")
       .min(100000000)
       .max(9999999999)
       .integer()

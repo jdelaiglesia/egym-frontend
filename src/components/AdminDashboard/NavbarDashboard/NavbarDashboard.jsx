@@ -90,7 +90,7 @@ const NavbarDashboard = () => {
                         className="btn btn-ghost btn-sm justify-start"
                         to="/"
                       >
-                        Inicio
+                        Volver a la web
                       </NavLink>
                     </li>
                     <li>
@@ -98,7 +98,7 @@ const NavbarDashboard = () => {
                         className="btn btn-ghost btn-sm justify-start"
                         to="/dashboard"
                       >
-                        Dashboard
+                        Panel
                       </NavLink>
                     </li>
                     <li>
@@ -134,7 +134,7 @@ const NavbarDashboard = () => {
                           navigate("/");
                         }}
                       >
-                        Cerrar Sesión
+                        Cerrar sesión
                       </a>
                     </li>
                     <li>
@@ -162,7 +162,7 @@ const NavbarDashboard = () => {
               </li>
               <li>
                 <NavLink className="btn btn-ghost btn-sm justify-start" to="/">
-                  Inicio
+                  Volver a la web
                 </NavLink>
               </li>
             </>
@@ -175,7 +175,7 @@ const NavbarDashboard = () => {
                   className="flex justify-between w-full btn no-animation"
                 >
                   <img
-                    className="w-10 rounded-full"
+                    className="w-10 rounded-full z-[9999]"
                     alt={auth?.name}
                     src={auth?.url_image}
                   />
@@ -234,7 +234,7 @@ const NavbarDashboard = () => {
                         navigate("/");
                       }}
                     >
-                      Cerrar Sesión
+                      Cerrar sesión
                     </a>
                   </li>
                   <li>

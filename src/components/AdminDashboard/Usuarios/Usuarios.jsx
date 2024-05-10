@@ -84,10 +84,10 @@ function Usuarios() {
               Email
             </th>
             <th className="text-base xs:text-xs lg:text-sm xs:p-0 md:p-2 xs:hidden md:block md:w-32 xl:w-40">
-              Direccion
+              Dirección
             </th>
             <th className="text-base xs:text-xs lg:text-sm xs:p-0 md:p-2 xs:hidden md:block xl:w-24">
-              Telefono
+              Teléfono
             </th>
             <th className="text-base xs:text-xs lg:text-sm xs:p-0 md:p-2 xs:block md:hidden">
               Contacto
@@ -123,7 +123,7 @@ function Usuarios() {
                   {u.email}
                 </td>
                 <td className="flex-wrap text-[11px] xs:hidden md:block md:p-0 md:w-32 lg:text-sm lg:w-32 xl:w-40">
-                  {u.address ? u.address : "Sin direcciÃ³n"}
+                  {u.address ? u.address : "Sin dirección"}
                 </td>
                 <td className="text-[11px] xs:hidden md:block lg:text-sm xl:w-24">
                   {u.phone_number?.toString().length > 5
@@ -143,28 +143,26 @@ function Usuarios() {
                   </div>
                 </td>
                 <td
-                  className={`font-bold xs:p-0 xs:text-[10px] md:text-xs lg:text-sm md:w-20 xl:w-24 ${
-                    u.rank === 10
+                  className={`font-bold xs:p-0 xs:text-[10px] md:text-xs lg:text-sm md:w-20 xl:w-24 ${u.rank === 10
                       ? "text-primary"
                       : u.is_member
-                      ? "text-success"
-                      : null
-                  }`}
+                        ? "text-success"
+                        : null
+                    }`}
                 >
                   {u.rank === 10
                     ? "Administrador"
                     : u.is_member
-                    ? "Miembro"
-                    : "No registrado"}
+                      ? "Miembro"
+                      : "No registrado"}
                 </td>
                 <td className="flex xs:gap-1 xs:p-0">
                   <button
                     onClick={() => {
                       handlePutMember(u);
                     }}
-                    className={`btn bg-transparent border-none shadow-none m-1 xs:p-0 xs:m-0 xl:p-1 ${
-                      u.is_member ? "hover:bg-success" : "hover:bg-gray-400"
-                    } ${u.is_member ? "text-success hover:text-black" : null}`}
+                    className={`btn bg-transparent border-none shadow-none m-1 xs:p-0 xs:m-0 xl:p-1 ${u.is_member ? "hover:bg-success" : "hover:bg-gray-400"
+                      } ${u.is_member ? "text-success hover:text-black" : null}`}
                   >
                     <IconMember />
                   </button>
@@ -172,11 +170,9 @@ function Usuarios() {
                     onClick={() => {
                       handlePutRank(u);
                     }}
-                    className={`btn bg-transparent border-none shadow-none m-1 xs:p-0 xs:m-0 xl:p-1 hover:bg-${
-                      u.rank === 10 ? "primary" : "gray-400"
-                    } ${
-                      u.rank === 10 ? "text-primary hover:text-black" : null
-                    }`}
+                    className={`btn bg-transparent border-none shadow-none m-1 xs:p-0 xs:m-0 xl:p-1 hover:bg-${u.rank === 10 ? "primary" : "gray-400"
+                      } ${u.rank === 10 ? "text-primary hover:text-black" : null
+                      }`}
                   >
                     <IconAdmin />
                   </button>

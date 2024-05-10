@@ -99,9 +99,9 @@ function Estadisticas() {
             <div className="p-1 md:p-4 stat">
               <p className="text-sm md:text-lg">Mas vendidos</p>
               <div className="text-xs md:text-lg">
-                {stats.products?.bestSellers.map((p) => {
+                {stats.products?.bestSellers.map((p, index) => {
                   return (
-                    <div className="flex items-center">
+                    <div className="flex items-center" key={index}>
                       <img
                         src={p.url_image}
                         alt={p.name}
@@ -122,9 +122,9 @@ function Estadisticas() {
             <div className="p-1 md:p-4 stat">
               <p className="text-sm md:text-lg">Mas populares</p>
               <div>
-                {stats.products?.bestsRating.map((p) => {
+                {stats.products?.bestsRating.map((p, index) => {
                   return (
-                    <div className="flex items-center">
+                    <div className="flex items-center" key={index}>
                       <img
                         src={p.url_image}
                         alt={p.name}

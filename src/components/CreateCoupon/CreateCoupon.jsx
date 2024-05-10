@@ -8,6 +8,10 @@ import * as Yup from "yup";
 const CreateCoupon = () => {
   const { ToastSuccess, ToastError } = useToast();
 
+  const localUser = JSON.parse(localStorage.getItem("user"))
+    ? JSON.parse(localStorage.getItem("user"))
+    : { token: "Unknown" };
+
   const validationSchema = Yup.object({
     name: Yup.string().required("Ingrese un nombre"),
     percentage: Yup.number()
@@ -26,7 +30,9 @@ const CreateCoupon = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const res = await axios.post("/coupon", values);
+        const res = await axios.post("/coupon", values, {
+          headers: { Authorization: `Bearer ${localUser.token}` },
+        });
         ToastSuccess("Cupón creado correctamente", 3000);
       } catch (error) {
         const message = error.response.data.message;

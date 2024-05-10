@@ -30,6 +30,7 @@ const LoginDashboard = () => {
         const res = await axios.post("/dashboard/auth", values, {
           headers: { Authorization: `Bearer ${auth.token}` },
         });
+        setAuth(res.data.user)
         window.localStorage.setItem("user", JSON.stringify(res.data.user));
         navigate("/dashboard");
       } catch (error) {

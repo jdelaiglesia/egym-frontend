@@ -32,7 +32,7 @@ const Navbar = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                className="inline-block w-6 h-6 stroke-current"
+                className="inline-block w-6 h-6 stroke-current "
               >
                 <path
                   strokeLinecap="round"
@@ -61,9 +61,8 @@ const Navbar = () => {
               <li>
                 <NavLink
                   to="/"
-                  className={`no-animation ${
-                    pathname === "/" ? "btn btn-primary btn-sm" : "btn btn-sm"
-                  }`}
+                  className={`no-animation ${pathname === "/" ? "btn btn-primary btn-sm" : "btn btn-sm"
+                    }`}
                 >
                   Inicio
                 </NavLink>
@@ -71,11 +70,10 @@ const Navbar = () => {
               <li>
                 <NavLink
                   to="/shop"
-                  className={`no-animation ${
-                    pathname === "/shop"
-                      ? "btn btn-primary btn-sm"
-                      : "btn btn-sm"
-                  }`}
+                  className={`no-animation ${pathname === "/shop"
+                    ? "btn btn-primary btn-sm"
+                    : "btn btn-sm"
+                    }`}
                 >
                   Tienda
                 </NavLink>
@@ -186,11 +184,10 @@ const Navbar = () => {
             <NavLink
               to="/"
               className={` flex justify-between w-full no-animation
-                          ${
-                            pathname === "/"
-                              ? "btn btn-primary btn-sm"
-                              : "btn btn-sm"
-                          }`}
+                          ${pathname === "/"
+                  ? "btn btn-primary btn-sm"
+                  : "btn btn-sm"
+                }`}
             >
               <span>
                 <svg
@@ -215,11 +212,10 @@ const Navbar = () => {
             <NavLink
               to="/shop"
               className={`flex justify-between w-full no-animation
-                          ${
-                            pathname === "/shop"
-                              ? "btn btn-primary btn-sm"
-                              : "btn btn-sm"
-                          }`}
+                          ${pathname === "/shop"
+                  ? "btn btn-primary btn-sm"
+                  : "btn btn-sm"
+                }`}
             >
               <span>
                 <svg
@@ -243,11 +239,10 @@ const Navbar = () => {
           <li>
             <NavLink
               className={`flex justify-between w-full no-animation 
-                          ${
-                            pathname === "/cart"
-                              ? "btn btn-primary btn-sm"
-                              : "btn btn-sm"
-                          }`}
+                          ${pathname === "/cart"
+                  ? "btn btn-primary btn-sm"
+                  : "btn btn-sm"
+                }`}
               to="/cart"
             >
               <div

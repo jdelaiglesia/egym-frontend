@@ -1,7 +1,7 @@
 import axiosDefault from "axios";
 
 export const axios = axiosDefault.create({
-  baseURL: "https://pf-backend-production-883c.up.railway.app/api",
+  baseURL: "https://2bldqjc8-3001.brs.devtunnels.ms/api",
 });
 
 export const cloudinary = axiosDefault.create({

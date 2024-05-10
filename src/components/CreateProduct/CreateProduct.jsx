@@ -4,22 +4,12 @@ import * as Yup from "yup";
 import { axios } from "../../helpers/axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import useCreate from "../../hooks/useCreate"
 import "react-toastify/dist/ReactToastify.css";
 
 const CreateProduct = () => {
   const [categories, setCategories] = useState([]);
-
-  const navigate = useNavigate();
-
-  const validationSchema = Yup.object({
-    name: Yup.string().required("Ingrese un nombre"),
-    stock: Yup.number().required("Ingrese un número de stock"),
-    price: Yup.number().required("Ingrese un precio"),
-    url_image: Yup.mixed().required("Ingrese una imagen"),
-    available: Yup.boolean().required("Seleccione una disponibilidad"),
-    category: Yup.string().required("Seleccione una categoría"),
-    description: Yup.string().required("Agrega una descripción"),
-  });
+  const { createProduct, validationSchema } = useCreate()
 
   const formik = useFormik({
     initialValues: {
@@ -94,23 +84,6 @@ const CreateProduct = () => {
         </div>
 
         <div className="flex flex-col gap-2 mb-4">
-          <select
-            className="select select-bordered text-base w-full max-w-xs"
-            name="available"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            value={formik.values.available}
-          >
-            <option>Disponibilidad</option>
-            <option value="true">Disponible</option>
-            <option value="false">No disponible</option>
-          </select>
-
-          <span className="text-red-500 text-xs">
-            {formik.touched.available ? formik.errors.available : null}
-          </span>
-        </div>
-        <div className="flex flex-col gap-2 mb-4">
           <input
             type="text"
             onChange={formik.handleChange}
@@ -150,8 +123,8 @@ const CreateProduct = () => {
             value={formik.values.category}
           >
             <option>Categoría</option>
-            {categories.map((category) => (
-              <option value={category._id}>{category.name}</option>
+            {categories.map((category, index) => (
+              <option value={category._id} key={index}>{category.name}</option>
             ))}
           </select>
 

@@ -14,7 +14,6 @@ export default function useCreate() {
     stock: Yup.number().required("Ingrese un número de stock"),
     price: Yup.number().required("Ingrese un precio"),
     url_image: Yup.mixed().required("Ingrese una imagen"),
-    available: Yup.boolean().required("Seleccione una disponibilidad"),
     category: Yup.string().required("Seleccione una categoría"),
     description: Yup.string().required("Agrega una descripción"),
   });
@@ -34,7 +33,7 @@ export default function useCreate() {
         headers: { Authorization: `Bearer ${auth.token}` },
       });
 
-      ToastSuccess("Produdw qs  wVBNcto publicado", 1000);
+      ToastSuccess("Producto publicado", 1000);
 
       setTimeout(() => {
         navigate("/shop");

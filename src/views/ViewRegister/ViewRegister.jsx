@@ -18,13 +18,13 @@ const ViewRegister = () => {
   }, []);
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="flex flex-col justify-center items-center">
         <Register />
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

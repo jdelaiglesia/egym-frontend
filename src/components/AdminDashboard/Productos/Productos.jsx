@@ -67,7 +67,7 @@ function Productos() {
 
   return (
     <div className="flex flex-col w-full h-screen bg-base-100 ">
-      <div className="flex gap-2 absolute justify-center top-0 z-10 md:inset-x-[40%] lg:left-0 p-1 mt-1 xs:right-4">
+      <div className="flex gap-2 absolute justify-center top-0 z-10 max-w-[350px] lg:mt-3 lg:left-[200px] p-1 mt-1 xs:right-4">
         <label className="flex w-full max-w-xs gap-2 ">
           <select
             onChange={handleChange}
@@ -146,13 +146,12 @@ function Productos() {
                     ${p.price}
                   </td>
                   <td
-                    className={`font-bold xs:text-xs xs:p-0 sm:w-10 sm:text-center ${
-                      p.stock > 5
-                        ? "text-success"
-                        : p.stock > 3
+                    className={`font-bold xs:text-xs xs:p-0 sm:w-10 sm:text-center ${p.stock > 5
+                      ? "text-success"
+                      : p.stock > 3
                         ? "text-warning"
                         : "text-error"
-                    }`}
+                      }`}
                   >
                     {p.stock}
                   </td>

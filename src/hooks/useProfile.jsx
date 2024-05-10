@@ -13,12 +13,12 @@ export default function useProfile() {
     name: Yup.string().required("Este campo es requerido"),
     last_name: Yup.string().required("Este campo es requerido"),
     dni: Yup.number()
-      .min(10000000)
-      .max(99999999)
+      .min(10000000).typeError("Ingrese un DNI valido ")
+      .max(99999999).typeError("Ingrese un DNI valido ")
       .required("Este campo es requerido"),
     phone_number: Yup.number()
-      .min(100000000)
-      .max(9999999999)
+      .min(100000000).typeError("Ingrese un telefono valido ")
+      .max(9999999999).typeError("Ingrese un telefono valido ")
       .integer()
       .required("Este campo es requerido"),
     address: Yup.string().required("Este campo es requerido"),
@@ -32,8 +32,7 @@ export default function useProfile() {
 
     try {
       const response = await cloudinary.post(
-        `https://api.cloudinary.com/v1_1/${
-          import.meta.env.VITE_CLOUD_NAME
+        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUD_NAME
         }/image/upload`,
         formData,
         {
