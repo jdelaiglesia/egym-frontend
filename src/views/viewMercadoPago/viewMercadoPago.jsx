@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import CompleteInformation from "../../components/Cart/CompleteInformation/CompleteInformation";
 
-const ViewMercadoPago = ({ products }) => {
+const ViewMercadoPago = ({ products, coupon}) => {
   let [preferenceId, setPreferenceId] = useState("");
   let [idUser, setIdUser] = useState("");
   const [force, setForce] = useState(false);
@@ -18,6 +18,7 @@ const ViewMercadoPago = ({ products }) => {
     //obtiene id de user del local y guarda en estado
     const userString = localStorage.getItem("user");
     const userObject = JSON.parse(userString);
+  
 
     setIdUser(userObject._id);
   }, []);
@@ -30,19 +31,22 @@ const ViewMercadoPago = ({ products }) => {
     // Reinicia preferenceId cuando cambia products
     setPreferenceId("");
   }, [products]);
-
+ 
+  
   const getPreference = async () => {
+
     try {
       const response = await axios.post(
         "/payment",
-        { products, idUser },
+        { products, idUser, coupon},
         {
           headers: { Authorization: `Bearer ${auth.token}` },
         }
       );
       setPreferenceId(response.data);
+
     } catch (error) {
-      console.log("No se pudo procesar Mercado Pago", error.message);
+      console.log("No se pudo procesar Mercado Pago", error);
     }
   };
 
