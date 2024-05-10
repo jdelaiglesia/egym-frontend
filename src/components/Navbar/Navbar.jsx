@@ -344,57 +344,10 @@ const Navbar = () => {
                   d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25"
                 />
               </svg>
-<<<<<<< HEAD
               Ingresar
             </NavLink>
           )}
         </ul>
-=======
-              <span className="badge badge-sm indicator-item">{count}</span>
-            </div>
-          </div>
-        </NavLink>
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
-            </div>
-          </div>
-          <ul
-            tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <a className="justify-between">
-                Perfil
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li>
-              <a>Ajustes</a>
-            </li>
-            <li>
-              <NavLink to="/login">Iniciar sesión</NavLink>
-            </li>
-            <li>
-              <NavLink to="/register">Registrarse</NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/create">Crear producto</NavLink>
-            </li>
-            <li>
-              <ToggleTheme />
-            </li>
-          </ul>
-        </div>
->>>>>>> main
       </div>
     </div>
   );
