@@ -55,7 +55,11 @@ const ProductDetail = () => {
         <>
           <div className="flex flex-col md:flex-row gap-4 md:gap-10 mx-10 my-10">
             <div className="img md:w-[50%] md:flex md:justify-end">
-              <img className="md:w-[22rem]" src={product?.url_image} alt={product?.name} />
+              <img
+                className="md:w-[22rem]"
+                src={product?.url_image}
+                alt={product?.name}
+              />
             </div>
 
             <div className="flex flex-col gap-4">
@@ -64,10 +68,11 @@ const ProductDetail = () => {
               <div className="flex gap-2 items-center">
                 <div
                   className={`badge ${
-                    !product?.stock || product?.stock < 1 ? "bg-red-600" : "bg-green-600"
+                    !product?.stock || product?.stock < 1
+                      ? "bg-red-600"
+                      : "bg-green-600"
                   }`}
-                >
-                </div>
+                ></div>
                 <div className="badge badge-outline w-max">
                   Stock: {product?.stock}
                 </div>
@@ -118,7 +123,7 @@ const ProductDetail = () => {
                 </label>
 
                 <div className="flex gap-2 flex-col md:flex-row">
-                {product?.stock < 1 ? (
+                  {product?.stock < 1 ? (
                     <button className="btn btn-primary" disabled>
                       Comprar
                     </button>
@@ -143,8 +148,6 @@ const ProductDetail = () => {
                     </button>
                   )}
                 </div>
-               
-
               </div>
             </div>
           </div>

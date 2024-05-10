@@ -24,7 +24,6 @@ const Register = () => {
       SignUp(values);
 
       axios.post("/registeremail", { email: values.email });
-
     },
   });
 

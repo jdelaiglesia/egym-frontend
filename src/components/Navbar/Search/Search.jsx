@@ -28,20 +28,19 @@ const Search = () => {
       (product) => product.name.toLowerCase() === state.toLowerCase()
     );
     try {
-      if(search){
+      if (search) {
         navigate(`/shop/product/${search._id}`);
         setError(null);
       } else {
-        const productsMatch = products.filter(p => {
+        const productsMatch = products.filter((p) => {
           return p.name.toLowerCase().includes(state.toLowerCase());
         });
-        navigate('/shop', {state: {productsMatch}});
+        navigate("/shop", { state: { productsMatch } });
         setError(null);
       }
     } catch (error) {
       setError("Producto no encontrado!");
     }
-    
   };
 
   const handleChange = (event) => {
