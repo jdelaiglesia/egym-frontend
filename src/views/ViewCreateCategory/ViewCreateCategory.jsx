@@ -1,18 +1,18 @@
 import {
   NavbarDashboard,
-  CreateProduct,
+  CreateCategory,
   Loader,
 } from "../../components/components";
 
 // Import Hooks
 import { useEffect, useState } from "react";
 import { axios } from "../../helpers/axios";
-import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
-const ViewCreateProduct = () => {
+const ViewCreateCategory = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+
   const localUser = JSON.parse(localStorage.getItem("user"))
     ? JSON.parse(localStorage.getItem("user"))
     : { token: "Unknown" };
@@ -31,9 +31,9 @@ const ViewCreateProduct = () => {
   return (
     <div className="flex flex-col items-center">
       <NavbarDashboard />
-      {isLoading ? <Loader /> : <CreateProduct />}
+      {isLoading ? <Loader /> : <CreateCategory />}
     </div>
   );
 };
 
-export default ViewCreateProduct;
+export default ViewCreateCategory;

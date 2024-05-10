@@ -24,6 +24,8 @@ import {
   ViewProfile,
   ViewSaleDetail,
   ViewDashboardLogin,
+  ViewCreateCategory,
+  ViewCreateCoupon,
 } from "./views/views.jsx";
 
 export const App = () => {
@@ -35,16 +37,39 @@ export const App = () => {
           <Routes>
             <Route path="/" element={<ViewHome />}></Route>
             <Route path="/shop" element={<ViewShop />}></Route>
-            <Route path="/shop/product/:id" element={<ViewProductDetail />}></Route>
+            <Route
+              path="/shop/product/:id"
+              element={<ViewProductDetail />}
+            ></Route>
             <Route path="/cart" element={<ViewCart />}></Route>
             <Route path="/login" element={<ViewLogin />}></Route>
             <Route path="/register" element={<ViewRegister />}></Route>
             <Route path="/profile" element={<ViewProfile />}></Route>
             <Route path="/dashboard" element={<ViewDashboard />}></Route>
-            <Route path="/dashboard/login" element={<ViewDashboardLogin />}></Route>
-            <Route path="/dashboard/product/create" element={<ViewCreateProduct />}></Route>
-            <Route path="/dashboard/product/edit" element={<ViewEditProduct />}></Route>
-            <Route path="/dashboard/sale/detail" element={<ViewSaleDetail />}></Route>
+            <Route
+              path="/dashboard/login"
+              element={<ViewDashboardLogin />}
+            ></Route>
+            <Route
+              path="/dashboard/create/product"
+              element={<ViewCreateProduct />}
+            ></Route>
+            <Route
+              path="/dashboard/create/category"
+              element={<ViewCreateCategory />}
+            ></Route>
+            <Route
+              path="/dashboard/create/coupon"
+              element={<ViewCreateCoupon />}
+            ></Route>
+            <Route
+              path="/dashboard/product/edit"
+              element={<ViewEditProduct />}
+            ></Route>
+            <Route
+              path="/dashboard/sale/detail"
+              element={<ViewSaleDetail />}
+            ></Route>
             <Route path="/payment" element={<ViewPayment />}></Route>
           </Routes>
         </ThemeProvider>
