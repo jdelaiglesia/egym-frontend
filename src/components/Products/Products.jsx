@@ -108,42 +108,7 @@ function Products() {
           </Link>
         </>
       ) : null}
-<<<<<<< HEAD
     </div>
-=======
-
-      <div className="flex flex-wrap justify-center gap-8 mx-10 my-10">
-        {pathname === "/" ? (
-          products
-            .slice(0, 5)
-            .map((product) => (
-              <ProductCard product={product} key={product.id} />
-            ))
-        ) : products.length === 0 ? (
-          <div className="flex items-center justify-center h-full">
-            <span className="loading loading-spinner w-[10rem]"></span>
-          </div>
-        ) : (
-          selectedData.map((product) => (
-            <ProductCard product={product} key={product.id} />
-          ))
-        )}
-      </div>
-      {pathname === "/" ? (
-        <Link to="/shop">
-          <h2 className="font-bold text-2xl text-center mb-10">
-            Ver más productos...
-          </h2>
-        </Link>
-      ) : (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          setPage={setCurrentPage}
-        />
-      )}
-    </>
->>>>>>> main
   );
 }
 
