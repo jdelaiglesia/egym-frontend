@@ -1,25 +1,23 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { axios } from "../../helpers/axios";
 
 function Filters({ products, setProducts, update, setUpdate, setPage }) {
   const [filters, setFilters] = useState({
     category: "",
     order: "",
   });
+
   const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    axios("/categories")
+      .then((res) => setCategories(res.data))
+      .catch((e) => console.log(e));
+  }, []);
 
   const handleChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
-
-  useEffect(() => {
-    axios
-      .get(import.meta.env.VITE_BACKEND_URL + "/categories")
-      .then((res) => {
-        setCategories(res.data);
-      })
-      .catch((e) => console.log(e));
-  }, []);
 
   const filterProducts = () => {
     if (filters.category && filters.order) {
@@ -66,7 +64,7 @@ function Filters({ products, setProducts, update, setUpdate, setPage }) {
   };
 
   return (
-    <div className="dropdown flex justify-center pt-10">
+    <div className="dropdown flex justify-center ">
       <div tabIndex={0} role="button" className="btn m-1">
         Filtros
       </div>
@@ -81,6 +79,9 @@ function Filters({ products, setProducts, update, setUpdate, setPage }) {
             name="order"
             onChange={handleChange}
           >
+            <option value="" hidden>
+              Seleccione una opción
+            </option>
             <option value="A-Z">Alfabeticamente A-Z</option>
             <option value="Z-A">Alfabeticamente Z-A</option>
             <option value="1-10">Precio, menor a mayor</option>
@@ -99,8 +100,13 @@ function Filters({ products, setProducts, update, setUpdate, setPage }) {
             name="category"
             onChange={handleChange}
           >
-            {categories.map((category) => (
-              <option value={category.name}>{category.name}</option>
+            <option value="" hidden>
+              Seleccione una opción
+            </option>
+            {categories.map((category, index) => (
+              <option value={category.name} key={index}>
+                {category.name}
+              </option>
             ))}
           </select>
         </div>

@@ -5,7 +5,13 @@ import ViewLogin from "./ViewLogin/ViewLogin";
 import ViewRegister from "./ViewRegister/ViewRegister";
 import ViewCart from "./ViewCart/ViewCart";
 import ViewProductDetail from "./ViewProductDetail/ViewProductDetail";
-import ViewCreateProduct from "./ViewCreateProduct/ViewCreateProduct"
+import ViewCreateProduct from "./ViewCreateProduct/ViewCreateProduct";
+import ViewEditProduct from "./ViewEditProduct/ViewEditProduct";
+import ViewProfile from "./ViewProfile/ViewProfile";
+import ViewSaleDetail from "./ViewSaleDetail/ViewSaleDetail";
+import ViewDashboardLogin from "./ViewDashboardLogin/ViewDashboardLogin";
+import ViewCreateCategory from "./ViewCreateCategory/ViewCreateCategory";
+import ViewCreateCoupon from "./ViewCreateCoupon/ViewCreateCoupon";
 
 export {
   ViewDashboard,
@@ -15,5 +21,11 @@ export {
   ViewRegister,
   ViewCart,
   ViewProductDetail,
-  ViewCreateProduct
+  ViewCreateProduct,
+  ViewEditProduct,
+  ViewProfile,
+  ViewSaleDetail,
+  ViewDashboardLogin,
+  ViewCreateCategory,
+  ViewCreateCoupon,
 };

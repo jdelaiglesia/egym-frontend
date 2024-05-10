@@ -1,0 +1,21 @@
+pruebas tarjetas y cuenta demo MP
+
+nombre cuenta	usuario				contraseña	creado en
+comprador		TESTUSER1465792603	RPiUJF0sQ7	26/04/2024
+
+(DNI) 12345678
+
+			Tarjeta Número			Código de seguridad 	Fecha de caducidad
+
+Mastercard 	5031 7557 3453 0604 	123 					11/25
+
+Visa		4509 9535 6623 3704		123						11/25
+
+American 	3711 803032 57522		1234					11/25
+
+
+para probar distintos tipos de resultados cambiar la palabra por el nombre titular de la tarjeta
+
+APRO	Pago aprobado
+OTHE	Rechazado por error general
+CONT	Pendiente de pago

@@ -33,6 +33,9 @@ const CreateProduct = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
+<<<<<<< HEAD
+      createProduct(values);
+=======
       const formData = new FormData();
       formData.append("file", values.url_image);
       formData.append("upload_preset", "gym_preset");
@@ -75,6 +78,7 @@ const CreateProduct = () => {
           theme: "light",
         });
       }
+>>>>>>> main
     },
   });
 

@@ -3,15 +3,14 @@ import ReactDOM from "react-dom/client";
 import { App } from "./App.jsx";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { store } from "./app/store.js";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 console.log(import.meta.env.VITE_BACKEND_URL);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>
+  <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+  </GoogleOAuthProvider>
 );

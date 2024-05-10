@@ -1,14 +1,38 @@
-import { Navbar, Footer, CreateProduct } from "../../components/components";
+import {
+  NavbarDashboard,
+  CreateProduct,
+  Loader,
+} from "../../components/components";
+
+// Import Hooks
+import { useEffect, useState } from "react";
+import { axios } from "../../helpers/axios";
+import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const ViewCreateProduct = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  const localUser = JSON.parse(localStorage.getItem("user"))
+    ? JSON.parse(localStorage.getItem("user"))
+    : { token: "Unknown" };
+
+  useEffect(() => {
+    axios
+      .get("/dashboard/verify", {
+        headers: { Authorization: `Bearer ${localUser.token}` },
+      })
+      .then((res) => setIsLoading(false))
+      .catch((error) => {
+        navigate("/dashboard/login");
+      });
+  }, []);
+
   return (
-    <>
-      <Navbar />
-      <div className="flex flex-col justify-center items-center">
-        <CreateProduct />
-      </div>
-      <Footer />
-    </>
+    <div className="flex flex-col items-center">
+      <NavbarDashboard />
+      {isLoading ? <Loader /> : <CreateProduct />}
+    </div>
   );
 };
 

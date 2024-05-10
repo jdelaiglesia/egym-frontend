@@ -9,10 +9,19 @@ import Pagination from "./Pagination/Pagination";
 import ProductCard from "./ProductCard/ProductCard";
 import ProductDetail from "./ProductDetail/ProductDetail";
 import Products from "./Products/Products";
-import Search from "./Search/Search";
-import ToggleTheme from "./ToggleTheme/ToggleTheme";
+import Search from "./Navbar/Search/Search";
+import ToggleTheme from "./Navbar/ToggleTheme/ToggleTheme";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
+import AdminDashboard from "./AdminDashboard/AdminDashoard";
+import EditProduct from "./EditProduct/EditProduct";
+import Profile from "./Profile/Profile";
+import SaleDetail from "./SaleDetail/SaleDetail";
+import NavbarDashboard from "./AdminDashboard/NavbarDashboard/NavbarDashboard";
+import Loader from "./ProductDetail/Loader/Loader";
+import LoginDashboard from "./AdminDashboard/LoginDashboard/LoginDashboard";
+import CreateCoupon from "./CreateCoupon/CreateCoupon";
+import CreateCategory from "./CreateCategory/CreateCategory";
 
 export {
   Cart,
@@ -29,5 +38,14 @@ export {
   Search,
   ToggleTheme,
   Login,
-  Register
+  Register,
+  AdminDashboard,
+  EditProduct,
+  Profile,
+  SaleDetail,
+  NavbarDashboard,
+  LoginDashboard,
+  Loader,
+  CreateCoupon,
+  CreateCategory,
 };

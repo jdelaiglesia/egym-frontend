@@ -1,22 +1,115 @@
+// Import Hooks
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/theme";
+
+import {
+  darkImage1,
+  darkImage2,
+  darkImage3,
+  darkImage4,
+  mdDarkImage1,
+  mdDarkImage2,
+  mdDarkImage3,
+  mdDarkImage4,
+} from "./Images";
+import {
+  lightImage1,
+  lightImage2,
+  lightImage3,
+  lightImage4,
+  mdLightImage1,
+  mdLightImage2,
+  mdLightImage3,
+  mdLightImage4,
+} from "./Images";
 
 const Featured = () => {
+  const { theme, setTheme } = useContext(ThemeContext);
   return (
-    <div
-      className="hero min-h-screen"
-      style={{
-        backgroundImage:
-          "url(https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGhlJTIwZ3ltfGVufDB8fDB8fHww)",
-      }}
-    >
-      <div className="hero-overlay bg-opacity-60"></div>
-      <div className="hero-content text-center text-neutral-content">
-        <div className="max-w-md">
-          <h1 className="mb-5 text-5xl font-bold">E GYM</h1>
-          <p className="mb-5">Tu gimnasio, gestionado desde tu casa.</p>
-          <NavLink to="/shop" className="btn btn-primary">
-            Ver nuestros productos
-          </NavLink>
+    <div className="carousel w-full">
+      <div
+        id="slide1"
+        className="carousel-item relative w-full flex justify-center items-center bg-cover min-h-screen"
+      >
+        <img
+          src={theme === "black" ? darkImage1.src : lightImage1.src}
+          className="hidden md:block w-full"
+        />
+        <img
+          src={theme === "black" ? mdDarkImage1.src : mdLightImage1.src}
+          className="md:hidden w-full"
+        />
+        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+          <a href="#slide4" className="btn btn-circle">
+            ❮
+          </a>
+          <a href="#slide2" className="btn btn-circle">
+            ❯
+          </a>
+        </div>
+      </div>
+      <div
+        id="slide2"
+        className="carousel-item relative w-full flex justify-center items-center bg-cover min-h-screen"
+      >
+        <img
+          src={theme === "black" ? darkImage2.src : lightImage2.src}
+          className="hidden md:block w-full"
+        />
+        <img
+          src={theme === "black" ? mdDarkImage2.src : mdLightImage2.src}
+          className="md:hidden w-full"
+        />
+        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+          <a href="#slide1" className="btn btn-circle">
+            ❮
+          </a>
+          <a href="#slide3" className="btn btn-circle">
+            ❯
+          </a>
+        </div>
+      </div>
+      <div
+        id="slide3"
+        className="carousel-item relative w-full flex justify-center items-center bg-cover min-h-screen"
+      >
+        <img
+          src={theme === "black" ? darkImage3.src : lightImage3.src}
+          className="hidden md:block w-full"
+        />
+        <img
+          src={theme === "black" ? mdDarkImage3.src : mdLightImage3.src}
+          className="md:hidden w-full"
+        />
+        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+          <a href="#slide2" className="btn btn-circle">
+            ❮
+          </a>
+          <a href="#slide4" className="btn btn-circle">
+            ❯
+          </a>
+        </div>
+      </div>
+      <div
+        id="slide4"
+        className="carousel-item relative w-full flex justify-center items-center bg-cover min-h-screen"
+      >
+        <img
+          src={theme === "black" ? darkImage4.src : lightImage4.src}
+          className="hidden md:block w-full"
+        />
+        <img
+          src={theme === "black" ? mdDarkImage4.src : mdLightImage4.src}
+          className="md:hidden w-full"
+        />
+        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+          <a href="#slide3" className="btn btn-circle">
+            ❮
+          </a>
+          <a href="#slide1" className="btn btn-circle">
+            ❯
+          </a>
         </div>
       </div>
     </div>

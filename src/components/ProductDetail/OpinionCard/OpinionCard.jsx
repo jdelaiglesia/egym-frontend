@@ -7,14 +7,14 @@ const OpinionCard = ({ opinion }) => {
         <img
           className="w-10 rounded-full"
           alt="Tailwind CSS Navbar component"
-          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+          src={opinion?.user?.url_image}
         />
         <div className="flex gap-6">
-          <p className="text-xl font-bold">{opinion.username}</p>
-          <Rating rating={opinion.rating} />
+          <p className="text-xl font-bold">{opinion?.user?.name}</p>
+          <Rating rating={opinion?.rating} />
         </div>
       </div>
-      <p>{opinion.body}</p>
+      <p>{opinion?.body}</p>
     </div>
   );
 };

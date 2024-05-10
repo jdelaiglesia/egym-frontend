@@ -1,7 +1,9 @@
-import axios from "axios";
+import axiosDefault from "axios";
 
-const url = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+export const axios = axiosDefault.create({
+  baseURL: "http://localhost:3001/api",
 });
 
-export default url;
+export const cloudinary = axiosDefault.create({
+  baseURL: `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUD_NAME}`,
+});

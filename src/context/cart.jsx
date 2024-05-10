@@ -1,10 +1,12 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useToast from "../hooks/useToast";
 
 export const CartContext = createContext({});
 
 export function CartProvider({ children }) {
   const navigate = useNavigate();
+  const { ToastSuccess, ToastWarning, ToastError } = useToast();
 
   const [cart, setCart] = useState({
     products: [],
@@ -29,12 +31,16 @@ export function CartProvider({ children }) {
     const checkProductIndex = cart.products.findIndex(
       (cartItem) => cartItem._id === product._id
     );
+    if(product.quantity < 0){
+      ToastWarning("El minimo de productos es 1", 1350)
 
-    if (checkProductIndex >= 0) {
-      alert("El producto ya esta en el carrito.");
+    }else if(product.quantity == 0) {
+      ToastWarning("Por favor indica una cantidad", 1350)
+    }else if (checkProductIndex >= 0) {
+      ToastError("El producto ya esta en el carrito.", 1350);
     } else {
-      if (product.quantity > product.stock) {
-        alert(`El maximo es ${product.stock}`);
+      if (product.quantity > product.stock || product.quantity < 0) {
+        ToastWarning(`El maximo de productos es ${product.stock}`, 1350);
       } else {
         setCart({
           ...cart,
@@ -45,14 +51,20 @@ export function CartProvider({ children }) {
           total: cart.total + product.price * Number(product.quantity),
           count: cart.count + Number(product.quantity),
         });
-        alert("El producto se ha agregado al carrito.");
+        ToastSuccess("El producto se ha agregado al carrito", 1350);
       }
     }
   };
 
   const buyNow = (product) => {
-    addToCart(product);
-    navigate("/cart");
+    if (product.quantity > product.stock || product.quantity < 0) {
+      ToastError("Este producto no cuenta con stock", 1350);
+    } else {
+      addToCart(product);
+      setTimeout(() => {
+        navigate("/cart");
+      }, 2000);
+    }
   };
 
   const removeToCart = (product) => {
@@ -66,7 +78,6 @@ export function CartProvider({ children }) {
       newCart.products.splice(productIndex, 1);
       newCart.total -= removeCartItem.price * removeCartItem.quantity;
       newCart.count -= removeCartItem.quantity;
-
       setCart(newCart);
     }
   };
@@ -106,7 +117,11 @@ export function CartProvider({ children }) {
   };
 
   const clearCart = () => {
-    setCart([]);
+    setCart({
+      products: [],
+      total: 0,
+      count: 0,
+    });
   };
 
   return (
