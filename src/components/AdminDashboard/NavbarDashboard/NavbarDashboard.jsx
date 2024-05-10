@@ -66,7 +66,7 @@ const NavbarDashboard = () => {
                       className="btn btn-ghost btn-sm justify-start"
                       to="/"
                     >
-                      Web
+                      Inicio
                     </NavLink>
                   </li>
                 </>
@@ -90,7 +90,7 @@ const NavbarDashboard = () => {
                         className="btn btn-ghost btn-sm justify-start"
                         to="/"
                       >
-                        Web
+                        Inicio
                       </NavLink>
                     </li>
                     <li>
@@ -98,15 +98,31 @@ const NavbarDashboard = () => {
                         className="btn btn-ghost btn-sm justify-start"
                         to="/dashboard"
                       >
-                        Inicio
+                        Dashboard
                       </NavLink>
                     </li>
                     <li>
                       <NavLink
                         className="btn btn-ghost btn-sm justify-start"
-                        to="/dashboard/product/create"
+                        to="/dashboard/create/product"
                       >
-                        Crear
+                        Crear producto
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        className="btn btn-ghost btn-sm justify-start"
+                        to="/dashboard/create/category"
+                      >
+                        Crear categoría
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        className="btn btn-ghost btn-sm justify-start"
+                        to="/dashboard/create/coupon"
+                      >
+                        Crear cupón
                       </NavLink>
                     </li>
                     <li>
@@ -146,12 +162,12 @@ const NavbarDashboard = () => {
               </li>
               <li>
                 <NavLink className="btn btn-ghost btn-sm justify-start" to="/">
-                  Web
+                  Inicio
                 </NavLink>
               </li>
             </>
           ) : (
-            <li className="flex p-0 ">
+            <li className="flex p-0">
               <div className="flex w-full p-0 dropdown dropdown-bottom dropdown-end">
                 <div
                   tabIndex={0}
@@ -167,20 +183,12 @@ const NavbarDashboard = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                  className="before:hidden mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                 >
                   <li>
                     <NavLink
                       className="btn btn-ghost btn-sm justify-start"
                       to="/"
-                    >
-                      Web
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className="btn btn-ghost btn-sm justify-start"
-                      to="/dashboard"
                     >
                       Inicio
                     </NavLink>
@@ -188,9 +196,33 @@ const NavbarDashboard = () => {
                   <li>
                     <NavLink
                       className="btn btn-ghost btn-sm justify-start"
-                      to="/dashboard/product/create"
+                      to="/dashboard"
                     >
-                      Crear
+                      Dashboard
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="btn btn-ghost btn-sm justify-start"
+                      to="/dashboard/create/product"
+                    >
+                      Crear producto
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="btn btn-ghost btn-sm justify-start"
+                      to="/dashboard/create/category"
+                    >
+                      Crear categoría
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="btn btn-ghost btn-sm justify-start"
+                      to="/dashboard/create/coupon"
+                    >
+                      Crear cupón
                     </NavLink>
                   </li>
                   <li>

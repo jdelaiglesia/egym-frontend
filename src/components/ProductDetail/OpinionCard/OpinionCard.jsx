@@ -7,10 +7,10 @@ const OpinionCard = ({ opinion }) => {
         <img
           className="w-10 rounded-full"
           alt="Tailwind CSS Navbar component"
-          src={opinion.user.url_image}
+          src={opinion.user?.url_image}
         />
         <div className="flex gap-6">
-          <p className="text-xl font-bold">{opinion.user.name}</p>
+          <p className="text-xl font-bold">{opinion.user?.name}</p>
           <Rating rating={opinion.rating} />
         </div>
       </div>
